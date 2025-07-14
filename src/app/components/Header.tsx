@@ -1,3 +1,5 @@
+"use client";
+
 import {
   HeartOutlined,
   MailOutlined,
@@ -42,12 +44,13 @@ export default function Header() {
       </div>
       {/* Main Header */}
       <div className="bg-gray-50 content-width mx-auto flex flex-col md:flex-row md:items-center pt-1 pb-2 gap-2">
-        <div className="flex items-center gap-2 mr-8 mt-4">
+        <div className="flex items-center gap-2 mr-8 mt-4 hover:cursor-pointer">
           <Image
             src="/logo.png"
             alt="Sentral Komputer Logo"
             width={120}
-            height={120}
+            height={36}
+            onClick={() => (window.location.href = "/")}
           />
         </div>
         {/* TODO: Category Dropdown */}
@@ -84,7 +87,9 @@ export default function Header() {
       <div className="w-full bg-gray-200 py-1">
         <div className="content-width mx-auto flex flex-row items-center justify-between ">
           <nav className=" border-b border-gray-200 py-1 flex flex-wrap items-center text-sm font-medium gap-20">
-            <Link href="#" className="hover:text-blue-700">
+            <Link
+              href="/products"
+              className="hover:text-blue-700 hover:cursor-pointer">
               Produk
             </Link>
             <Link href="#" className="hover:text-blue-700">

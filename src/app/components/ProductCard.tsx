@@ -6,6 +6,7 @@ export default function ProductCard({ product }: { product: Product }) {
     <div className="relative bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition overflow-hidden flex flex-col items-start p-3">
       {/* Badge */}
       <Image
+        key={product.id}
         src={product.img}
         alt={product.name}
         width={160}
@@ -13,7 +14,7 @@ export default function ProductCard({ product }: { product: Product }) {
         className="object-contain mb-2 self-center rounded-lg"
       />
       <p className="text-xs italic font-extralight mb-1">{product.category}</p>
-      <p className="text-sm font-semibold text-center text-gray-800 line-clamp-2">
+      <p className="text-sm font-semibold text-gray-800 line-clamp-2">
         {product.name}
       </p>
       <p className="text-red-600 font-bold text-sm mt-4">
@@ -23,7 +24,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="flex flex-row items-center mt-1">
           {product.discount && (
             <span className="bg-red-500 text-white text-xs font-bold p-1 rounded">
-              {product.badge}
+              {product.discount}%
             </span>
           )}
           {product.priceAfterDiscount && (
