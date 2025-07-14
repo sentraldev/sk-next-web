@@ -59,7 +59,7 @@ export default function Header() {
             <input
               type="text"
               placeholder="Cari di Sentral Komputer!"
-              className="flex w-full border border-gray-300 rounded px-3 py-2 pl-10 focus:outline-none"
+              className="flex w-full border border-gray-300 rounded px-3 py-2 pl-10 focus:outline-none text-sm"
             />
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
               <SearchOutlined />
@@ -67,18 +67,18 @@ export default function Header() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="border-r border-gray-300 pr-8 mr-8 gap-6 flex">
-            <button className="ml-8 p-2 rounded-full hover:bg-gray-100 text-2xl">
+          <div className="border-r border-gray-300 pr-6 mr-6 gap-2 flex">
+            <button className="ml-8 p-2 rounded-full hover:bg-gray-100 text-xl">
               <HeartOutlined />
             </button>
-            <button className="p-2 rounded-full hover:bg-gray-100 text-2xl">
+            <button className="p-2 rounded-full hover:bg-gray-100 text-xl">
               <ShoppingCartOutlined />
             </button>
           </div>
-          <button className="bg-white border-2 border-primary-900 text-primary-900 px-4 py-1 rounded hover:bg-primary-900 hover:text-white transition">
+          <button className="text-sm bg-white border-2 border-primary-900 text-primary-900 px-4 py-1 rounded hover:bg-primary-900 hover:text-white transition">
             Masuk
           </button>
-          <button className="bg-primary-900 text-white px-4 py-1 rounded hover:bg-primary-800 transition">
+          <button className="text-sm bg-primary-900 text-white px-4 py-1 rounded border-2 border-primary-900 hover:bg-primary-800 transition">
             Daftar
           </button>
         </div>
@@ -86,7 +86,7 @@ export default function Header() {
       {/* Navigation */}
       <div className="w-full bg-gray-200 py-1">
         <div className="content-width mx-auto flex flex-row items-center justify-between ">
-          <nav className=" border-b border-gray-200 py-1 flex flex-wrap items-center text-sm font-medium gap-20">
+          <nav className="border-b border-gray-200 py-1 flex flex-wrap items-center text-sm font-medium gap-4 md:gap-8 lg:gap-12 xl:gap-16">
             <Link
               href="/products"
               className="hover:text-blue-700 hover:cursor-pointer">
@@ -109,7 +109,7 @@ export default function Header() {
             </Link>
           </nav>
 
-          <div>
+          <div className="flex items-center gap-2 text-xs text-gray-600">
             <FontAwesomeIcon icon={faLocationDot} />
             <span className="ml-4 text-sm">
               Aktifkan lokasi untuk melihat toko terdekat
