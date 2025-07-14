@@ -4,13 +4,7 @@ import {
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { faHeart } from "@fortawesome/free-regular-svg-icons/faHeart";
-import {
-  faCartArrowDown,
-  faCartFlatbed,
-  faCartShopping,
-  faLocationDot,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";

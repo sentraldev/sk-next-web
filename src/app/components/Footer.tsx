@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -116,7 +116,9 @@ export default function Footer() {
             <div className="flex flex-col gap-2">
               <h4 className="font-bold mb-2 text-sm">Social Media</h4>
               <ul className="text-xs space-y-1 flex flex-col gap-2 flex flex-col gap-2">
-                <a href="#" className="hover:underline">
+                <a
+                  href="https://www.instagram.com/sentralkomputer_id"
+                  className="hover:underline">
                   Instagram
                 </a>
 
@@ -124,11 +126,15 @@ export default function Footer() {
                   Facebook
                 </a>
 
-                <a href="#" className="hover:underline">
+                <a
+                  href="https://www.tiktok.com/@sentralkomputer_id"
+                  className="hover:underline">
                   TikTok
                 </a>
 
-                <a href="#" className="hover:underline">
+                <a
+                  href="https://youtube.com/channel/UCj6VTjcNLLJiJo9YS7YgeSA"
+                  className="hover:underline">
                   YouTube
                 </a>
               </ul>
@@ -137,24 +143,26 @@ export default function Footer() {
             <div className="flex-1 flex flex-col gap-2">
               <h4 className="font-bold mb-2 text-sm">Marketplace</h4>
               <ul className="text-xs space-y-1 flex flex-col gap-2">
-                <a href="#" className="hover:underline">
+                <a
+                  href="https://www.tokopedia.com/sentralkomputer"
+                  className="hover:underline">
                   Tokopedia - Sentral Komputer
                 </a>
 
-                <a href="#" className="hover:underline">
+                {/* <a href="#" className="hover:underline">
                   Tokopedia - Sentral Komputer Gaming Center
-                </a>
+                </a> */}
 
-                <a href="#" className="hover:underline">
+                <a
+                  href="https://www.blibli.com/merchant/sentral-komputer-store-flagship-store/PTS-19405"
+                  className="hover:underline">
                   Blibli - Sentral Komputer
                 </a>
 
-                <a href="#" className="hover:underline">
+                <a
+                  href="https://shopee.co.id/sentralkomputerofficial"
+                  className="hover:underline">
                   Shopee - Sentral Komputer Official Shop
-                </a>
-
-                <a href="#" className="hover:underline">
-                  JD.ID - Sentral Komputer
                 </a>
               </ul>
             </div>

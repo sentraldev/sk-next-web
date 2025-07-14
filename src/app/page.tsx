@@ -2,7 +2,7 @@ import Head from "next/head";
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import NewArrivals from "./components/NewArrivals";
-import Articles from "./components/Articles";
+// import Articles from "./components/Articles";
 import Footer from "./components/Footer";
 
 export default function Home() {
