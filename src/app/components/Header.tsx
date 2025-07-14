@@ -92,19 +92,19 @@ export default function Header() {
               className="hover:text-blue-700 hover:cursor-pointer">
               Produk
             </Link>
-            <Link href="#" className="hover:text-blue-700">
+            <Link href="/promos" className="hover:text-blue-700">
               Promo
             </Link>
-            <Link href="#" className="hover:text-blue-700">
+            <Link href="/article" className="hover:text-blue-700">
               Artikel
             </Link>
-            <Link href="#" className="hover:text-blue-700">
+            <Link href="/our-location" className="hover:text-blue-700">
               Lokasi Kami
             </Link>
-            <Link href="#" className="hover:text-blue-700">
+            <Link href="/service-center" className="hover:text-blue-700">
               Sentral Service
             </Link>
-            <Link href="#" className="hover:text-blue-700">
+            <Link href="/about-us" className="hover:text-blue-700">
               Tentang Kami
             </Link>
           </nav>
