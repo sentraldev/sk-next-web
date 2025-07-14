@@ -1,7 +1,7 @@
 import {
   brands,
   displaySizeOptions,
-  processorOptions,
+  // processorOptions,
   ramOptions,
   storageOptions,
 } from "../constants";

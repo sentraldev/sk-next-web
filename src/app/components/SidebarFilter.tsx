@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 
 interface FilterValues {
@@ -55,7 +57,7 @@ export default function SidebarFilter(props: SidebarFilterProps) {
 
   // Automatically apply filter when selected changes
   useEffect(() => {
-    if (onApply) onApply();
+    if (onApply != undefined) onApply();
   }, [localSelected]);
 
   const handleChange = (type: string, value: string | number) => {
@@ -225,7 +227,7 @@ export default function SidebarFilter(props: SidebarFilterProps) {
                     : "bg-gray-100"
                 }`}
                 onClick={() => handleChange("displaySize", d)}>
-                {d}"
+                {d}&quot;
               </button>
             );
           })}
