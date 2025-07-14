@@ -64,11 +64,11 @@ export default function Header() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="border-r border-gray-300 pr-8 mr-8 gap-8 flex">
-            <button className="p-2 rounded-full hover:bg-gray-100 text-2xl">
+          <div className="border-r border-gray-300 pr-8 mr-8 gap-6 flex">
+            <button className="ml-8 p-2 rounded-full hover:bg-gray-100 text-2xl">
               <HeartOutlined />
             </button>
-            <button className="ml-2 p-2 rounded-full hover:bg-gray-100 text-2xl">
+            <button className="p-2 rounded-full hover:bg-gray-100 text-2xl">
               <ShoppingCartOutlined />
             </button>
           </div>
