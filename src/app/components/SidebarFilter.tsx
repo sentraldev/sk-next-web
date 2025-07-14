@@ -143,7 +143,7 @@ export default function SidebarFilter(props: SidebarFilterProps) {
 
         {brand.length > 4 && !showAllBrands && (
           <button
-            className="text-xs text-primary-900 underline bg-transparent border-none p-0 m-0 font-semibold cursor-pointer"
+            className="text-xs text-primary-900 bg-transparent border-none p-0 m-0 font-semibold cursor-pointer"
             type="button"
             onClick={() => setShowAllBrands(true)}>
             Show All
@@ -151,7 +151,7 @@ export default function SidebarFilter(props: SidebarFilterProps) {
         )}
         {brand.length > 4 && showAllBrands && (
           <button
-            className="text-xs text-primary-900 underline bg-transparent border-none p-0 m-0 font-semibold cursor-pointer"
+            className="text-xs text-primary-900 bg-transparent border-none p-0 m-0 font-semibold cursor-pointer"
             type="button"
             onClick={() => setShowAllBrands(false)}>
             Show Less
