@@ -68,17 +68,25 @@ export default function Header() {
         </div>
         <div className="flex items-center gap-2">
           <div className="border-r border-gray-300 pr-6 mr-6 gap-2 flex">
-            <button className="ml-8 p-2 rounded-full hover:bg-gray-100 text-xl">
+            <button
+              className="ml-8 p-2 rounded-full hover:bg-gray-100 text-xl"
+              onClick={() => (window.location.href = "/wishlist")}>
               <HeartOutlined />
             </button>
-            <button className="p-2 rounded-full hover:bg-gray-100 text-xl">
+            <button
+              className="p-2 rounded-full hover:bg-gray-100 text-xl"
+              onClick={() => (window.location.href = "/shopping-cart")}>
               <ShoppingCartOutlined />
             </button>
           </div>
-          <button className="text-sm bg-white border-2 border-primary-900 text-primary-900 px-4 py-1 rounded hover:bg-primary-900 hover:text-white transition">
+          <button
+            className="text-sm bg-white border-2 border-primary-900 text-primary-900 px-4 py-1 rounded hover:bg-primary-900 hover:text-white transition"
+            onClick={() => (window.location.href = "/login")}>
             Masuk
           </button>
-          <button className="text-sm bg-primary-900 text-white px-4 py-1 rounded border-2 border-primary-900 hover:bg-primary-800 transition">
+          <button
+            className="text-sm bg-primary-900 text-white px-4 py-1 rounded border-2 border-primary-900 hover:bg-primary-800 transition"
+            onClick={() => (window.location.href = "/register")}>
             Daftar
           </button>
         </div>
