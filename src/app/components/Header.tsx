@@ -41,17 +41,14 @@ export default function Header() {
         </div>
       </div>
       {/* Main Header */}
-      <div className="bg-gray-50 content-width mx-auto flex flex-col md:flex-row md:items-center py-2 gap-2">
-        <div className="flex items-center gap-2 mr-8">
+      <div className="bg-gray-50 content-width mx-auto flex flex-col md:flex-row md:items-center pt-1 pb-2 gap-2">
+        <div className="flex items-center gap-2 mr-8 mt-4">
           <Image
             src="/logo.png"
             alt="Sentral Komputer Logo"
-            width={40}
-            height={40}
+            width={120}
+            height={120}
           />
-          <span className="text-lg font-bold text-primary-900">
-            Sentral Komputer
-          </span>
         </div>
         {/* TODO: Category Dropdown */}
         <div className="flex flex-1 items-center gap-2 mx-auto">
@@ -68,11 +65,11 @@ export default function Header() {
         </div>
         <div className="flex items-center gap-2">
           <div className="border-r border-gray-300 pr-8 mr-8 gap-8 flex">
-            <button className="ml-2 p-2 rounded-full hover:bg-gray-100 text-2xl">
-              <ShoppingCartOutlined />
-            </button>
             <button className="p-2 rounded-full hover:bg-gray-100 text-2xl">
               <HeartOutlined />
+            </button>
+            <button className="ml-2 p-2 rounded-full hover:bg-gray-100 text-2xl">
+              <ShoppingCartOutlined />
             </button>
           </div>
           <button className="bg-white border-2 border-primary-900 text-primary-900 px-4 py-1 rounded hover:bg-primary-900 hover:text-white transition">
