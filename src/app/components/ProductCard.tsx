@@ -1,9 +1,17 @@
+"use client";
+
 import Image from "next/image";
 import { Product } from "../../models/product";
 
 export default function ProductCard({ product }: { product: Product }) {
+  const handleClick = () => {
+    window.location.href = `/products/${product.id}`; // Navigate to product details page
+  };
+
   return (
-    <div className="relative bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition overflow-hidden flex flex-col items-start p-3">
+    <div
+      className="relative bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition overflow-hidden flex flex-col items-start p-3"
+      onClick={handleClick}>
       {/* Badge */}
       <Image
         key={product.id}
