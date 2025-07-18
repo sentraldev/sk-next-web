@@ -11,8 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import LoginPopup from "../login/page";
-import RegisterPopup from "../register/page";
+import LoginPopup from "../components/LoginPopup";
+import RegisterPopup from "../components/RegisterPopup";
 
 export default function Header() {
   const [showLogin, setShowLogin] = useState(false);
