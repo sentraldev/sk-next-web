@@ -35,11 +35,11 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
     >
       <div
         ref={popupRef}
-        className="bg-white rounded-lg shadow-lg w-full max-w-4xl flex overflow-hidden"
-        style={{ height: "80vh" }}
+        className="bg-white rounded-lg shadow-lg w-full max-w-4xl flex flex-col md:flex-row overflow-hidden"
+        style={{ height: "70vh" }}
       >
         {/* Promo Banner */}
-        <div className="hidden md:flex w-1/2 bg-gray-200 items-center justify-center text-3xl font-bold text-gray-700">
+        <div className="hidden md:flex w-1/2 bg-gray-200 items-center justify-center text-2xl font-bold text-gray-700">
           Promo Banner
         </div>
 
@@ -49,7 +49,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
           <div className="flex justify-end mb-4">
             <button
               onClick={onClose}
-              className="text-gray-500 hover:text-gray-700 font-bold text-2xl"
+              className="text-gray-500 hover:text-gray-700 font-bold text-xl"
               aria-label="Close popup"
               type="button"
             >
@@ -70,7 +70,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
 
           <form className="space-y-5" onClick={(e) => e.stopPropagation()}>
             <div>
-              <label htmlFor="nama" className="block font-semibold mb-1">
+              <label htmlFor="nama" className="block text-sm font-semibold mb-1">
                 Nama
               </label>
               <input
@@ -82,7 +82,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
             </div>
 
             <div>
-              <label htmlFor="telp" className="block font-semibold mb-1">
+              <label htmlFor="telp" className="block text-sm font-semibold mb-1">
                 No. Telp
               </label>
               <input
@@ -94,7 +94,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
             </div>
 
             <div>
-              <label htmlFor="email" className="block font-semibold mb-1">
+              <label htmlFor="email" className="block text-sm font-semibold mb-1">
                 Email
               </label>
               <input
@@ -106,7 +106,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
             </div>
 
             <div>
-              <label htmlFor="password" className="block font-semibold mb-1">
+              <label htmlFor="password" className="block text-sm font-semibold mb-1">
                 Password
               </label>
               <div className="relative">
@@ -130,7 +130,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
             <div>
               <label
                 htmlFor="confirm-password"
-                className="block font-semibold mb-1"
+                className="block text-sm font-semibold mb-1"
               >
                 Konfirmasi Password
               </label>
@@ -154,12 +154,12 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-start gap-2">
               <input
                 type="checkbox"
                 id="terms"
                 required
-                className="rounded"
+                className="rounded mt-1"
               />
               <label htmlFor="terms" className="text-sm">
                 Dengan mendaftar, Anda telah membaca dan menyetujui{" "}
