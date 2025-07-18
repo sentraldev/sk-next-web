@@ -10,9 +10,16 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import React, { useState } from "react";
+import LoginPopup from "../login/page";
+import RegisterPopup from "../register/page";
 
 export default function Header() {
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+
   return (
+    <>
     <header className="w-full">
       {/* Top Bar */}
       <div className="bg-primary-900 text-xs text-white flex justify-between items-center py-1">
@@ -81,12 +88,12 @@ export default function Header() {
           </div>
           <button
             className="text-sm bg-white border-2 border-primary-900 text-primary-900 px-4 py-1 rounded hover:bg-primary-900 hover:text-white transition"
-            onClick={() => (window.location.href = "/login")}>
+            onClick={() => setShowLogin(true)}>
             Masuk
           </button>
           <button
             className="text-sm bg-primary-900 text-white px-4 py-1 rounded border-2 border-primary-900 hover:bg-primary-800 transition"
-            onClick={() => (window.location.href = "/register")}>
+            onClick={() => setShowRegister(true)}>
             Daftar
           </button>
         </div>
@@ -126,5 +133,27 @@ export default function Header() {
         </div>
       </div>
     </header>
+
+    {/* Popup Login */}
+      {showLogin && (
+        <LoginPopup
+          onClose={() => setShowLogin(false)}
+          onSwitchToRegister={() => {
+            setShowLogin(false);
+            setShowRegister(true);
+          }}
+        />
+      )}
+    {/* Popup Register dengan handler tombol "Masuk disini" */}
+      {showRegister && (
+        <RegisterPopup
+          onClose={() => {setShowRegister(false)}}
+          onSwitchToLogin={() => {
+            setShowRegister(false);
+            setShowLogin(true);
+          }}
+        />
+      )}
+    </>
   );
 }
