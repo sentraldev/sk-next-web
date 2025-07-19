@@ -7,11 +7,19 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 interface RegisterPopupProps{
   onClose: () => void;
   onSwitchToLogin: () => void;
+  onSubmitRegistration: (data: {name: string; email: string; password: string; conpassword: string; phone: string; terms: boolean}) => void | Promise<void>;
 }
 
-const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin }) => {
+const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin, onSubmitRegistration }) => {
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [conpassword, setConPassword] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [terms, setTerms] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
   const popupRef = React.useRef<HTMLDivElement>(null);
 
   const togglePasswordVisibility = () => {
@@ -25,6 +33,10 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
     if (popupRef.current && !popupRef.current.contains(e.target as Node)) {
       onClose();
     }
+  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await onSubmitRegistration({name, email, password, conpassword, phone, terms});
   };
 
 
@@ -68,7 +80,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
 
           <h2 className="text-center text-xl font-bold mb-6">Ayo Bergabung!</h2>
 
-          <form className="space-y-5" onClick={(e) => e.stopPropagation()}>
+          <form className="space-y-5" onClick={handleSubmit}>
             <div>
               <label htmlFor="nama" className="block text-sm font-semibold mb-1">
                 Nama
@@ -76,6 +88,8 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
               <input
                 id="nama"
                 type="text"
+                placeholder="Masukkan nama Anda"
+                onChange={(e) => setName(e.target.value)}
                 required
                 className="w-full border-b border-gray-300 py-2 px-1 focus:outline-none focus:border-blue-600"
               />
@@ -88,6 +102,8 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
               <input
                 id="telp"
                 type="tel"
+                placeholder="Masukkan nomor telepon Anda"
+                onChange={(e) => setPhone(e.target.value)}
                 required
                 className="w-full border-b border-gray-300 py-2 px-1 focus:outline-none focus:border-blue-600"
               />
@@ -100,6 +116,8 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
               <input
                 id="email"
                 type="email"
+                placeholder="Masukkan email Anda"
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full border-b border-gray-300 py-2 px-1 focus:outline-none focus:border-blue-600"
               />
@@ -113,6 +131,8 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
+                  placeholder="Masukkan password Anda"
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   className="w-full border-b border-gray-300 py-2 px-1 pr-10 focus:outline-none focus:border-blue-600"
                 />
@@ -138,6 +158,8 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
                 <input
                   id="confirm-password"
                   type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Konfirmasi password Anda"
+                  onChange={(e) => setConPassword(e.target.value)}
                   required
                   className="w-full border-b border-gray-300 py-2 px-1 pr-10 focus:outline-none focus:border-blue-600"
                 />
@@ -158,6 +180,8 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin 
               <input
                 type="checkbox"
                 id="terms"
+                onChange={(e) => setTerms(e.target.checked)}
+                checked={terms}
                 required
                 className="rounded mt-1"
               />

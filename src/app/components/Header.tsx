@@ -18,6 +18,51 @@ export default function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
+  const handleLoginSubmit = async (data:{ email: string, password: string}) => {
+    // Handle login submission logic here
+    try{
+      // ganti url dan method sesuai kebutuhan
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error('Login failed');
+    }
+    const result = await response.json();
+    console.log('Login successful:', result);
+    setShowLogin(false);
+    // Redirect or update UI as needed
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
+  };
+  const handleRegisterSubmit = async (data: {name: string; email: string; password: string; conpassword: string; phone: string; terms: boolean}) => {
+    // Handle registration submission logic here
+    try{
+      // ganti url dan method sesuai kebutuhan
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error('Registration failed');
+      }
+      const result = await response.json();
+      console.log('Registration successful:', result);
+      setShowRegister(false);
+      // Redirect or update UI as needed
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
+  };
+
   return (
     <>
     <header className="w-full">
@@ -142,6 +187,7 @@ export default function Header() {
             setShowLogin(false);
             setShowRegister(true);
           }}
+          onSubmitLogin={handleLoginSubmit}
         />
       )}
     {/* Popup Register dengan handler tombol "Masuk disini" */}
@@ -152,6 +198,7 @@ export default function Header() {
             setShowRegister(false);
             setShowLogin(true);
           }}
+          onSubmitRegistration={handleRegisterSubmit}
         />
       )}
     </>

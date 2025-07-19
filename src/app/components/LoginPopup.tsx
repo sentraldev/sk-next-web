@@ -7,20 +7,29 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 interface LoginPopupPage {
   onClose: () => void;
   onSwitchToRegister: () => void;
+  onSubmitLogin?: (data: {email: string, password: string}) => void | Promise<void>;
 }
 
-const LoginPopup: React.FC<LoginPopupPage> = ({ onClose, onSwitchToRegister }) => {
+const LoginPopup: React.FC<LoginPopupPage> = ({ onClose, onSwitchToRegister, onSubmitLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const popupRef = useRef<HTMLDivElement>(null);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
-
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (popupRef.current && !popupRef.current.contains(e.target as Node)) {
       onClose();
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onSubmitLogin) {
+      await onSubmitLogin({email, password});
     }
   };
 
@@ -58,13 +67,15 @@ const LoginPopup: React.FC<LoginPopupPage> = ({ onClose, onSwitchToRegister }) =
 
           <h2 className="text-center text-xl font-bold mb-6">Selamat Datang!</h2>
 
-          <form className="w-full max-w-md mx-auto">
+          <form className="w-full max-w-md mx-auto" onSubmit={handleSubmit}>
             <label className="block mb-2 text-sm font-semibold" htmlFor="email">
               Email
             </label>
             <input
               id="email"
               type="email"
+              placeholder="Masukkan email Anda"
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full border-b border-gray-300 py-2 px-1 mb-4 focus:outline-none focus:border-blue-600"
 
               required
@@ -77,6 +88,8 @@ const LoginPopup: React.FC<LoginPopupPage> = ({ onClose, onSwitchToRegister }) =
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
+                placeholder="Masukkan password Anda"
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full border-b border-gray-300 py-2 px-1 pr-10 focus:outline-none focus:border-blue-600"
 
                 required
