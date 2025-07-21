@@ -201,7 +201,11 @@ const LoginPopup: React.FC<LoginPopupPage> = ({
 
           <div className="max-w-md mx-auto">
             <button className="w-full border border-blue-600 text-blue-600 rounded py-2 flex justify-center items-center gap-2 hover:bg-blue-50 transition mb-4">
-              <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
+              <img
+                src="/icons/google-icon.svg"
+                alt="Google"
+                className="w-5 h-5"
+              />
               masuk dengan akun Google
             </button>
           </div>

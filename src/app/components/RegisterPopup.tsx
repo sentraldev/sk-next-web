@@ -302,7 +302,11 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({
             <button
               type="button"
               className="w-full border border-blue-600 text-blue-600 rounded py-2 flex justify-center items-center gap-2 hover:bg-blue-50 transition">
-              <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
+              <img
+                src="/icons/google-icon.svg"
+                alt="Google"
+                className="w-5 h-5"
+              />
               Daftar dengan akun Google
             </button>
 
