@@ -10,9 +10,61 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import React, { useState } from "react";
+import LoginPopup from "../components/LoginPopup";
+import RegisterPopup from "../components/RegisterPopup";
 
 export default function Header() {
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+
+  const handleLoginSubmit = async (data:{ email: string, password: string}) => {
+    // Handle login submission logic here
+    try{
+      // ganti url dan method sesuai kebutuhan
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error('Login failed');
+    }
+    const result = await response.json();
+    console.log('Login successful:', result);
+    setShowLogin(false);
+    // Redirect or update UI as needed
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
+  };
+  const handleRegisterSubmit = async (data: {name: string; email: string; password: string; conpassword: string; phone: string; terms: boolean}) => {
+    // Handle registration submission logic here
+    try{
+      // ganti url dan method sesuai kebutuhan
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error('Registration failed');
+      }
+      const result = await response.json();
+      console.log('Registration successful:', result);
+      setShowRegister(false);
+      // Redirect or update UI as needed
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
+  };
+
   return (
+    <>
     <header className="w-full">
       {/* Top Bar */}
       <div className="bg-primary-900 text-xs text-white flex justify-between items-center py-1">
@@ -81,12 +133,12 @@ export default function Header() {
           </div>
           <button
             className="text-sm bg-white border-2 border-primary-900 text-primary-900 px-4 py-1 rounded hover:bg-primary-900 hover:text-white transition"
-            onClick={() => (window.location.href = "/login")}>
+            onClick={() => setShowLogin(true)}>
             Masuk
           </button>
           <button
             className="text-sm bg-primary-900 text-white px-4 py-1 rounded border-2 border-primary-900 hover:bg-primary-800 transition"
-            onClick={() => (window.location.href = "/register")}>
+            onClick={() => setShowRegister(true)}>
             Daftar
           </button>
         </div>
@@ -126,5 +178,29 @@ export default function Header() {
         </div>
       </div>
     </header>
+
+    {/* Popup Login */}
+      {showLogin && (
+        <LoginPopup
+          onClose={() => setShowLogin(false)}
+          onSwitchToRegister={() => {
+            setShowLogin(false);
+            setShowRegister(true);
+          }}
+          onSubmitLogin={handleLoginSubmit}
+        />
+      )}
+    {/* Popup Register dengan handler tombol "Masuk disini" */}
+      {showRegister && (
+        <RegisterPopup
+          onClose={() => {setShowRegister(false)}}
+          onSwitchToLogin={() => {
+            setShowRegister(false);
+            setShowLogin(true);
+          }}
+          onSubmitRegistration={handleRegisterSubmit}
+        />
+      )}
+    </>
   );
 }
