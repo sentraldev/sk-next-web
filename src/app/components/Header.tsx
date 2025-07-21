@@ -38,8 +38,6 @@ export default function Header() {
       if (!response.ok) {
         throw new Error("Login failed");
       }
-      const result = await response.json();
-      console.log("Login successful:", result);
       setShowLogin(false);
       // Redirect or update UI as needed
     } catch (error) {
@@ -65,7 +63,6 @@ export default function Header() {
             },
           }
         );
-        console.log("User data fetched successfully:", userData);
         setUser(userData);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -94,8 +91,6 @@ export default function Header() {
       if (!response.ok) {
         throw new Error("Registration failed");
       }
-      const result = await response.json();
-      console.log("Registration successful:", result);
       setShowRegister(false);
       // Redirect or update UI as needed
     } catch (error) {
