@@ -3,22 +3,38 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseAuth } from "@/config/firebase_config";
+import { fetchData } from "@/utils/api";
 
-interface RegisterPopupProps{
+interface RegisterPopupProps {
   onClose: () => void;
   onSwitchToLogin: () => void;
-  onSubmitRegistration: (data: {name: string; email: string; password: string; conpassword: string; phone: string; terms: boolean}) => void | Promise<void>;
+  onSubmitRegistration: (data: {
+    name: string;
+    email: string;
+    password: string;
+    conpassword: string;
+    phone: string;
+    terms: boolean;
+  }) => void | Promise<void>;
 }
 
-const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin, onSubmitRegistration }) => {
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [conpassword, setConPassword] = React.useState('');
-  const [phone, setPhone] = React.useState('');
+const RegisterPopup: React.FC<RegisterPopupProps> = ({
+  onClose,
+  onSwitchToLogin,
+  // onSubmitRegistration,
+}) => {
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [conpassword, setConPassword] = React.useState("");
+  const [phone, setPhone] = React.useState("");
   const [terms, setTerms] = React.useState(false);
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const popupRef = React.useRef<HTMLDivElement>(null);
 
@@ -29,27 +45,62 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
     setShowConfirmPassword((prev) => !prev);
   };
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleOverlayClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     if (popupRef.current && !popupRef.current.contains(e.target as Node)) {
       onClose();
     }
   };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await onSubmitRegistration({name, email, password, conpassword, phone, terms});
-  };
+    setErrorMsg("");
+    if (password !== conpassword) {
+      setErrorMsg("Password dan konfirmasi password tidak sama.");
+      return;
+    }
+    setLoading(true);
+    try {
+      // Register user with Firebase
+      const userCredential = await createUserWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      if (user) {
+        const token = await user.getIdToken();
+        // Send remaining fields to your database using fetchDataz
+        await fetchData("api/v1/public/register", "POST", {
+          jsonBody: {
+            name,
+            phone,
+            email,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        localStorage.setItem("accessToken", token);
 
+        onClose();
+      }
+    } catch (error: any) {
+      console.error("Registration error:", error);
+      setErrorMsg(error.message || "Registrasi gagal. Silakan coba lagi.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 p-4"
-      onClick={handleOverlayClick}
-    >
+      onClick={handleOverlayClick}>
       <div
         ref={popupRef}
         className="bg-white rounded-lg shadow-lg w-full max-w-4xl flex flex-col md:flex-row overflow-hidden"
-        style={{ height: "70vh" }}
-      >
+        style={{ height: "70vh" }}>
         {/* Promo Banner */}
         <div className="hidden md:flex w-1/2 bg-gray-200 items-center justify-center text-2xl font-bold text-gray-700">
           Promo Banner
@@ -63,8 +114,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700 font-bold text-xl"
               aria-label="Close popup"
-              type="button"
-            >
+              type="button">
               &times;
             </button>
           </div>
@@ -80,9 +130,11 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
 
           <h2 className="text-center text-xl font-bold mb-6">Ayo Bergabung!</h2>
 
-          <form className="space-y-5" onClick={handleSubmit}>
+          <form className="space-y-5">
             <div>
-              <label htmlFor="nama" className="block text-sm font-semibold mb-1">
+              <label
+                htmlFor="nama"
+                className="block text-sm font-semibold mb-1">
                 Nama
               </label>
               <input
@@ -96,7 +148,9 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
             </div>
 
             <div>
-              <label htmlFor="telp" className="block text-sm font-semibold mb-1">
+              <label
+                htmlFor="telp"
+                className="block text-sm font-semibold mb-1">
                 No. Telp
               </label>
               <input
@@ -110,7 +164,9 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold mb-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-semibold mb-1">
                 Email
               </label>
               <input
@@ -124,7 +180,9 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-semibold mb-1">
+              <label
+                htmlFor="password"
+                className="block text-sm font-semibold mb-1">
                 Password
               </label>
               <div className="relative">
@@ -138,10 +196,11 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
                 />
                 <button
                   type="button"
-                  aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
+                  aria-label={
+                    showPassword ? "Sembunyikan password" : "Tampilkan password"
+                  }
                   className="absolute right-0 top-1/2 -translate-y-1/2 pr-3 text-blue-600 hover:text-blue-800 focus:outline-none"
-                  onClick={togglePasswordVisibility}
-                >
+                  onClick={togglePasswordVisibility}>
                   <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
                 </button>
               </div>
@@ -150,8 +209,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
             <div>
               <label
                 htmlFor="confirm-password"
-                className="block text-sm font-semibold mb-1"
-              >
+                className="block text-sm font-semibold mb-1">
                 Konfirmasi Password
               </label>
               <div className="relative">
@@ -165,10 +223,13 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
                 />
                 <button
                   type="button"
-                  aria-label={showConfirmPassword ? "Sembunyikan konfirmasi password" : "Tampilkan konfirmasi password"}
+                  aria-label={
+                    showConfirmPassword
+                      ? "Sembunyikan konfirmasi password"
+                      : "Tampilkan konfirmasi password"
+                  }
                   className="absolute right-0 top-1/2 -translate-y-1/2 pr-3 text-blue-600 hover:text-blue-800 focus:outline-none"
-                  onClick={toggleConfirmPasswordVisibility}
-                >
+                  onClick={toggleConfirmPasswordVisibility}>
                   <FontAwesomeIcon
                     icon={showConfirmPassword ? faEye : faEyeSlash}
                   />
@@ -193,11 +254,43 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
               </label>
             </div>
 
+            {errorMsg && (
+              <div className="text-red-600 text-sm text-center mt-2">
+                {errorMsg}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="bg-blue-600 text-white rounded py-2 w-full mt-4 hover:bg-blue-700 transition"
-            >
-              Daftar
+              className={`bg-blue-600 text-white rounded py-2 w-full mt-4 hover:bg-blue-700 transition flex items-center justify-center ${
+                loading ? "opacity-60 cursor-not-allowed" : ""
+              }`}
+              onClick={loading ? () => {} : handleSubmit}
+              disabled={loading}>
+              {loading ? (
+                <span className="flex items-center gap-2 justify-center">
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 32 32">
+                    {/* <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"></circle> */}
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                  </svg>
+                  {/* Mendaftar... */}
+                </span>
+              ) : (
+                "Daftar"
+              )}
             </button>
 
             <div className="my-6 flex items-center justify-center gap-3">
@@ -208,13 +301,8 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
 
             <button
               type="button"
-              className="w-full border border-blue-600 text-blue-600 rounded py-2 flex justify-center items-center gap-2 hover:bg-blue-50 transition"
-            >
-              <img
-                src="/google-icon.svg"
-                alt="Google"
-                className="w-5 h-5"
-              />
+              className="w-full border border-blue-600 text-blue-600 rounded py-2 flex justify-center items-center gap-2 hover:bg-blue-50 transition">
+              <img src="/google-icon.svg" alt="Google" className="w-5 h-5" />
               Daftar dengan akun Google
             </button>
 
@@ -226,8 +314,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
                   onSwitchToLogin();
                 }}
                 className="text-blue-600 underline"
-                type="button"
-              >
+                type="button">
                 Masuk disini
               </button>
             </p>
@@ -236,6 +323,6 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({ onClose, onSwitchToLogin,
       </div>
     </div>
   );
-}
+};
 
 export default RegisterPopup;

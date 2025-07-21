@@ -5,7 +5,7 @@ import {
   ramOptions,
   storageOptions,
 } from "../constants";
-import { Product } from "../models/product";
+import { Product } from "../../models/product";
 
 export const generateMockProducts: Product[] = [
   ...Array.from({ length: 100 }, (_, i) => {
