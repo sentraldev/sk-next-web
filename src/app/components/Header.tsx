@@ -38,7 +38,6 @@ export default function Header() {
       if (!response.ok) {
         throw new Error("Login failed");
       }
-      const result = await response.json();
       setShowLogin(false);
       // Redirect or update UI as needed
     } catch (error) {
@@ -92,7 +91,6 @@ export default function Header() {
       if (!response.ok) {
         throw new Error("Registration failed");
       }
-      const result = await response.json();
       setShowRegister(false);
       // Redirect or update UI as needed
     } catch (error) {
