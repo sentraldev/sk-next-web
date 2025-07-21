@@ -25,6 +25,7 @@ const LoginPopup: React.FC<LoginPopupPage> = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
 
   const togglePasswordVisibility = () => {
@@ -42,6 +43,7 @@ const LoginPopup: React.FC<LoginPopupPage> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
+    setLoading(true);
     try {
       // Firebase login
       const userCredential = await signInWithEmailAndPassword(
@@ -82,6 +84,8 @@ const LoginPopup: React.FC<LoginPopupPage> = ({
         // Set error message to display
         setErrorMsg("Login gagal. Silakan coba lagi.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -162,8 +166,26 @@ const LoginPopup: React.FC<LoginPopupPage> = ({
 
             <button
               type="submit"
-              className="bg-blue-600 text-white py-2 rounded w-full mb-2 hover:bg-blue-700 transition">
-              Masuk
+              className={`bg-blue-600 text-white py-2 rounded w-full mb-2 hover:bg-blue-700 transition flex items-center justify-center ${
+                loading ? "opacity-60 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}>
+              {loading ? (
+                <span className="flex items-center gap-2 justify-center">
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 32 32">
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                  </svg>
+                </span>
+              ) : (
+                "Masuk"
+              )}
             </button>
             {errorMsg && (
               <div className="text-red-600 text-sm text-center mb-4">
