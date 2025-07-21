@@ -239,13 +239,15 @@ export default function Header() {
         <LoginPopup
           onClose={() => {
             setShowLogin(false);
-            window.location.reload(); // Reload to reflect login state
           }}
           onSwitchToRegister={() => {
             setShowLogin(false);
             setShowRegister(true);
           }}
-          onSubmitLogin={handleLoginSubmit}
+          onSubmitLogin={(data) => {
+            handleLoginSubmit(data);
+            window.location.reload(); // Reload to reflect login state
+          }}
         />
       )}
       {/* Popup Register dengan handler tombol "Masuk disini" */}
@@ -253,13 +255,15 @@ export default function Header() {
         <RegisterPopup
           onClose={() => {
             setShowRegister(false);
-            window.location.reload(); // Reload to reflect login state
           }}
           onSwitchToLogin={() => {
             setShowRegister(false);
             setShowLogin(true);
           }}
-          onSubmitRegistration={handleRegisterSubmit}
+          onSubmitRegistration={(data) => {
+            handleRegisterSubmit(data);
+            window.location.reload(); // Reload to reflect registration state
+          }}
         />
       )}
     </>
