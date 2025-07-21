@@ -3,8 +3,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "@/config/firebase_config";
 import { fetchData } from "@/utils/api";
 
@@ -24,7 +23,7 @@ interface RegisterPopupProps {
 const RegisterPopup: React.FC<RegisterPopupProps> = ({
   onClose,
   onSwitchToLogin,
-  onSubmitRegistration,
+  // onSubmitRegistration,
 }) => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");

@@ -64,7 +64,7 @@ export const fetchData = async <T>(
     });
   }
 
-  let axiosConfig: AxiosRequestConfig = {
+  const axiosConfig: AxiosRequestConfig = {
     url,
     method: method as Method,
     headers,
