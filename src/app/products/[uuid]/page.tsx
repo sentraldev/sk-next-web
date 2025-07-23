@@ -28,6 +28,8 @@ export default function ProductDetail() {
   // For gallery, just repeat the same image as in the design
   const gallery = Array(5).fill(product.img);
 
+  console.log("Test Staging");
+
   return (
     <>
       <Header />
