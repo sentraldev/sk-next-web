@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 import ProductCard from "../components/ProductCard";
-import { generateMockProducts, mockProducts } from "./mockProducts";
+import { mockProducts } from "./mockProducts";
 import { useState, useMemo, useEffect, useRef } from "react";
 import SidebarFilter from "../components/SidebarFilter";
 import {

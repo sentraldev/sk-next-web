@@ -18,7 +18,7 @@ interface LoginPopupPage {
 const LoginPopup: React.FC<LoginPopupPage> = ({
   onClose,
   onSwitchToRegister,
-  onSubmitLogin,
+  // onSubmitLogin,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");

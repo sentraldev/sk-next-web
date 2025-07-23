@@ -70,7 +70,6 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({
       const user = userCredential.user;
       if (user) {
         const token = await user.getIdTokenResult();
-        const userUid = await user.getIdToken();
         console.log("User registered successfully:", user);
         console.log("Token:", token);
 

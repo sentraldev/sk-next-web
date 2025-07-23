@@ -21,10 +21,7 @@ export default function Header() {
   const [showRegister, setShowRegister] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
-  const handleLoginSubmit = async (data: {
-    email: string;
-    password: string;
-  }) => {
+  const handleLoginSubmit = async () => {
     // Handle login submission logic here
     try {
       setShowLogin(false);
@@ -235,8 +232,8 @@ export default function Header() {
             setShowLogin(false);
             setShowRegister(true);
           }}
-          onSubmitLogin={(data) => {
-            handleLoginSubmit(data);
+          onSubmitLogin={() => {
+            handleLoginSubmit();
           }}
         />
       )}
