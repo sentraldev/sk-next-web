@@ -27,19 +27,10 @@ export default function Header() {
   }) => {
     // Handle login submission logic here
     try {
-      // ganti url dan method sesuai kebutuhan
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
       setShowLogin(false);
-      // Redirect or update UI as needed
+
+      // getUserData(); // Fetch user data after login
+      window.location.reload(); // Reload to reflect login state
     } catch (error) {
       console.error("Error during login:", error);
     }
@@ -246,7 +237,6 @@ export default function Header() {
           }}
           onSubmitLogin={(data) => {
             handleLoginSubmit(data);
-            window.location.reload(); // Reload to reflect login state
           }}
         />
       )}

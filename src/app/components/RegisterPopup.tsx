@@ -3,7 +3,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, deleteUser } from "firebase/auth";
 import { firebaseAuth } from "@/config/firebase_config";
 import { fetchData } from "@/utils/api";
 
@@ -69,7 +69,11 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({
       );
       const user = userCredential.user;
       if (user) {
-        const token = await user.getIdToken();
+        const token = await user.getIdTokenResult();
+        const userUid = await user.getIdToken();
+        console.log("User registered successfully:", user);
+        console.log("Token:", token);
+
         // Send remaining fields to your database using fetchDataz
         await fetchData("api/v1/public/register", "POST", {
           jsonBody: {
@@ -78,16 +82,18 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({
             email,
           },
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token.token}`,
           },
         });
-        localStorage.setItem("accessToken", token);
+        localStorage.setItem("accessToken", token.token);
 
         onClose();
+        window.location.reload(); // Reload to reflect login state
       }
     } catch (error: any) {
       console.error("Registration error:", error);
       setErrorMsg(error.message || "Registrasi gagal. Silakan coba lagi.");
+      deleteUser(firebaseAuth.currentUser!); // Clean up user if registration fails
     } finally {
       setLoading(false);
     }

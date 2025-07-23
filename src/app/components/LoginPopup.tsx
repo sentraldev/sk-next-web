@@ -56,11 +56,12 @@ const LoginPopup: React.FC<LoginPopupPage> = ({
         const token = await user.getIdToken();
         localStorage.setItem("accessToken", token);
         // Optionally call parent handler
-        if (onSubmitLogin) {
-          await onSubmitLogin({ email, password });
-        }
+        // if (onSubmitLogin) {
+        //   await onSubmitLogin({ email, password });
+        // }
         // Optionally close popup or show success
         onClose();
+        window.location.reload(); // Reload to reflect login state
       }
     } catch (error: any) {
       console.log(error.message);
