@@ -3,11 +3,12 @@ export interface Product {
   name: string;
   category: string;
   brand: string;
-  price: string;
+  price: number;
   img: string;
   badge: string;
   discount?: number;
-  priceAfterDiscount?: string;
+  priceAfterDiscount?: number;
+  description: string;
   ram: number; // in GB
   storage: string; // e.g. '256GB', '1TB'
   processor: "Intel" | "AMD" | "Apple";
