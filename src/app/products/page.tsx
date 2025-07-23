@@ -29,7 +29,6 @@ export default function ProductsPage() {
   // ...existing code...
   // Ref for product list section
   const productListRef = useRef<HTMLDivElement>(null);
-  // console.log(generateMockProducts);
 
   const [sort, setSort] = useState("latest");
   const [selected, setSelected] = useState<FilterValues>({
@@ -67,11 +66,6 @@ export default function ProductsPage() {
     }
   }, [page]);
 
-  // Helper to parse price string to number
-  const parsePrice = (price: string) => {
-    return Number(price.replace(/[^	d]/g, ""));
-  };
-
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       const ramMatch =
@@ -103,9 +97,9 @@ export default function ProductsPage() {
     if (sort === "latest") {
       sorted.sort((a, b) => b.id - a.id);
     } else if (sort === "lowest") {
-      sorted.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+      sorted.sort((a, b) => a.price - b.price);
     } else if (sort === "highest") {
-      sorted.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+      sorted.sort((a, b) => b.price - a.price);
     }
     return sorted;
   }, [sort, filteredProducts]);
