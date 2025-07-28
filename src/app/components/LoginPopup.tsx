@@ -64,6 +64,10 @@ const LoginPopup: React.FC<LoginPopupPage> = ({
 
         if (user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
           window.location.href = "/admin";
+          sessionStorage.setItem(
+            process.env.NEXT_PUBLIC_ADMIN_ACCESS_KEY || "",
+            "true"
+          );
         } else {
           window.location.reload(); // Reload to reflect login state
         }
