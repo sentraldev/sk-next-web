@@ -39,7 +39,7 @@ export default function Header() {
 
   // Get User Data from local accessToken
   const getUserData = async () => {
-    const token = sessionStorage.getItem("accessToken");
+    const token = sessionStorage.getItem("token");
     if (token) {
       try {
         const { data: userData } = await fetchData<User>(
@@ -163,7 +163,7 @@ export default function Header() {
                   <button
                     className="text-sm bg-gray-200 text-gray-700 px-3 py-1 rounded hover:bg-red-600 hover:text-white transition border border-gray-300"
                     onClick={() => {
-                      sessionStorage.removeItem("accessToken");
+                      sessionStorage.removeItem("token");
                       window.location.reload();
                     }}>
                     Logout

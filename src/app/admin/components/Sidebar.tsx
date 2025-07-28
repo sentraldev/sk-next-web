@@ -17,7 +17,7 @@ export default function AdminSidebar() {
 
   function onLogout() {
     // Handle logout logic here
-    sessionStorage.removeItem("accessToken"); // Example logout logic
+    sessionStorage.removeItem("token"); // Example logout logic
     window.location.href = "/"; // Example redirect
   }
 
