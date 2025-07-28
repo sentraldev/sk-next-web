@@ -66,7 +66,7 @@ export default function ProductDetail() {
         </div>
 
         {/* Right: Product Info */}
-        <div className="flex-1 max-w-xl">
+        <div className="flex-1">
           <div className="mb-2 text-xs text-gray-500">
             Produk &gt; {product.name}
           </div>
@@ -96,7 +96,7 @@ export default function ProductDetail() {
               </>
             )}
           </div>
-          <div>
+          <div className="border-t border-gray-200 mb-4 pt-2">
             <h2 className="font-bold mb-2 text-base">Detail Produk</h2>
             <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
               <li>Brand: {product.brand}</li>
@@ -106,9 +106,18 @@ export default function ProductDetail() {
               <li>Storage: {product.storage}</li>
             </ul>
           </div>
+
+          {/* Pick up location confirmation */}
+          <div className="border-t border-gray-200 mb-4 pt-2">
+            <p className="text-sm font-light mb-2">
+              Produk tersedia di{" "}
+              <span className="font-bold">Sentral Komputer</span> untuk di pick
+              up secara langsung!
+            </p>
+          </div>
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 max-w-xs">
           <div className="flex flex-col gap-2 mb-4 bg-white shadow-lg p-3 rounded-lg">
             <h3 className="text-sm font-bold  mb-2">
               Jumlah yang ingin dibeli
