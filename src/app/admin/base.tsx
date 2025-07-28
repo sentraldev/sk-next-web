@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import AdminSidebar from "./components/Sidebar";
 
 export default function AdminBasePage({
@@ -7,6 +8,10 @@ export default function AdminBasePage({
 }: {
   children: React.ReactNode;
 }) {
+  useEffect(() => {
+    console.log("Access Token:", sessionStorage.getItem("token"));
+  }, []);
+
   return (
     <div className="min-h-screen bg-white-50 flex">
       {/* Sidebar */}
