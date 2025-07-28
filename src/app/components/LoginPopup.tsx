@@ -54,7 +54,7 @@ const LoginPopup: React.FC<LoginPopupPage> = ({
       if (user) {
         // Get access token
         const token = await user.getIdToken();
-        localStorage.setItem("accessToken", token);
+        sessionStorage.setItem("token", token);
         // Optionally call parent handler
         // if (onSubmitLogin) {
         //   await onSubmitLogin({ email, password });

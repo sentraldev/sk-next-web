@@ -84,7 +84,7 @@ const RegisterPopup: React.FC<RegisterPopupProps> = ({
             Authorization: `Bearer ${token.token}`,
           },
         });
-        localStorage.setItem("accessToken", token.token);
+        sessionStorage.setItem("token", token.token);
 
         onClose();
         window.location.reload(); // Reload to reflect login state
