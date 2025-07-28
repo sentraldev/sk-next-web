@@ -61,7 +61,12 @@ const LoginPopup: React.FC<LoginPopupPage> = ({
         // }
         // Optionally close popup or show success
         onClose();
-        window.location.reload(); // Reload to reflect login state
+
+        if (user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
+          window.location.href = "/admin";
+        } else {
+          window.location.reload(); // Reload to reflect login state
+        }
       }
     } catch (error: any) {
       console.log(error.message);
