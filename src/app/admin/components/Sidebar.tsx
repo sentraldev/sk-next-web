@@ -3,14 +3,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const SIDEBAR_ITEMS = [
+const MAIN_SIDEBAR_ITEMS = [
   { key: "dashboard", label: "Dashboard", href: "/admin/dashboard" },
   { key: "carousel", label: "Carousel Banner", href: "/admin/carousel" },
   { key: "categories", label: "Product Categories", href: "/admin/categories" },
+  { key: "brands", label: "Brands", href: "/admin/brands" },
+  // { key: "users", label: "Users", href: "/admin/users" },
   { key: "products", label: "Products", href: "/admin/products" },
   { key: "promos", label: "Promos", href: "/admin/promos" },
   { key: "articles", label: "Artikel", href: "/admin/articles" },
 ];
+
+// const SUB_SIDEBAR_ITEMS = [
+//   { key: "locations", label: "Lokasi Kami", href: "/admin/locations" },
+//   // { key: "transactions", label: "Transactions", href: "/admin/transactions" },
+// ];
 
 export default function AdminSidebar() {
   const pathname = usePathname();
@@ -32,8 +39,9 @@ export default function AdminSidebar() {
             className="h-16 w-auto"
           />
         </div>
+        <p className="text-gray-400 font-semibold text-xs px-3 py-2">Main</p>
         <nav className="flex flex-col gap-4">
-          {SIDEBAR_ITEMS.map((item) => {
+          {MAIN_SIDEBAR_ITEMS.map((item) => {
             const isActive = pathname.startsWith(item.href);
             return (
               <Link

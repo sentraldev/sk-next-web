@@ -1,134 +1,22 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { fetchData } from "@/utils/api";
 import { Product } from "../../models/product";
 import ProductCard from "./ProductCard";
 
-const products: Product[] = [
-  {
-    id: 1,
-    name: "HP Pavilion 14 - EH014TX/EH015TX",
-    price: 14900000,
-    brand: "HP",
-    discount: 10,
-    priceAfterDiscount: 13410000,
-    category: "Laptop",
-    img: "/temp/laptop.jpg",
-    badge: "10%",
-    ram: 16,
-    storage: "512GB",
-    processor: "Intel",
-    displaySize: 14,
-    description: "",
-  },
-  {
-    id: 2,
-    name: "HP Pavilion 14 - EH014TX/EH015TX",
-    price: 14900000,
-    brand: "HP",
-    discount: 10,
-    priceAfterDiscount: 13410000,
-    category: "Laptop",
-    img: "/temp/laptop.jpg",
-    badge: "10%",
-    ram: 16,
-    storage: "512GB",
-    processor: "Intel",
-    displaySize: 14,
-    description: "",
-  },
-  {
-    id: 3,
-    name: "HP Pavilion 14 - EH014TX/EH015TX",
-    price: 14900000,
-    brand: "HP",
-    discount: 10,
-    priceAfterDiscount: 13410000,
-    category: "Laptop",
-    img: "/temp/laptop.jpg",
-    badge: "10%",
-    ram: 16,
-    storage: "512GB",
-    processor: "Intel",
-    displaySize: 14,
-    description: "",
-  },
-  {
-    id: 4,
-    name: "HP Pavilion 14 - EH014TX/EH015TX",
-    price: 14900000,
-    brand: "HP",
-    discount: 10,
-    priceAfterDiscount: 13410000,
-    category: "Laptop",
-    img: "/temp/laptop.jpg",
-    badge: "10%",
-    ram: 16,
-    storage: "512GB",
-    processor: "Intel",
-    displaySize: 14,
-    description: "",
-  },
-  {
-    id: 5,
-    name: "HP Pavilion 14 - EH014TX/EH015TX",
-    price: 14900000,
-    brand: "HP",
-    discount: 10,
-    priceAfterDiscount: 13410000,
-    category: "Laptop",
-    img: "/temp/laptop.jpg",
-    badge: "10%",
-    ram: 16,
-    storage: "512GB",
-    processor: "Intel",
-    displaySize: 14,
-    description: "",
-  },
-  {
-    id: 6,
-    name: "HP Pavilion 14 - EH014TX/EH015TX",
-    price: 14900000,
-    brand: "HP",
-    discount: 10,
-    priceAfterDiscount: 13410000,
-    category: "Laptop",
-    img: "/temp/laptop.jpg",
-    badge: "10%",
-    ram: 16,
-    storage: "512GB",
-    processor: "Intel",
-    displaySize: 14,
-    description: "",
-  },
-  {
-    id: 7,
-    name: "HP Pavilion 14 - EH014TX/EH015TX",
-    price: 14900000,
-    brand: "HP",
-    category: "Laptop",
-    img: "/temp/laptop.jpg",
-    badge: "10%",
-    ram: 16,
-    storage: "512GB",
-    processor: "Intel",
-    displaySize: 14,
-    description: "",
-  },
-  {
-    id: 8,
-    name: "HP Pavilion 14 - EH014TX/EH015TX",
-    price: 14900000,
-    brand: "HP",
-    category: "Laptop",
-    img: "/temp/laptop.jpg",
-    badge: "10%",
-    ram: 16,
-    storage: "512GB",
-    processor: "Intel",
-    displaySize: 14,
-    description: "",
-  },
-];
-
 export default function NewArrivals() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchData<Product[]>("api/v1/public/products", "GET")
+      .then((res) => setProducts(res.data || []))
+      .catch(() => setProducts([]))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <section className="mt-6 content-width mx-auto">
       <div className="flex items-end gap-4 mb-4">
@@ -138,9 +26,19 @@ export default function NewArrivals() {
         </a>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {loading ? (
+          <div className="col-span-full text-center py-8 text-gray-500">
+            Loading produk...
+          </div>
+        ) : products.length === 0 ? (
+          <div className="col-span-full text-center py-8 text-gray-500">
+            Tidak ada produk ditemukan.
+          </div>
+        ) : (
+          products.map((product) => (
+            <ProductCard key={product.uuid} product={product} />
+          ))
+        )}
       </div>
     </section>
   );

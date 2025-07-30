@@ -5,25 +5,26 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 import ProductCard from "../components/ProductCard";
-import { mockProducts } from "./mockProducts";
+import { fetchData } from "@/utils/api";
+// import { mockProducts } from "./mockProducts";
 import { useState, useMemo, useEffect, useRef } from "react";
-import SidebarFilter from "../components/SidebarFilter";
-import {
-  ramOptions,
-  storageOptions,
-  processorOptions,
-  displaySizeOptions,
-  brands,
-} from "../constants";
+// import {
+//   ramOptions,
+//   storageOptions,
+//   processorOptions,
+//   displaySizeOptions,
+//   brands,
+// } from "../constants";
 import WhatsAppButton from "../components/WhatsAppButton";
+import { Product } from "@/models/product";
 
-type FilterValues = {
-  ram: number[];
-  storage: string[];
-  processor: string[];
-  displaySize: number[];
-  brand: string[];
-};
+// type FilterValues = {
+//   ram: number[];
+//   storage: string[];
+//   processor: string[];
+//   displaySize: number[];
+//   brand: string[];
+// };
 
 export default function ProductsPage() {
   // ...existing code...
@@ -31,32 +32,36 @@ export default function ProductsPage() {
   const productListRef = useRef<HTMLDivElement>(null);
 
   const [sort, setSort] = useState("latest");
-  const [selected, setSelected] = useState<FilterValues>({
-    ram: [],
-    storage: [],
-    processor: [],
-    displaySize: [],
-    brand: [],
-  });
-  const [applied, setApplied] = useState<FilterValues>({
-    ram: [],
-    storage: [],
-    processor: [],
-    displaySize: [],
-    brand: [],
-  });
-  const [products, setProducts] = useState<typeof mockProducts>([]);
+  // const [selected, setSelected] = useState<FilterValues>({
+  //   ram: [],
+  //   storage: [],
+  //   processor: [],
+  //   displaySize: [],
+  //   brand: [],
+  // });
+  // const [applied, setApplied] = useState<FilterValues>({
+  //   ram: [],
+  //   storage: [],
+  //   processor: [],
+  //   displaySize: [],
+  //   brand: [],
+  // });
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
 
-  // Simulate network fetch
+  // Fetch products from API
   useEffect(() => {
     setLoading(true);
-    const timer = setTimeout(() => {
-      setProducts(mockProducts);
-      setLoading(false);
-    }, 1200);
-    return () => clearTimeout(timer);
+    fetchData<Product[]>("api/v1/public/products", "GET")
+      .then((res) => {
+        setProducts(res.data || []);
+      })
+      .catch(() => {
+        setProducts([]);
+        // Optionally handle error
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   // Scroll to product list when page changes
@@ -66,43 +71,43 @@ export default function ProductsPage() {
     }
   }, [page]);
 
-  const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
-      const ramMatch =
-        applied.ram.length === 0 || applied.ram.includes(product.ram);
-      const storageMatch =
-        applied.storage.length === 0 ||
-        applied.storage.includes(product.storage);
-      const processorMatch =
-        applied.processor.length === 0 ||
-        applied.processor.includes(product.processor);
-      const displaySizeMatch =
-        applied.displaySize.length === 0 ||
-        applied.displaySize.includes(product.displaySize);
-      const brandValue = (product as any).brand ?? "";
-      const brandMatch =
-        applied.brand.length === 0 || applied.brand.includes(brandValue);
-      return (
-        ramMatch &&
-        storageMatch &&
-        processorMatch &&
-        displaySizeMatch &&
-        brandMatch
-      );
-    });
-  }, [applied, products]);
+  // const filteredProducts = useMemo(() => {
+  //   return products.filter((product) => {
+  //     const ramMatch =
+  //       applied.ram.length === 0 || applied.ram.includes(product.ram);
+  //     const storageMatch =
+  //       applied.storage.length === 0 ||
+  //       applied.storage.includes(product.storage);
+  //     const processorMatch =
+  //       applied.processor.length === 0 ||
+  //       applied.processor.includes(product.processor);
+  //     const displaySizeMatch =
+  //       applied.displaySize.length === 0 ||
+  //       applied.displaySize.includes(product.displaySize);
+  //     const brandValue = (product as any).brand ?? "";
+  //     const brandMatch =
+  //       applied.brand.length === 0 || applied.brand.includes(brandValue);
+  //     return (
+  //       ramMatch &&
+  //       storageMatch &&
+  //       processorMatch &&
+  //       displaySizeMatch &&
+  //       brandMatch
+  //     );
+  //   });
+  // }, [applied, products]);
 
   const sortedProducts = useMemo(() => {
-    const sorted = [...filteredProducts];
+    const sorted = [...products];
     if (sort === "latest") {
-      sorted.sort((a, b) => b.id - a.id);
+      sorted.sort((a, b) => b.uuid - a.uuid);
     } else if (sort === "lowest") {
       sorted.sort((a, b) => a.price - b.price);
     } else if (sort === "highest") {
       sorted.sort((a, b) => b.price - a.price);
     }
     return sorted;
-  }, [sort, filteredProducts]);
+  }, [sort, products]);
 
   // Pagination logic
   const PRODUCTS_PER_PAGE = 20;
@@ -124,7 +129,7 @@ export default function ProductsPage() {
       <Header />
       <main className="content-width mx-auto flex flex-col md:flex-row gap-4 py-4 flex-1">
         {/* Sidebar Filter */}
-        <SidebarFilter
+        {/* <SidebarFilter
           ram={ramOptions}
           storage={storageOptions}
           processor={processorOptions}
@@ -161,7 +166,7 @@ export default function ProductsPage() {
               brand: [],
             });
           }}
-        />
+        /> */}
         {/* Product List */}
         <section ref={productListRef} className="flex-1 flex flex-col">
           <div className="flex flex-row justify-between items-center mb-2">
@@ -195,7 +200,7 @@ export default function ProductsPage() {
               </div>
             ) : (
               paginatedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.uuid} product={product} />
               ))
             )}
           </div>

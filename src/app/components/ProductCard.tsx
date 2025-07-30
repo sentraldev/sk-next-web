@@ -5,7 +5,7 @@ import { Product } from "../../models/product";
 
 export default function ProductCard({ product }: { product: Product }) {
   const handleClick = () => {
-    window.location.href = `/products/${product.id}`; // Navigate to product details page
+    window.location.href = `/products/${product.uuid}`; // Navigate to product details page
   };
 
   return (
@@ -14,18 +14,24 @@ export default function ProductCard({ product }: { product: Product }) {
       onClick={handleClick}>
       {/* Badge */}
       <Image
-        key={product.id}
-        src={product.img}
+        key={product.uuid}
+        src={
+          product.image_urls.length > 0
+            ? product.image_urls[0]
+            : "/temp/laptop.jpg"
+        }
         alt={product.name}
         width={160}
         height={120}
         className="object-contain mb-2 self-center rounded-lg"
       />
-      <p className="text-xs italic font-extralight mb-1">{product.category}</p>
+      <p className="text-xs italic font-extralight mb-1">
+        {product.category.name}
+      </p>
       <p className="text-sm font-semibold text-gray-800 line-clamp-2">
         {product.name}
       </p>
-      <p className="text-red-600 font-bold text-sm mt-4">
+      {/* <p className="text-red-600 font-bold text-sm mt-4">
         Rp{" "}
         {product.discount
           ? product.priceAfterDiscount!.toLocaleString("id-ID")
@@ -44,7 +50,10 @@ export default function ProductCard({ product }: { product: Product }) {
             </span>
           )}
         </div>
-      )}
+      )} */}
+      <span className="font-bold mt-2">
+        Rp {product.price.toLocaleString("id-ID")}
+      </span>
       <div className="flex items-center gap-2 mt-2">
         <span className="text-yellow-500 text-[0.7rem]">★ 5.0</span>
         <span className="text-[0.7rem] text-gray-400">
