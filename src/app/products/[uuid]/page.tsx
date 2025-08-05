@@ -12,6 +12,44 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import ProductCard from "@/app/components/ProductCard";
 
+type Review = {
+  id: number;
+  name: string;
+  rating: number; // 1 to 5
+  comment: string;
+  date: string;
+};
+
+const reviewsData: Review[] = [
+  {
+    id: 1,
+    name: "John Doe",
+    rating: 5,
+    comment:
+      "Produk sangat bagus dan sesuai harapan. Pelayanan cepat dan pengiriman tepat waktu. Highly recommended!",
+    date: "Feb 28, 2024",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    rating: 4,
+    comment:
+      "Laptop cepat dan ringan, tapi saya berharap baterainya sedikit lebih tahan lama.",
+    date: "Mar 3, 2024",
+  },
+  // Tambah data ulasan lain sesuai kebutuhan
+];
+
+// Hitung rata-rata rating
+const averageRating =
+  reviewsData.reduce((sum, r) => sum + r.rating, 0) / reviewsData.length;
+
+// Hitung distribusi bintang
+const ratingDistribution = [5, 4, 3, 2, 1].map((star) => ({
+  star,
+  count: reviewsData.filter((r) => r.rating === star).length,
+}));
+
 export default function ProductDetail() {
   // Get product id from URL
   const params = useParams();
@@ -22,6 +60,7 @@ export default function ProductDetail() {
   const [totalPrice, setTotalPrice] = useState(
     Number(product?.discount ? product.priceAfterDiscount : product?.price) || 0
   );
+  const [activeTab, setActiveTab] = useState<"description" | "reviews">("description");
 
   if (!product) return notFound();
 
@@ -237,13 +276,126 @@ export default function ProductDetail() {
       </div>
 
       {/* Description */}
-      <div className="mx-auto content-width max-w-3xl mb-16">
+      {/* <div className="mx-auto content-width max-w-3xl mb-16">
         <h2 className="text-md font-bold mb-4 border-b-2 pb-4">
           Deskripsi Produk
         </h2>
 
         <p className="text-sm text-gray-600">{product.description}</p>
+      </div> */}
+
+      <div className="max-w-screen-lg mx-auto px-4 py-6">
+      {/* Tab Buttons */}
+      <div className="flex border-b border-gray-300 mb-4 text-sm font-medium">
+        <button
+          onClick={() => setActiveTab("description")}
+          className={`py-2 px-6 -mb-px border-b-4 ${
+            activeTab === "description"
+              ? "border-blue-600 font-semibold text-blue-600"
+              : "border-transparent text-gray-700 hover:text-blue-600"
+          }`}
+          aria-selected={activeTab === "description"}
+        >
+          Deskripsi Produk
+        </button>
+        <button
+          onClick={() => setActiveTab("reviews")}
+          className={`py-2 px-6 -mb-px border-b-4 ${
+            activeTab === "reviews"
+              ? "border-blue-600 font-semibold text-blue-600"
+              : "border-transparent text-gray-700 hover:text-blue-600"
+          }`}
+          aria-selected={activeTab === "reviews"}
+        >
+          Ulasan
+        </button>
       </div>
+
+      {/* Tab Content */}
+      {activeTab === "description" && (
+        <div className="text-gray-800 text-sm leading-relaxed">
+          <ul className="list-disc list-inside space-y-1">
+            <li>Intel® Core™ i7-1355U</li>
+            <li>NVIDIA® GeForce RTX™ 2050 Laptop GPU (4 GB GDDR6 dedicated)</li>
+            <li>14 inch, OLED, 90 Hz, 2K display</li>
+            <li>16GB RAM</li>
+            <li>1TB PCIe® NVMe™ M.2 SSD</li>
+          </ul>
+        </div>
+      )}
+
+      {activeTab === "reviews" && (
+        <div className="flex gap-8 text-gray-700">
+          {/* Rata-rata rating dan histogram */}
+          <div className="w-1/4 border-r border-gray-200 pr-6">
+            <div className="flex items-center space-x-2 mb-2">
+              <div className="text-3xl font-bold text-yellow-500">
+                {averageRating.toFixed(1)}
+              </div>
+              <div className="mt-1 text-gray-500">/5</div>
+            </div>
+            <div className="text-xs text-gray-600 mb-4">
+              {reviewsData.length} rating • {reviewsData.length} ulasan
+            </div>
+            <div>
+              {ratingDistribution.map(({ star, count }) => {
+                const percent = (count / reviewsData.length) * 100;
+                return (
+                  <div
+                    key={star}
+                    className="flex items-center space-x-2 mb-1 text-xs"
+                  >
+                    <div className="w-8 text-right text-yellow-500 font-semibold">
+                      {star} <span>★</span>
+                    </div>
+                    <div className="flex-1 h-3 bg-gray-200 rounded overflow-hidden">
+                      <div
+                        className="h-3 bg-yellow-400 rounded"
+                        style={{ width: `${percent}%` }}
+                      />
+                    </div>
+                    <div className="w-8 text-right">{count}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Daftar ulasan */}
+          <div className="flex-1 space-y-6">
+            {reviewsData.map(({ id, name, rating, date, comment }) => (
+              <div key={id} className="border-b border-gray-300 pb-4">
+                <div className="flex items-center gap-3 mb-1">
+                  {/* Icon user bisa pakai placeholder lingkaran */}
+                  <div className="w-10 h-10 rounded-full bg-gray-300" />
+                  <div>
+                    <div className="text-sm font-semibold text-gray-900">
+                      {name}
+                    </div>
+                    <div className="text-xs text-gray-500">{date}</div>
+                    <div className="flex mt-1 text-yellow-400 text-sm">
+                      {[...Array(5)].map((_, i) => (
+                        <span key={i}>
+                          {i < rating ? "★" : "☆"}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="text-xs text-gray-700 leading-relaxed whitespace-pre-wrap">
+                  {comment}
+                </div>
+              </div>
+            ))}
+
+            {/* Tombol Selanjutnya bisa ditambahkan jika ingin paginasi */}
+            <button className="text-blue-600 text-sm font-semibold hover:underline mt-3">
+              Selanjutnya &gt;
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
 
       {/* Other product recommendations */}
       <div className="content-width mx-auto mb-16">
