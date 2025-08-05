@@ -326,9 +326,9 @@ export default function ProductDetail() {
       )}
 
       {activeTab === "reviews" && (
-  <div className="flex gap-8 text-gray-700 sm:hidden">
+  <div className="flex gap-8 text-gray-700 md:flex-row flex-col">
   {/* Card rata-rata rating dan histogram dengan fixed height dan scroll jika overflow */}
-  <div className="w-1/4 border rounded-lg p-5 shadow-lg bg-white max-h-[250px]">
+  <div className="w-full md:w-1/4 border rounded-lg p-5 shadow-lg bg-white max-h-[250px]">
     <div className="flex items-center space-x-2 mb-3">
       <div className="text-3xl font-bold text-yellow-500 leading-none">
         {averageRating.toFixed(1)}
