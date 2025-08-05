@@ -326,41 +326,41 @@ export default function ProductDetail() {
       )}
 
       {activeTab === "reviews" && (
-  <div className="flex gap-8 text-gray-700">
-    {/* Card rata-rata rating dan histogram */}
-    <div className="w-1/4 border rounded-lg p-5 shadow-lg bg-white">
-      <div className="flex items-center space-x-2 mb-3">
-        <div className="text-3xl font-bold text-yellow-500 leading-none">
-          {averageRating.toFixed(1)}
-        </div>
-        <div className="mt-1 text-gray-500 text-sm select-none">/5</div>
+  <div className="flex gap-8 text-gray-700 md:flex-row flex-col">
+  {/* Card rata-rata rating dan histogram dengan fixed height dan scroll jika overflow */}
+  <div className="w-full md:w-1/4 border rounded-lg p-5 shadow-lg bg-white max-h-[250px]">
+    <div className="flex items-center space-x-2 mb-3">
+      <div className="text-3xl font-bold text-yellow-500 leading-none">
+        {averageRating.toFixed(1)}
       </div>
-      <div className="text-xs text-gray-600 mb-6">
-        {reviewsData.length} rating • {reviewsData.length} ulasan
-      </div>
-      <div>
-        {ratingDistribution.map(({ star, count }) => {
-          const percent = reviewsData.length ? (count / reviewsData.length) * 100 : 0;
-          return (
-            <div
-              key={star}
-              className="flex items-center space-x-2 mb-2 text-xs select-none"
-            >
-              <div className="w-8 text-right text-yellow-500 font-semibold">
-                {star} <span>★</span>
-              </div>
-              <div className="flex-1 h-3 bg-gray-200 rounded overflow-hidden">
-                <div
-                  className="h-3 bg-yellow-400 rounded"
-                  style={{ width: `${percent}%` }}
-                />
-              </div>
-              <div className="w-8 text-right tabular-nums">{count}</div>
-            </div>
-          );
-        })}
-      </div>
+      <div className="mt-1 text-gray-500 text-sm select-none">/5</div>
     </div>
+    <div className="text-xs text-gray-600 mb-6">
+      {reviewsData.length} rating • {reviewsData.length} ulasan
+    </div>
+    <div>
+      {ratingDistribution.map(({ star, count }) => {
+        const percent = reviewsData.length ? (count / reviewsData.length) * 100 : 0;
+        return (
+          <div
+            key={star}
+            className="flex items-center space-x-2 mb-2 text-xs select-none"
+          >
+            <div className="w-8 text-right text-yellow-500 font-semibold">
+              {star} <span>★</span>
+            </div>
+            <div className="flex-1 h-3 bg-gray-200 rounded overflow-hidden">
+              <div
+                className="h-3 bg-yellow-400 rounded"
+                style={{ width: `${percent}%` }}
+              />
+            </div>
+            <div className="w-8 text-right tabular-nums">{count}</div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
 
           {/* Daftar ulasan */}
           <div className="flex-1 space-y-6">
