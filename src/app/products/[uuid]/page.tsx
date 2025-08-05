@@ -61,11 +61,18 @@ export default function ProductDetail() {
     Number(product?.discount ? product.priceAfterDiscount : product?.price) || 0
   );
   const [activeTab, setActiveTab] = useState<"description" | "reviews">("description");
+  const [filterRating, setFilterRating] = useState<number | "all">("all");
 
   if (!product) return notFound();
 
   // For gallery, just repeat the same image as in the design
   const gallery = Array(5).fill(product.img);
+
+  // Filter reviews berdasarkan rating
+  const filteredReviews =
+    filterRating === "all"
+      ? reviewsData
+      : reviewsData.filter((r) => r.rating === filterRating);
 
   console.log("Test Staging");
 
@@ -284,7 +291,7 @@ export default function ProductDetail() {
         <p className="text-sm text-gray-600">{product.description}</p>
       </div> */}
 
-      <div className="max-w-screen-lg mx-auto px-4 py-6">
+      <div className="max-w-screen-lg mx-auto content-width px-4 py-6">
       {/* Tab Buttons */}
       <div className="flex border-b border-gray-300 mb-4 text-sm font-medium">
         <button
@@ -314,84 +321,118 @@ export default function ProductDetail() {
       {/* Tab Content */}
       {activeTab === "description" && (
         <div className="text-gray-800 text-sm leading-relaxed">
-          <ul className="list-disc list-inside space-y-1">
-            <li>Intel® Core™ i7-1355U</li>
-            <li>NVIDIA® GeForce RTX™ 2050 Laptop GPU (4 GB GDDR6 dedicated)</li>
-            <li>14 inch, OLED, 90 Hz, 2K display</li>
-            <li>16GB RAM</li>
-            <li>1TB PCIe® NVMe™ M.2 SSD</li>
-          </ul>
+          <p className="text-sm text-gray-600">{product.description}</p>
         </div>
       )}
 
       {activeTab === "reviews" && (
-        <div className="flex gap-8 text-gray-700">
-          {/* Rata-rata rating dan histogram */}
-          <div className="w-1/4 border-r border-gray-200 pr-6">
-            <div className="flex items-center space-x-2 mb-2">
-              <div className="text-3xl font-bold text-yellow-500">
-                {averageRating.toFixed(1)}
+  <div className="flex gap-8 text-gray-700">
+    {/* Card rata-rata rating dan histogram */}
+    <div className="w-1/4 border rounded-lg p-5 shadow-lg bg-white">
+      <div className="flex items-center space-x-2 mb-3">
+        <div className="text-3xl font-bold text-yellow-500 leading-none">
+          {averageRating.toFixed(1)}
+        </div>
+        <div className="mt-1 text-gray-500 text-sm select-none">/5</div>
+      </div>
+      <div className="text-xs text-gray-600 mb-6">
+        {reviewsData.length} rating • {reviewsData.length} ulasan
+      </div>
+      <div>
+        {ratingDistribution.map(({ star, count }) => {
+          const percent = reviewsData.length ? (count / reviewsData.length) * 100 : 0;
+          return (
+            <div
+              key={star}
+              className="flex items-center space-x-2 mb-2 text-xs select-none"
+            >
+              <div className="w-8 text-right text-yellow-500 font-semibold">
+                {star} <span>★</span>
               </div>
-              <div className="mt-1 text-gray-500">/5</div>
+              <div className="flex-1 h-3 bg-gray-200 rounded overflow-hidden">
+                <div
+                  className="h-3 bg-yellow-400 rounded"
+                  style={{ width: `${percent}%` }}
+                />
+              </div>
+              <div className="w-8 text-right tabular-nums">{count}</div>
             </div>
-            <div className="text-xs text-gray-600 mb-4">
-              {reviewsData.length} rating • {reviewsData.length} ulasan
-            </div>
-            <div>
-              {ratingDistribution.map(({ star, count }) => {
-                const percent = (count / reviewsData.length) * 100;
-                return (
-                  <div
-                    key={star}
-                    className="flex items-center space-x-2 mb-1 text-xs"
-                  >
-                    <div className="w-8 text-right text-yellow-500 font-semibold">
-                      {star} <span>★</span>
-                    </div>
-                    <div className="flex-1 h-3 bg-gray-200 rounded overflow-hidden">
-                      <div
-                        className="h-3 bg-yellow-400 rounded"
-                        style={{ width: `${percent}%` }}
-                      />
-                    </div>
-                    <div className="w-8 text-right">{count}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          );
+        })}
+      </div>
+    </div>
 
           {/* Daftar ulasan */}
           <div className="flex-1 space-y-6">
-            {reviewsData.map(({ id, name, rating, date, comment }) => (
-              <div key={id} className="border-b border-gray-300 pb-4">
-                <div className="flex items-center gap-3 mb-1">
-                  {/* Icon user bisa pakai placeholder lingkaran */}
-                  <div className="w-10 h-10 rounded-full bg-gray-300" />
-                  <div>
-                    <div className="text-sm font-semibold text-gray-900">
-                      {name}
+            {/* Filter Rating */}
+            <h2 className="text-lg font-bold">ULASAN PEMBELI</h2>
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  className={`text-sm font-semibold px-3 py-1 rounded-full ${
+                    filterRating === "all"
+                      ? "bg-blue-600 text-white"
+                      : "border border-gray-300"
+                  }`}
+                  onClick={() => setFilterRating("all")}>
+                  Semua Ulasan
+                </button>
+                {[5, 4, 3, 2, 1].map((star) => (
+                  <button
+                    key={star}
+                    className={`flex items-center gap-1 text-sm font-semibold px-3 py-1 rounded-full ${
+                      filterRating === star
+                        ? "bg-blue-600 text-white"
+                        : "border border-gray-300"
+                    }`}
+                    onClick={() => setFilterRating(star)}>
+                    <svg
+                      className="text-yellow-400 w-4 h-4"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      aria-hidden="true">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.39 2.462a1 1 0 00-.364 1.118l1.287 3.966c.3.92-.755 1.688-1.54 1.118l-3.39-2.461a1 1 0 00-1.176 0l-3.39 2.46c-.784.57-1.838-.197-1.539-1.117l1.287-3.967a1 1 0 00-.364-1.118L2.03 9.393c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z" />
+                    </svg>
+                    <span>{star}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="space-y-6">
+                {filteredReviews.length === 0 && (
+                  <p className="text-gray-500 text-sm">Tidak ada ulasan untuk rating ini.</p>
+                )}
+                {filteredReviews.map(({ id, name, rating, date, comment }) => (
+                  <div key={id} className="border-b border-gray-300 pb-4">
+                    <div className="flex items-center gap-3 mb-1">
+                      {/* Icon user bisa pakai placeholder lingkaran */}
+                      <div className="w-10 h-10 rounded-full bg-gray-300" />
+                      <div>
+                        <div className="text-sm font-semibold text-gray-900">
+                          {name}
+                        </div>
+                        <div className="text-xs text-gray-500">{date}</div>
+                        <div className="flex mt-1 text-yellow-400 text-sm">
+                          {[...Array(5)].map((_, i) => (
+                            <span key={i}>
+                              {i < rating ? "★" : "☆"}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-xs text-gray-500">{date}</div>
-                    <div className="flex mt-1 text-yellow-400 text-sm">
-                      {[...Array(5)].map((_, i) => (
-                        <span key={i}>
-                          {i < rating ? "★" : "☆"}
-                        </span>
-                      ))}
+                    <div className="text-xs text-gray-700 leading-relaxed whitespace-pre-wrap">
+                      {comment}
                     </div>
                   </div>
-                </div>
-                <div className="text-xs text-gray-700 leading-relaxed whitespace-pre-wrap">
-                  {comment}
-                </div>
-              </div>
-            ))}
+                ))}
+            </div>
 
             {/* Tombol Selanjutnya bisa ditambahkan jika ingin paginasi */}
-            <button className="text-blue-600 text-sm font-semibold hover:underline mt-3">
-              Selanjutnya &gt;
-            </button>
+            <div className="flex justify-end">
+              <button className="text-gray-400 text-sm font-semibold hover:underline mt-3">
+                Selanjutnya &gt;
+              </button>
+            </div>
+
           </div>
         </div>
       )}
