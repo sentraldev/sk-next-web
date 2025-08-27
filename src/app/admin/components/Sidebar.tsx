@@ -34,7 +34,7 @@ export default function AdminSidebar() {
         </div>
         <nav className="flex flex-col gap-4">
           {SIDEBAR_ITEMS.map((item) => {
-            const isActive = pathname.startsWith(item.href);
+            const isActive = pathname?.startsWith(item.href);
             return (
               <Link
                 key={item.key}
@@ -43,7 +43,8 @@ export default function AdminSidebar() {
                   isActive
                     ? "bg-blue-600 text-white"
                     : "text-gray-700 hover:text-white hover:bg-blue-500"
-                }`}>
+                }`}
+              >
                 {item.label}
               </Link>
             );
@@ -54,7 +55,8 @@ export default function AdminSidebar() {
         <span className="text-gray-700 text-sm mb-2">admin@sentral.com</span>
         <button
           className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition text-sm w-full"
-          onClick={onLogout}>
+          onClick={onLogout}
+        >
           Logout
         </button>
       </div>
