@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import StarRating from "@/app/components/StarRating";
@@ -22,6 +22,101 @@ interface Store {
   tiktokUrl?: string;
   email?: string;
   openingHours?: string;
+}
+
+type OurLocationSearchProps = {
+  cities: string[];
+  onSearch: (query: string, city: string) => void;
+};
+
+function extractCityFromAddress(address: string): string | null {
+  // Asumsikan formatnya ada nama kota sebelum 5 digit kode pos
+  const regex = /([A-Za-z\s]+)\s\d{5}/;
+  const match = address.match(regex);
+  if (match && match[1]) {
+    return match[1].trim();
+  }
+  return null;
+}
+
+function OurLocationSearch({ cities, onSearch }: OurLocationSearchProps) {
+  const [query, setQuery] = useState("");
+  const [selectedCity, setSelectedCity] = useState(cities[0] || "");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+// List toko yang sudah difilter berdasarkan kota terpilih
+  const filteredStores = storeLocations.filter(
+    store => extractCityFromAddress(store.address) === selectedCity
+  );
+  const handleSearch = () => {
+    onSearch(query.trim(), selectedCity);
+  };
+
+  // Menutup dropdown jika klik di luar komponen
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className="flex items-center gap-2 mb-4">
+      <input
+        type="text"
+        placeholder="Cari Toko Sentral Komputer"
+        className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+      />
+      <div className="relative" ref={dropdownRef}>
+          <button
+            onClick={() => setShowDropdown((prev) => !prev)}
+            className="px-6 py-2 bg-blue-600 w-[120px] text-white font-semibold rounded-md hover:bg-blue-700 transition flex items-center gap-1"
+          >
+            {selectedCity} 
+            <svg
+              className={`w-4 h-4 transition-transform ${
+                showDropdown ? "rotate-180" : ""
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {showDropdown && (
+            <ul className="absolute right-0 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto z-10">
+              {cities.map((city) => (
+                <li
+                  key={city}
+                  className="px-4 py-2 hover:bg-blue-100 cursor-pointer select-none"
+                  onClick={() => {
+                    setSelectedCity(city);
+                    setShowDropdown(false);
+                  }}
+                >
+                  {city}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+    </div>
+  );
 }
 
 const containerStyle = {
@@ -47,10 +142,49 @@ const storeLocations: Store[] = [
     placeId: "ChIJfYXfB2qLaS4RaXRKTddDz5M",
     instagramUrl: "https://www.instagram.com/sentralkomputer_id/",
     tiktokUrl: "https://www.tiktok.com/@sentralkomputer_id",
-    email: "hello@sentralkomputer.com",
+    email: "kevin@sentralkomputer.com",
     openingHours: "9.00am - 7.00pm"
   },
+  {
+    id: 2,
+    name: "Sentral Komputer Mal Artha Gading",
+    lat: -6.145018407976473,
+    lng: 106.89332880551387,
+    address: "Mall Artha Gading Lt. GF Blok A2 No. 26, Jl. Artha Gading Selatan No.1, Kelapa Gading, Jakarta Utara, Jakarta 14240",
+    phone: "(+62) 819-7777-3600",
+    image: "/temp/toko.png",
+    googleMapsUrl: "https://maps.app.goo.gl/NFaqQ11HHTKFyQ5o9",
+    placeId: "ChIJjxLiB0P1aS4R1192W3k-_iU",
+    instagramUrl: "https://www.instagram.com/sentralkomputer_id/",
+    tiktokUrl: "https://www.tiktok.com/@sentralkomputer_id",
+    email: "anwar@sentralkomputer.com",
+    openingHours: "10.00am - 9.00pm"
+  },
+  {
+    id: 3,
+    name: "Sentral Service by Sentral Komputer (BCP)",
+    lat: -6.246459430457757,
+    lng: 106.99207207111063,
+    address: "Bekasi Cyber Park Lt. 1 No.6-7 Blok A1, Kec. Bekasi Sel, Bekasi 17144",
+    phone: "(+62) 819-7777-1800",
+    image: "/temp/toko.png",
+    googleMapsUrl: "https://maps.app.goo.gl/MUvc17twsXBmGD3T6",
+    placeId: "ChIJyb8cbDGMaS4RVL6gg0Ghi9g",
+    instagramUrl: "https://www.instagram.com/sentralkomputer_id/",
+    tiktokUrl: "https://www.tiktok.com/@sentralkomputer_id",
+    email: "akhiru@sentralkomputer.com",
+    openingHours: "10.00am - 9.00pm"
+  }
 ];
+
+// Mengambil nama kota unik
+const uniqueCities = Array.from(
+  new Set(
+    storeLocations
+      .map(store => extractCityFromAddress(store.address))
+      .filter((city): city is string => city !== null)
+  )
+);
 
 const LocationStoreUI: React.FC = () => {
   const { isLoaded, loadError } = useLoadScript({
@@ -60,6 +194,10 @@ const LocationStoreUI: React.FC = () => {
   const [selectedStore, setSelectedStore] = useState<Store | null>(null);
   const [mapCenter, setMapCenter] = useState<{ lat: number; lng: number }>(centerDefault);
   const [zoom, setZoom] = useState<number>(5);
+  const [data, setData] = useState<Record<number, { rating: number; openNow: boolean }>>({});
+  const [filteredStores, setFilteredStores] = useState<Store[]>(storeLocations);
+
+  const cities = uniqueCities;
 
   const onStoreClick = useCallback((store: Store) => {
     setMapCenter({ lat: store.lat, lng: store.lng });
@@ -67,44 +205,67 @@ const LocationStoreUI: React.FC = () => {
     setSelectedStore(store);
   }, []);
 
-  const [data, setData] = useState<Record<number, { rating: number; openNow: boolean }>>({});
+  const onSearch = useCallback((query: string, city: string) => {
+    let results = storeLocations;
+
+    if (query) {
+      results = results.filter(store =>
+        store.name.toLowerCase().includes(query.toLowerCase()) ||
+        store.address.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+    if (city && city !== "Semua Kota") {
+      results = results.filter(store =>
+        store.address.toLowerCase().includes(city.toLowerCase())
+      );
+    }
+
+    setFilteredStores(results);
+
+    // Jika ditemukan, fokus ke lokasi pertama hasil pencarian
+    if (results.length > 0) {
+      setMapCenter({ lat: results[0].lat, lng: results[0].lng });
+      setZoom(16);
+      setSelectedStore(results[0]);
+    }
+  }, []);
 
   useEffect(() => {
-  async function fetchDetails() {
-    try {
-      const promises = storeLocations.map(async (store) => {
-        const res = await fetch(`/api/place-details?placeId=${store.placeId}`);
-        const json = await res.json();
-        return { id: store.id, rating: json.rating, openNow: json.openNow };
-      });
+    async function fetchDetails() {
+      try {
+        const promises = storeLocations.map(async (store) => {
+          const res = await fetch(`/api/place-details?placeId=${store.placeId}`);
+          const json = await res.json();
+          return { id: store.id, rating: json.rating, openNow: json.openNow };
+        });
 
-      const results = await Promise.all(promises);
+        const results = await Promise.all(promises);
 
-      const tempData: Record<number, { rating: number; openNow: boolean }> = {};
-      results.forEach((r) => {
-        if (r.rating !== undefined) {
-          tempData[r.id] = { rating: r.rating, openNow: r.openNow };
-        }
-      });
+        const tempData: Record<number, { rating: number; openNow: boolean }> = {};
+        results.forEach((r) => {
+          if (r.rating !== undefined) {
+            tempData[r.id] = { rating: r.rating, openNow: r.openNow };
+          }
+        });
 
-      setData(tempData);
-    } catch (error) {
-      console.error("Fetch error", error);
+        setData(tempData);
+      } catch (error) {
+        console.error("Fetch error", error);
+      }
     }
-  }
 
-  fetchDetails();
-}, []);
+    fetchDetails();
+  }, []);
 
 
   if (loadError) return <div>Error loading maps</div>;
   if (!isLoaded) return <div>Loading Maps...</div>;
 
-  
   return (
     <div className="flex flex-col md:flex-row gap-6 md:h-[600px]">
       {/* Daftar lokasi toko */}
       <div className="md:w-1/2 overflow-y-auto space-y-6 rounded-lg p-5 bg-white ">
+        <OurLocationSearch cities={cities} onSearch={onSearch} />
         {storeLocations.map((store: Store) => (
           <div
             key={store.id}
@@ -244,5 +405,6 @@ const LocationStoreUI: React.FC = () => {
     </div>
   );
 };
+
 
 export default LocationStoreUI;
