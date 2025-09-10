@@ -43,5 +43,8 @@ export default {
       // "gpdi-white": "#F8FAFC", // Unchanged
     },
   },
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
   // plugins: [require("tailwindcss-textshadow")],
 } satisfies Config;
