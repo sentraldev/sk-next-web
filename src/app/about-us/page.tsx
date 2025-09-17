@@ -1,8 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules"; // import modul fitur
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const coreValues = [
   {
@@ -121,8 +127,49 @@ const trophies = [
   }
 ];
 
+// Definisikan tipe kategori dengan string literal union
+type CategoryId = 'pengadaan' | 'perusahaan' | 'organisasi';
+
+// Data kategori dengan tipe yang jelas agar TypeScript tahu key valid
+const categories: { id: CategoryId; label: string }[] = [
+  { id: 'pengadaan', label: 'Pengadaan' },
+  { id: 'perusahaan', label: 'Perusahaan' },
+  { id: 'organisasi', label: 'Organisasi & S...' },
+];
+
+// Data klien sesuai kategori, dengan tipe Record untuk key yang ketat
+const clients: Record<CategoryId, { id: number; name: string; logo: string }[]> = {
+  pengadaan: [
+    { id: 1, name: 'SIPLAH', logo: 'https://via.placeholder.com/100x60?text=SIPLAH' },
+    { id: 2, name: 'KPP', logo: 'https://via.placeholder.com/100x60?text=KPP' },
+    { id: 3, name: 'Iplah', logo: 'https://via.placeholder.com/100x60?text=Iplah' },
+  ],
+  perusahaan: [
+    { id: 4, name: 'MIMS', logo: 'https://via.placeholder.com/100x60?text=MIMS' },
+    { id: 5, name: 'suara.com', logo: 'https://via.placeholder.com/100x60?text=suara.com' },
+    { id: 6, name: 'billboard', logo: 'https://via.placeholder.com/100x60?text=billboard' },
+  ],
+  organisasi: [
+    { id: 7, name: 'Dinas Kesehatan', logo: 'https://via.placeholder.com/100x60?text=Dinkes' },
+    { id: 8, name: 'Kementerian Agama', logo: 'https://via.placeholder.com/100x60?text=Kemenag' },
+  ],
+};
+
 export default function AboutUs() {
   const [activeTab, setActiveTab] = useState("b2b");
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const swiperRef = useRef<any>(null);
+
+  // Fungsi saat klik tab: pindahkan swiper ke slide kategori yang sesuai
+  const onTabClick = (index: number) => {
+    setActiveIndex(index);
+    swiperRef.current?.swiper.slideTo(index);
+  };
+
+  // Saat slide berubah, update tab aktif
+  const onSlideChange = (swiper: any) => {
+    setActiveIndex(swiper.activeIndex);
+  };
   return (
     <>
       <Header />
@@ -381,20 +428,77 @@ export default function AboutUs() {
     </section>
 
       {/* Partners Logos */}
-      <section className="max-w-6xl mx-auto">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Partner Kami</h2>
-        <div className="grid grid-cols-4 md:grid-cols-8 gap-4 items-center">
-          {/* Contoh logo partner, ganti dengan yang sesuai */}
-          <img src="/partners/asus.png" alt="ASUS" className="max-h-12 mx-auto" />
-          <img src="/partners/lenovo.png" alt="Lenovo" className="max-h-12 mx-auto" />
-          <img src="/partners/dell.png" alt="Dell" className="max-h-12 mx-auto" />
-          <img src="/partners/hp.png" alt="HP" className="max-h-12 mx-auto" />
-          <img src="/partners/microsoft.png" alt="Microsoft" className="max-h-12 mx-auto" />
-          <img src="/partners/intel.png" alt="Intel" className="max-h-12 mx-auto" />
-          <img src="/partners/amd.png" alt="AMD" className="max-h-12 mx-auto" />
-          <img src="/partners/acer.png" alt="Acer" className="max-h-12 mx-auto" />
-        </div>
-      </section>
+      <div style={{ maxWidth: 900, margin: 'auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+        {categories.map((cat, index) => (
+          <button
+            key={cat.id}
+            onClick={() => onTabClick(index)}
+            style={{
+              padding: '10px 20px',
+              margin: '0 5px',
+              cursor: 'pointer',
+              borderBottom: activeIndex === index ? '3px solid #f44336' : '3px solid transparent',
+              background: 'none',
+              fontWeight: activeIndex === index ? 'bold' : 'normal',
+            }}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      <Swiper
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSlideChange={onSlideChange}
+        slidesPerView={1}
+        navigation={true}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 8000, disableOnInteraction: true }}
+        loop={false}
+        modules={[Navigation, Pagination, Autoplay]}
+        style={{ paddingBottom: 40 }}
+      >
+        {categories.map((cat) => (
+          <SwiperSlide key={cat.id}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
+                gap: 20,
+                justifyItems: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {clients[cat.id].map((client) => (
+                <div
+                  key={client.id}
+                  style={{
+                    width: 100,
+                    height: 60,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    border: '1px solid #ddd',
+                    borderRadius: 5,
+                    padding: 10,
+                    backgroundColor: '#fff',
+                    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+                  }}
+                >
+                  <img
+                    src={client.logo}
+                    alt={client.name}
+                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
 
       {/* Testimonials */}
       <section className="max-w-4xl mx-auto space-y-8 text-center">
