@@ -6,9 +6,12 @@ import Footer from "../components/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules"; // import modul fitur
 
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const coreValues = [
   {
@@ -140,30 +143,78 @@ const categories: { id: CategoryId; label: string }[] = [
 // Data klien sesuai kategori, dengan tipe Record untuk key yang ketat
 const clients: Record<CategoryId, { id: number; name: string; logo: string }[]> = {
   pengadaan: [
-    { id: 1, name: 'SIPLAH', logo: 'https://via.placeholder.com/100x60?text=SIPLAH' },
-    { id: 2, name: 'KPP', logo: 'https://via.placeholder.com/100x60?text=KPP' },
-    { id: 3, name: 'Iplah', logo: 'https://via.placeholder.com/100x60?text=Iplah' },
+    { id: 1, name: 'SIPLAH', logo: '../../temp/partners/siplah.png' },
+    { id: 2, name: 'KPP', logo: '../../temp/partners/lkpp.png' },
+    { id: 3, name: 'Iplah', logo: '../../temp/partners/siplah-blanja.png' },
   ],
   perusahaan: [
-    { id: 4, name: 'MIMS', logo: 'https://via.placeholder.com/100x60?text=MIMS' },
-    { id: 5, name: 'suara.com', logo: 'https://via.placeholder.com/100x60?text=suara.com' },
-    { id: 6, name: 'billboard', logo: 'https://via.placeholder.com/100x60?text=billboard' },
+    { id: 4, name: 'MIMS', logo: '../../temp/partners/mims.png' },
+    { id: 5, name: 'suara.com', logo: '../../temp/partners/suaracom.png' },
+    { id: 6, name: 'billboard', logo: '../../temp/partners/billboardid.png' },
+    { id: 7, name: 'adev', logo: '../../temp/partners/adev.png' },
+    { id: 8, name: 'Angkasa Pura', logo: '../../temp/partners/angkasapura.png' },
+    { id: 9, name: 'C21', logo: '../../temp/partners/c21.png' },
+    { id: 10, name: 'HIS', logo: '../../temp/partners/his.png' },
+    { id: 11, name: 'Izi Data', logo: '../../temp/partners/izidata.png' },
+    { id: 12, name: 'Len Telekomunikasi', logo: '../../temp/partners/lentelekomunikasi.png' },
+    { id: 13, name: 'Matsuoka', logo: '../../temp/partners/matsuoka.png' },
+    { id: 14, name: 'SKI', logo: '../../temp/partners/ski.png' },
+    { id: 15, name: 'Telkom', logo: '../../temp/partners/telkom.png' },
+    { id: 16, name: 'Utama Gas Multiperkasa', logo: '../../temp/partners/utamagasmultiperkasa.png' },
+    { id: 17, name: 'Biosm', logo: '../../temp/partners/biosm.png' },
+    { id: 16, name: 'tc', logo: '../../temp/partners/tc.png' },
+    { id: 18, name: 'rosenberger', logo: '../../temp/partners/rosenberger.png' },
+    { id: 19, name: 'indec', logo: '../../temp/partners/indec.png' },
+    { id: 20, name: 'bsi', logo: '../../temp/partners/bsi.png' },
+    { id: 21, name: 'bri', logo: '../../temp/partners/bri.png' },
+    { id: 22, name: 'PT. Jaya Mitra Kemilau', logo: '../../temp/partners/jayamitrakemilau.png' },
+    { id: 22, name: 'Lintas Teknologi', logo: '../../temp/partners/lintasteknologi.png' },
+    { id: 22, name: 'Everwhite', logo: '../../temp/partners/everwhite.png' },
   ],
   organisasi: [
-    { id: 7, name: 'Dinas Kesehatan', logo: 'https://via.placeholder.com/100x60?text=Dinkes' },
-    { id: 8, name: 'Kementerian Agama', logo: 'https://via.placeholder.com/100x60?text=Kemenag' },
+    { id: 23, name: 'Dinas Kesehatan', logo: '../../temp/partners/dinkeskarawang.png' },
+    { id: 24, name: 'Kementerian Agama', logo: '../../temp/partners/kemenag.png' },
+    { id: 25, name: 'Kementerian Agama', logo: '../../temp/partners/kemenper.png' },
+    { id: 26, name: 'Kementerian Agama', logo: '../../temp/partners/kemenket.png' },
+    { id: 27, name: 'Kementerian Agama', logo: '../../temp/partners/lembagaalternatif.png' },
   ],
 };
 
+const partners = [
+  { name: "ASUS", logo: "../../temp/brands/asus.png" },
+  { name: "Apple", logo: "../../temp/brands/apple.png" },
+  { name: "Lenovo", logo: "../../temp/brands/lenovo.png" },
+  { name: "HP", logo: "../../temp/brands/hp.png" },
+  { name: "Samsung", logo: "../../temp/brands/samsung.png" },
+  { name: "MSI", logo: "../../temp/brands/msi.png" },
+  { name: "Rexus", logo: "../../temp/brands/rexus.png" },
+  { name: "Acer", logo: "../../temp/brands/acer.png" },
+  { name: "Zyrex", logo: "../../temp/brands/zyrex.png" },
+  { name: "Prolink", logo: "../../temp/brands/prolink.png" },
+  { name: "Axioo", logo: "../../temp/brands/axioo.png" },
+  { name: "Fantech", logo: "../../temp/brands/fantech.png" },
+  { name: "Advan", logo: "../../temp/brands/advan.png" },
+  { name: "Aukey", logo: "../../temp/brands/aukey.png" },
+  { name: "Kaspersky", logo: "../../temp/brands/kaspersky.png" },
+  { name: "Epson", logo: "../../temp/brands/epson.png" },
+  { name: "Toshiba", logo: "../../temp/brands/toshiba.png" },
+  { name: "Logitech", logo: "../../temp/brands/logitech.png" },
+  { name: "Intel", logo: "../../temp/brands/intel.png" },
+  { name: "AMD", logo: "../../temp/brands/amd.png" },
+  { name: "Nvidia", logo: "../../temp/brands/nvidia.png" },
+  { name: "McAfee", logo: "../../temp/brands/mcafee.png" },
+  { name: "Microsoft", logo: "../../temp/brands/microsoft.png" },
+];
+
 export default function AboutUs() {
   const [activeTab, setActiveTab] = useState("b2b");
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [activeIndex, setActiveIndex] = useState(1);
   const swiperRef = useRef<any>(null);
 
   // Fungsi saat klik tab: pindahkan swiper ke slide kategori yang sesuai
   const onTabClick = (index: number) => {
     setActiveIndex(index);
-    swiperRef.current?.swiper.slideTo(index);
+    swiperRef.current.slideTo(index);
   };
 
   // Saat slide berubah, update tab aktif
@@ -427,9 +478,9 @@ export default function AboutUs() {
       </div>
     </section>
 
-      {/* Partners Logos */}
-      <div style={{ maxWidth: 900, margin: 'auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
+    {/* Partners Logos */}
+    <div className="max-w-screen-xl" style={{ margin: 'auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
         {categories.map((cat, index) => (
           <button
             key={cat.id}
@@ -449,23 +500,25 @@ export default function AboutUs() {
       </div>
 
       <Swiper
+        initialSlide={1}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         onSlideChange={onSlideChange}
         slidesPerView={1}
-        navigation={true}
-        pagination={{ clickable: true }}
+        navigation={false}
+        pagination={false}
         autoplay={{ delay: 8000, disableOnInteraction: true }}
         loop={false}
-        modules={[Navigation, Pagination, Autoplay]}
-        style={{ paddingBottom: 40 }}
+        modules={[Autoplay]}
+        style={{paddingBottom: 40 }}
+        className="max-w-screen-md"
       >
         {categories.map((cat) => (
           <SwiperSlide key={cat.id}>
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
-                gap: 20,
+                gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 1fr))',
+                gap: 0,
                 justifyItems: 'center',
                 alignItems: 'center',
               }}
@@ -474,22 +527,20 @@ export default function AboutUs() {
                 <div
                   key={client.id}
                   style={{
-                    width: 100,
-                    height: 60,
+                    width: 'auto',
+                    height: '50px',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    border: '1px solid #ddd',
                     borderRadius: 5,
-                    padding: 10,
+                    padding: 5,
                     backgroundColor: '#fff',
-                    boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
                   }}
                 >
                   <img
                     src={client.logo}
                     alt={client.name}
-                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                    style={{ width: 'auto', height: 30, objectFit: 'contain' }}
                     loading="lazy"
                   />
                 </div>
@@ -499,6 +550,58 @@ export default function AboutUs() {
         ))}
       </Swiper>
     </div>
+
+    <section className="max-w-screen-xl" style={{ padding: "20px", backgroundColor: "#fff", textAlign: "center" }}>
+
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 40, flexWrap: "wrap" }}>
+        {/* Foto dua orang */}
+        <div style={{ flex: "0 0 auto", maxWidth: 420, height: 'auto' }}>
+          <img
+            src="../../temp/mitrakami.png" 
+            alt="Mitra Kami"
+            style={{ width: "100%", height: "100%", borderRadius: 8, objectFit: "contain" }}
+          />
+        </div>
+
+        {/* Teks alasan jadi mitra dalam dua kolom */}
+        <div style={{ flex: "1 1 300px", maxWidth: 700, textAlign: "left" }}>
+          <div className="text-center">
+            <h2 className="text-3xl font-bold">Mitra Kami</h2>
+            <h2 className="font-bold" style={{ marginBottom: 24, color: "#1444D5" /* biru teks */ }}>
+              Kenapa Jadi Bagian Kami?
+            </h2>
+          </div>
+          <div className="flex content-between gap-48">
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, color: "#444", fontSize: 16 }}>
+              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Pengalaman Sejak 1991</li>
+              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Barang 100% ORI</li>
+              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Garansi Resmi</li>
+            </ul>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, color: "#444", fontSize: 16 }}>
+              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Service Center Certified</li>
+              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Tingkat Kepuasan Pelanggan Terbaik</li>
+              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Sales & Teknisi Profesional</li>
+            </ul>
+          </div>
+          {/* Brand Partner Logo */}
+          <div className="mt-10">
+            <h3 className="mb-5 font-bold text-center" style={{ color: "#1444D5"}}>Brand Partner</h3>
+            <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 24 }}>
+              {partners.map((partner) => (
+                <img
+                  key={partner.name}
+                  src={partner.logo}
+                  alt={partner.name}
+                  style={{ height: 20, width: "auto", objectFit: "contain" }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    </section>
 
       {/* Testimonials */}
       <section className="max-w-4xl mx-auto space-y-8 text-center">
