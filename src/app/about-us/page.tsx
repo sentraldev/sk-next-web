@@ -13,6 +13,23 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+interface Client {
+  id: string;
+  name: string;
+  logo: string;
+}
+
+interface Category {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  categories: Category[];
+  clients: Record<string, Client[]>;
+}
+
+
 const coreValues = [
   {
     title: "Growth Mindset",
@@ -206,16 +223,43 @@ const partners = [
   { name: "Microsoft", logo: "../../temp/brands/microsoft.png" },
 ];
 
+const portfolioData = [
+  {
+    title: "Pameran",
+    mainImage: "/images/portfolio/pameran-main.jpg",
+    thumbnails: [
+      "/images/portfolio/pameran-1.jpg",
+      "/images/portfolio/pameran-2.jpg",
+      "/images/portfolio/pameran-3.jpg",
+    ],
+  },
+  {
+    title: "Edukasi Kampus",
+    mainImage: "/images/portfolio/edukasi-main.jpg",
+    thumbnails: [
+      "/images/portfolio/edukasi-1.jpg",
+      "/images/portfolio/edukasi-2.jpg",
+      "/images/portfolio/edukasi-3.jpg",
+    ],
+  },
+  {
+    title: "Dealer Gathering & Training",
+    mainImage: "/images/portfolio/dealer-main.jpg",
+    thumbnails: [
+      "/images/portfolio/dealer-1.jpg",
+      "/images/portfolio/dealer-2.jpg",
+      "/images/portfolio/dealer-3.jpg",
+    ],
+  },
+];
+
 export default function AboutUs() {
   const [activeTab, setActiveTab] = useState("b2b");
-  const [activeIndex, setActiveIndex] = useState(1);
-  const swiperRef = useRef<any>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // Fungsi saat klik tab: pindahkan swiper ke slide kategori yang sesuai
   const onTabClick = (index: number) => {
     setActiveIndex(index);
-    swiperRef.current.slideTo(index);
-  };
+  };  
 
   // Saat slide berubah, update tab aktif
   const onSlideChange = (swiper: any) => {
@@ -479,19 +523,30 @@ export default function AboutUs() {
     </section>
 
     {/* Partners Logos */}
-    <div className="max-w-screen-xl" style={{ margin: 'auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
+    <div className="max-w-screen-xl" style={{ margin: "auto", padding: 20 }}>
+      {/* Tabs */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 10,
+          marginBottom: 30,
+          overflowX: "auto",
+          paddingBottom: 8,
+          borderBottom: "1px solid #ddd",
+        }}
+      >
         {categories.map((cat, index) => (
           <button
             key={cat.id}
             onClick={() => onTabClick(index)}
             style={{
-              padding: '10px 20px',
-              margin: '0 5px',
-              cursor: 'pointer',
-              borderBottom: activeIndex === index ? '3px solid #f44336' : '3px solid transparent',
-              background: 'none',
-              fontWeight: activeIndex === index ? 'bold' : 'normal',
+              padding: "10px 20px",
+              cursor: "pointer",
+              borderBottom: activeIndex === index ? "3px solid #f44336" : "3px solid transparent",
+              background: "none",
+              fontWeight: activeIndex === index ? "bold" : "normal",
+              whiteSpace: "nowrap",
             }}
           >
             {cat.label}
@@ -499,56 +554,48 @@ export default function AboutUs() {
         ))}
       </div>
 
-      <Swiper
-        initialSlide={1}
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
-        onSlideChange={onSlideChange}
-        slidesPerView={1}
-        navigation={false}
-        pagination={false}
-        autoplay={{ delay: 8000, disableOnInteraction: true }}
-        loop={false}
-        modules={[Autoplay]}
-        style={{paddingBottom: 40 }}
-        className="max-w-screen-md"
+      {/* Carousel Cards */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 1fr))',
+          gap: 0,
+          justifyItems: 'center',
+          alignItems: 'center',
+          flex: "0 0 auto",
+          width: 900,
+          backgroundColor: "#fff",
+          borderRadius: 12,
+          padding: 20,
+          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+          scrollSnapAlign: "center",
+          justifyContent: "center",
+          height: 'auto',
+        }}
       >
-        {categories.map((cat) => (
-          <SwiperSlide key={cat.id}>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 1fr))',
-                gap: 0,
-                justifyItems: 'center',
-                alignItems: 'center',
-              }}
-            >
-              {clients[cat.id].map((client) => (
-                <div
-                  key={client.id}
-                  style={{
-                    width: 'auto',
-                    height: '50px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 5,
-                    padding: 5,
-                    backgroundColor: '#fff',
-                  }}
-                >
-                  <img
-                    src={client.logo}
-                    alt={client.name}
-                    style={{ width: 'auto', height: 30, objectFit: 'contain' }}
-                    loading="lazy"
-                  />
-                </div>
-              ))}
-            </div>
-          </SwiperSlide>
+        {clients[categories[activeIndex].id].map((client) => (
+          <div
+            key={client.id}
+            style={{
+              width: 'auto',
+              height: '50px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 5,
+              padding: 5,
+              backgroundColor: '#fff',
+            }}
+          >
+            <img
+              src={client.logo}
+              alt={client.name}
+              style={{ width: 'auto', height: 30, objectFit: 'contain' }}
+              loading="lazy"
+            />
+          </div>
         ))}
-      </Swiper>
+      </div>
     </div>
 
     <section className="max-w-screen-xl" style={{ padding: "20px", backgroundColor: "#fff", textAlign: "center" }}>
@@ -599,8 +646,72 @@ export default function AboutUs() {
           </div>
         </div>
       </div>
-
-      
+    </section>
+    
+    {/* Portfolio */}
+    <section className="portfolio-section" style={{ padding: "40px 20px", background: "#fafafa" }}>
+      <h2 style={{ textAlign: "center", marginBottom: 40, fontWeight: "bold" }}>
+        Portfolio Kami
+      </h2>
+      <div
+        className="portfolio-cards"
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          gap: 20,
+          flexWrap: "wrap",
+        }}
+      >
+        {portfolioData.map(({ title, mainImage, thumbnails }, index) => (
+          <div
+            key={index}
+            className="portfolio-card"
+            style={{
+              width: 320,
+              background: "white",
+              borderRadius: 12,
+              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+              padding: 16,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={mainImage}
+              alt={title}
+              style={{
+                width: "100%",
+                borderRadius: 12,
+                marginBottom: 12,
+                objectFit: "cover",
+                aspectRatio: "1 / 1",
+              }}
+            />
+            <div
+              className="thumbnail-row"
+              style={{ display: "flex", gap: 8, marginBottom: 12 }}
+            >
+              {thumbnails.map((thumb, i) => (
+                <img
+                  key={i}
+                  src={thumb}
+                  alt={`${title} thumbnail ${i + 1}`}
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 8,
+                    objectFit: "cover",
+                    cursor: "pointer",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                  }}
+                />
+              ))}
+            </div>
+            <h3 style={{ fontWeight: "600", fontSize: 16 }}>{title}</h3>
+          </div>
+        ))}
+      </div>
     </section>
 
       {/* Testimonials */}
