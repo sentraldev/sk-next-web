@@ -3,7 +3,8 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 pt-8 mt-8 border-blue-900">
+    // TODO: Add absolute bottom
+    <footer className="bg-gray-100 pt-8 mt-8 border-blue-900 bottom-0 w-full">
       <div className="flex md:flex-row content-width w-full mx-auto px-4">
         {/* Logo and Address */}
         <div className="flex-1 flex-col min-w-[400px] mb-6 md:mb-0">

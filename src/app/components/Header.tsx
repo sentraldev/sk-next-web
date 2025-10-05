@@ -88,7 +88,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="w-full">
+      <header className="w-full bg-white">
         {/* Top Bar */}
         <div className="bg-primary-900 text-xs text-white flex justify-between items-center py-1">
           <div className="w-full content-width flex flex-row mx-auto justify-between items-center">
@@ -118,7 +118,7 @@ export default function Header() {
           </div>
         </div>
         {/* Main Header */}
-        <div className="bg-gray-50 content-width mx-auto flex flex-col md:flex-row md:items-center pt-1 pb-2 gap-2">
+        <div className="content-width mx-auto flex flex-col md:flex-row md:items-center pt-1 pb-2 gap-2">
           <div className="flex items-center gap-2 mr-8 mt-4 hover:cursor-pointer">
             <Image
               src="/logo.png"
@@ -187,27 +187,37 @@ export default function Header() {
           </div>
         </div>
         {/* Navigation */}
-        <div className="w-full bg-gray-200 py-1">
+        <div className="mx-auto border-b pt-2">
           <div className="content-width mx-auto flex flex-row items-center justify-between ">
-            <nav className="border-b border-gray-200 py-1 flex flex-wrap items-center text-sm font-medium gap-4 md:gap-8 lg:gap-12 xl:gap-16">
+            <nav className="border-gray-200 flex flex-wrap items-center text-sm font-medium gap-4 md:gap-8 lg:gap-12 xl:gap-16">
               <Link
                 href="/products"
-                className="hover:text-blue-700 hover:cursor-pointer">
+                className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
                 Produk
               </Link>
-              <Link href="/promos" className="hover:text-blue-700">
+              <Link
+                href="/promos"
+                className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
                 Promo
               </Link>
-              <Link href="/article" className="hover:text-blue-700">
+              <Link
+                href="/article"
+                className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
                 Artikel
               </Link>
-              <Link href="/our-location" className="hover:text-blue-700">
+              <Link
+                href="/our-location"
+                className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
                 Lokasi Kami
               </Link>
-              <Link href="/service-center" className="hover:text-blue-700">
+              <Link
+                href="/service-center"
+                className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
                 Sentral Service
               </Link>
-              <Link href="/about-us" className="hover:text-blue-700">
+              <Link
+                href="/about-us"
+                className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
                 Tentang Kami
               </Link>
             </nav>

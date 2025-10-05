@@ -12,6 +12,44 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import ProductCard from "@/app/components/ProductCard";
 
+type Review = {
+  id: number;
+  name: string;
+  rating: number; // 1 to 5
+  comment: string;
+  date: string;
+};
+
+const reviewsData: Review[] = [
+  {
+    id: 1,
+    name: "John Doe",
+    rating: 5,
+    comment:
+      "Produk sangat bagus dan sesuai harapan. Pelayanan cepat dan pengiriman tepat waktu. Highly recommended!",
+    date: "Feb 28, 2024",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    rating: 4,
+    comment:
+      "Laptop cepat dan ringan, tapi saya berharap baterainya sedikit lebih tahan lama.",
+    date: "Mar 3, 2024",
+  },
+  // Tambah data ulasan lain sesuai kebutuhan
+];
+
+// Hitung rata-rata rating
+const averageRating =
+  reviewsData.reduce((sum, r) => sum + r.rating, 0) / reviewsData.length;
+
+// Hitung distribusi bintang
+const ratingDistribution = [5, 4, 3, 2, 1].map((star) => ({
+  star,
+  count: reviewsData.filter((r) => r.rating === star).length,
+}));
+
 export default function ProductDetail() {
   // Get product id from URL
   const params = useParams();
@@ -22,11 +60,21 @@ export default function ProductDetail() {
   const [totalPrice, setTotalPrice] = useState(
     Number(product?.discount ? product.priceAfterDiscount : product?.price) || 0
   );
+  const [activeTab, setActiveTab] = useState<"description" | "reviews">("description");
+  const [filterRating, setFilterRating] = useState<number | "all">("all");
 
   if (!product) return notFound();
 
   // For gallery, just repeat the same image as in the design
   const gallery = Array(5).fill(product.img);
+
+  // Filter reviews berdasarkan rating
+  const filteredReviews =
+    filterRating === "all"
+      ? reviewsData
+      : reviewsData.filter((r) => r.rating === filterRating);
+
+  console.log("Test Staging");
 
   return (
     <>
@@ -64,7 +112,7 @@ export default function ProductDetail() {
         </div>
 
         {/* Right: Product Info */}
-        <div className="flex-1 max-w-xl">
+        <div className="flex-1">
           <div className="mb-2 text-xs text-gray-500">
             Produk &gt; {product.name}
           </div>
@@ -94,7 +142,7 @@ export default function ProductDetail() {
               </>
             )}
           </div>
-          <div>
+          <div className="border-t border-gray-200 mb-4 pt-2">
             <h2 className="font-bold mb-2 text-base">Detail Produk</h2>
             <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
               <li>Brand: {product.brand}</li>
@@ -104,9 +152,18 @@ export default function ProductDetail() {
               <li>Storage: {product.storage}</li>
             </ul>
           </div>
+
+          {/* Pick up location confirmation */}
+          <div className="border-t border-gray-200 mb-4 pt-2">
+            <p className="text-sm font-light mb-2">
+              Produk tersedia di{" "}
+              <span className="font-bold">Sentral Komputer</span> untuk di pick
+              up secara langsung!
+            </p>
+          </div>
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 max-w-xs">
           <div className="flex flex-col gap-2 mb-4 bg-white shadow-lg p-3 rounded-lg">
             <h3 className="text-sm font-bold  mb-2">
               Jumlah yang ingin dibeli
@@ -226,13 +283,160 @@ export default function ProductDetail() {
       </div>
 
       {/* Description */}
-      <div className="mx-auto content-width max-w-3xl mb-16">
+      {/* <div className="mx-auto content-width max-w-3xl mb-16">
         <h2 className="text-md font-bold mb-4 border-b-2 pb-4">
           Deskripsi Produk
         </h2>
 
         <p className="text-sm text-gray-600">{product.description}</p>
+      </div> */}
+
+      <div className="max-w-screen-lg mx-auto content-width px-4 py-6">
+      {/* Tab Buttons */}
+      <div className="flex border-b border-gray-300 mb-4 text-sm font-medium">
+        <button
+          onClick={() => setActiveTab("description")}
+          className={`py-2 px-6 -mb-px border-b-4 ${
+            activeTab === "description"
+              ? "border-blue-600 font-semibold text-blue-600"
+              : "border-transparent text-gray-700 hover:text-blue-600"
+          }`}
+          aria-selected={activeTab === "description"}
+        >
+          Deskripsi Produk
+        </button>
+        <button
+          onClick={() => setActiveTab("reviews")}
+          className={`py-2 px-6 -mb-px border-b-4 ${
+            activeTab === "reviews"
+              ? "border-blue-600 font-semibold text-blue-600"
+              : "border-transparent text-gray-700 hover:text-blue-600"
+          }`}
+          aria-selected={activeTab === "reviews"}
+        >
+          Ulasan
+        </button>
       </div>
+
+      {/* Tab Content */}
+      {activeTab === "description" && (
+        <div className="text-gray-800 text-sm leading-relaxed">
+          <p className="text-sm text-gray-600">{product.description}</p>
+        </div>
+      )}
+
+      {activeTab === "reviews" && (
+  <div className="flex gap-8 text-gray-700 md:flex-row flex-col">
+  {/* Card rata-rata rating dan histogram dengan fixed height dan scroll jika overflow */}
+  <div className="w-full md:w-1/4 border rounded-lg p-5 shadow-lg bg-white max-h-[250px]">
+    <div className="flex items-center space-x-2 mb-3">
+      <div className="text-3xl font-bold text-yellow-500 leading-none">
+        {averageRating.toFixed(1)}
+      </div>
+      <div className="mt-1 text-gray-500 text-sm select-none">/5</div>
+    </div>
+    <div className="text-xs text-gray-600 mb-6">
+      {reviewsData.length} rating • {reviewsData.length} ulasan
+    </div>
+    <div>
+      {ratingDistribution.map(({ star, count }) => {
+        const percent = reviewsData.length ? (count / reviewsData.length) * 100 : 0;
+        return (
+          <div
+            key={star}
+            className="flex items-center space-x-2 mb-2 text-xs select-none"
+          >
+            <div className="w-8 text-right text-yellow-500 font-semibold">
+              {star} <span>★</span>
+            </div>
+            <div className="flex-1 h-3 bg-gray-200 rounded overflow-hidden">
+              <div
+                className="h-3 bg-yellow-400 rounded"
+                style={{ width: `${percent}%` }}
+              />
+            </div>
+            <div className="w-8 text-right tabular-nums">{count}</div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+          {/* Daftar ulasan */}
+          <div className="flex-1 space-y-6">
+            {/* Filter Rating */}
+            <h2 className="text-lg font-bold">ULASAN PEMBELI</h2>
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  className={`text-sm font-semibold px-3 py-1 rounded-full ${
+                    filterRating === "all"
+                      ? "bg-blue-600 text-white"
+                      : "border border-gray-300"
+                  }`}
+                  onClick={() => setFilterRating("all")}>
+                  Semua Ulasan
+                </button>
+                {[5, 4, 3, 2, 1].map((star) => (
+                  <button
+                    key={star}
+                    className={`flex items-center gap-1 text-sm font-semibold px-3 py-1 rounded-full ${
+                      filterRating === star
+                        ? "bg-blue-600 text-white"
+                        : "border border-gray-300"
+                    }`}
+                    onClick={() => setFilterRating(star)}>
+                    <svg
+                      className="text-yellow-400 w-4 h-4"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      aria-hidden="true">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.39 2.462a1 1 0 00-.364 1.118l1.287 3.966c.3.92-.755 1.688-1.54 1.118l-3.39-2.461a1 1 0 00-1.176 0l-3.39 2.46c-.784.57-1.838-.197-1.539-1.117l1.287-3.967a1 1 0 00-.364-1.118L2.03 9.393c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z" />
+                    </svg>
+                    <span>{star}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="space-y-6">
+                {filteredReviews.length === 0 && (
+                  <p className="text-gray-500 text-sm">Tidak ada ulasan untuk rating ini.</p>
+                )}
+                {filteredReviews.map(({ id, name, rating, date, comment }) => (
+                  <div key={id} className="border-b border-gray-300 pb-4">
+                    <div className="flex items-center gap-3 mb-1">
+                      {/* Icon user bisa pakai placeholder lingkaran */}
+                      <div className="w-10 h-10 rounded-full bg-gray-300" />
+                      <div>
+                        <div className="text-sm font-semibold text-gray-900">
+                          {name}
+                        </div>
+                        <div className="text-xs text-gray-500">{date}</div>
+                        <div className="flex mt-1 text-yellow-400 text-sm">
+                          {[...Array(5)].map((_, i) => (
+                            <span key={i}>
+                              {i < rating ? "★" : "☆"}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-xs text-gray-700 leading-relaxed whitespace-pre-wrap">
+                      {comment}
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            {/* Tombol Selanjutnya bisa ditambahkan jika ingin paginasi */}
+            <div className="flex justify-end">
+              <button className="text-gray-400 text-sm font-semibold hover:underline mt-3">
+                Selanjutnya &gt;
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+    </div>
 
       {/* Other product recommendations */}
       <div className="content-width mx-auto mb-16">
