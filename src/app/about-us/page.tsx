@@ -5,6 +5,10 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules"; // import modul fitur
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
@@ -154,7 +158,7 @@ type CategoryId = 'pengadaan' | 'perusahaan' | 'organisasi';
 const categories: { id: CategoryId; label: string }[] = [
   { id: 'pengadaan', label: 'Pengadaan' },
   { id: 'perusahaan', label: 'Perusahaan' },
-  { id: 'organisasi', label: 'Organisasi & S...' },
+  { id: 'organisasi', label: 'Organisasi' },
 ];
 
 // Data klien sesuai kategori, dengan tipe Record untuk key yang ketat
@@ -226,29 +230,29 @@ const partners = [
 const portfolioData = [
   {
     title: "Pameran",
-    mainImage: "/images/portfolio/pameran-main.jpg",
+    mainImage: "../../temp/portofolio/event/porto-1.jpg",
     thumbnails: [
-      "/images/portfolio/pameran-1.jpg",
-      "/images/portfolio/pameran-2.jpg",
-      "/images/portfolio/pameran-3.jpg",
+      "../../temp/portofolio/event/porto-12.jpg",
+      "../../temp/portofolio/event/porto-13.jpg",
+      "../../temp/portofolio/event/porto-14.jpg",
     ],
   },
   {
     title: "Edukasi Kampus",
-    mainImage: "/images/portfolio/edukasi-main.jpg",
+    mainImage: "../../temp/portofolio/event/porto-2.jpg",
     thumbnails: [
-      "/images/portfolio/edukasi-1.jpg",
-      "/images/portfolio/edukasi-2.jpg",
-      "/images/portfolio/edukasi-3.jpg",
+      "../../temp/portofolio/event/porto-21.jpg",
+      "../../temp/portofolio/event/porto-22.jpg",
+      "../../temp/portofolio/event/porto-23.jpg",
     ],
   },
   {
     title: "Dealer Gathering & Training",
-    mainImage: "/images/portfolio/dealer-main.jpg",
+    mainImage: "../../temp/portofolio/event/porto-3.jpg",
     thumbnails: [
-      "/images/portfolio/dealer-1.jpg",
-      "/images/portfolio/dealer-2.jpg",
-      "/images/portfolio/dealer-3.jpg",
+      "../../temp/portofolio/event/porto-31.jpg",
+      "../../temp/portofolio/event/porto-32.jpg",
+      "../../temp/portofolio/event/porto-33.jpg",
     ],
   },
 ];
@@ -523,80 +527,70 @@ export default function AboutUs() {
     </section>
 
     {/* Partners Logos */}
-    <div className="max-w-screen-xl" style={{ margin: "auto", padding: 20 }}>
-      {/* Tabs */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: 10,
-          marginBottom: 30,
-          overflowX: "auto",
-          paddingBottom: 8,
-          borderBottom: "1px solid #ddd",
-        }}
-      >
-        {categories.map((cat, index) => (
-          <button
-            key={cat.id}
-            onClick={() => onTabClick(index)}
-            style={{
-              padding: "10px 20px",
-              cursor: "pointer",
-              borderBottom: activeIndex === index ? "3px solid #f44336" : "3px solid transparent",
-              background: "none",
-              fontWeight: activeIndex === index ? "bold" : "normal",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {cat.label}
-          </button>
-        ))}
-      </div>
+    <div className="max-w-screen-lg mx-auto px-5 py-10 relative overflow-visible">
+      <p className="text-md text-center">Portofolio Klien</p>
+      <h2 className="text-center font-extrabold text-2xl md:text-3xl mb-8 text-zinc-900">
+        Pelanggan Setia Kami
+      </h2>
 
-      {/* Carousel Cards */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(60px, 1fr))',
-          gap: 0,
-          justifyItems: 'center',
-          alignItems: 'center',
-          flex: "0 0 auto",
-          width: 900,
-          backgroundColor: "#fff",
-          borderRadius: 12,
-          padding: 20,
-          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-          scrollSnapAlign: "center",
-          justifyContent: "center",
-          height: 'auto',
-        }}
+      {/* Carousel by Category */}
+      {/* pastikan sudah import Slider & CSS slick di file ini */}
+      <Slider
+        dots={false}
+        infinite
+        speed={450}
+        slidesToShow={1}         
+        slidesToScroll={1}
+        autoplay
+        autoplaySpeed={2600}
+        arrows
+        responsive={[
+          { breakpoint: 1280, settings: { slidesToShow: 2 } },
+          { breakpoint: 768,  settings: { slidesToShow: 1 } },
+        ]}
+        centerMode={true}
+        centerPadding="120px"
       >
-        {clients[categories[activeIndex].id].map((client) => (
-          <div
-            key={client.id}
-            style={{
-              width: 'auto',
-              height: '50px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 5,
-              padding: 5,
-              backgroundColor: '#fff',
-            }}
-          >
-            <img
-              src={client.logo}
-              alt={client.name}
-              style={{ width: 'auto', height: 30, objectFit: 'contain' }}
-              loading="lazy"
-            />
+        {categories.map((cat) => (
+          <div key={cat.id} className="px-2">
+            <div className="bg-white rounded-xl shadow-sm border border-zinc-100 p-5 flex flex-col h-[600px]">
+              <h3 className="text-center font-bold text-zinc-900 mb-4">
+                {cat.label}
+              </h3>
+
+              {/* Grid logo di dalam kartu (bukan carousel) */}
+              <div
+                className="grid justify-items-center items-center"
+                style={{
+                  gridTemplateColumns: "repeat(auto-fit, minmax(80px, 1fr))",
+                  gap: 2,
+                }}
+              >
+                {clients[cat.id].map((client: any) => (
+                  <div
+                    key={client.id}
+                    className="flex items-center justify-center h-[60px] px-2"
+                  >
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      loading="lazy"
+                      style={{
+                        maxHeight: 40,
+                        maxWidth: "100%",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         ))}
-      </div>
+      </Slider>
     </div>
+
+
 
     <section className="max-w-screen-xl" style={{ padding: "20px", backgroundColor: "#fff", textAlign: "center" }}>
 
@@ -649,16 +643,17 @@ export default function AboutUs() {
     </section>
     
     {/* Portfolio */}
-    <section className="portfolio-section" style={{ padding: "40px 20px", background: "#fafafa" }}>
-      <h2 style={{ textAlign: "center", marginBottom: 40, fontWeight: "bold" }}>
-        Portfolio Kami
+    <section className="max-w-screen-x">
+      <p className="text-md text-center">Portofolio Klien</p>
+      <h2 className="text-center font-extrabold text-2xl md:text-3xl mb-8 text-zinc-900">
+        Portofolio Event
       </h2>
       <div
         className="portfolio-cards"
         style={{
           display: "flex",
           justifyContent: "space-around",
-          gap: 20,
+          gap: 10,
           flexWrap: "wrap",
         }}
       >
@@ -667,7 +662,7 @@ export default function AboutUs() {
             key={index}
             className="portfolio-card"
             style={{
-              width: 320,
+              width: 340,
               background: "white",
               borderRadius: 12,
               boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
@@ -689,8 +684,13 @@ export default function AboutUs() {
               }}
             />
             <div
-              className="thumbnail-row"
-              style={{ display: "flex", gap: 8, marginBottom: 12 }}
+            className="grid w-full"
+              style={{
+                gridTemplateColumns: `repeat(${thumbnails.length}, 1fr)`, // otomatis menyesuaikan jumlah thumbnail
+                gap: 10,
+                marginBottom: 12,
+                width: "100%", // ✅ agar full container (340px)
+              }}
             >
               {thumbnails.map((thumb, i) => (
                 <img
@@ -698,8 +698,8 @@ export default function AboutUs() {
                   src={thumb}
                   alt={`${title} thumbnail ${i + 1}`}
                   style={{
-                    width: 80,
-                    height: 80,
+                    width: 95,
+                    height: 95,
                     borderRadius: 8,
                     objectFit: "cover",
                     cursor: "pointer",
@@ -708,7 +708,7 @@ export default function AboutUs() {
                 />
               ))}
             </div>
-            <h3 style={{ fontWeight: "600", fontSize: 16 }}>{title}</h3>
+            <h3 className="font-bold">{title}</h3>
           </div>
         ))}
       </div>
