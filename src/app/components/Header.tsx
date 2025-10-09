@@ -201,11 +201,6 @@ export default function Header() {
                 Promo
               </Link>
               <Link
-                href="/article"
-                className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
-                Artikel
-              </Link>
-              <Link
                 href="/our-location"
                 className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
                 Lokasi Kami
