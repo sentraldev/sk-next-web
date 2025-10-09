@@ -4,8 +4,6 @@ import Image from "next/image";
 // import NewArrivals from "./components/NewArrivals";
 // import Articles from "./components/Articles";
 // import WhatsAppButton from "./components/WhatsAppButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCode } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
