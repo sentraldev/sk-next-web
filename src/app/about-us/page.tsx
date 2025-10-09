@@ -33,6 +33,14 @@ interface Props {
   clients: Record<string, Client[]>;
 }
 
+type Testimonial = {
+  name: string;
+  subtitle: string;
+  rating: number; // 0-5
+  text: string;
+  avatarUrl?: string;
+};
+
 
 const coreValues = [
   {
@@ -257,6 +265,74 @@ const portfolioData = [
   },
 ];
 
+const testimonials: Testimonial[] = [
+  {
+    name: "Mochammad Asep Nazmudin",
+    subtitle: "Sentral Komputer Bogor",
+    rating: 5,
+    text:
+      "Bought Lenovo Legion in 2022, after 2.5 years it had an issue. Brought it for official warranty, staff were friendly, process fast, everything explained clearly. Laptop repaired hassle free, top service.",
+    avatarUrl: "../../temp/testi/asep.jpg",
+  },
+  {
+    name: "Poetri Monalia",
+    subtitle: "Sentral Komputer Citos",
+    rating: 5,
+    text:
+      "We came to find a basic laptop for the kids, staff offered 5–6 options with specs. Technician also helped install Microsoft Office included in the bundle. Helpful and informative service.",
+    avatarUrl: "../../temp/testi/poetri.jpg",
+  },
+  {
+    name: "Galih Satriya Praptama",
+    subtitle: "Sentral Service",
+    rating: 5,
+    text:
+      "Servis jujur, menyampaikan kondisi apa adanya, ngasih opsi dulu untuk solusi perbaikan. Sukses selalu, terima kasih!",
+    // tanpa avatar -> otomatis pakai inisial
+  },
+  {
+    name: "Adhitya Priady",
+    subtitle: "Adhitya Priady",
+    rating: 5,
+    text:
+      "Pelayanannya TOP. Dari dibongkar, dijelaskan masalah + solusi, lalu dirakit rapi lagi. Excellent service.",
+    avatarUrl: "../../temp/testi/adhitya.jpg",
+  },
+];
+
+function Stars({ count }: { count: number }) {
+  return (
+    <div className="flex items-center gap-1" aria-label={`${count} dari 5 bintang`}>
+      {[...Array(5)].map((_, i) => (
+        <svg
+          key={i}
+          viewBox="0 0 20 20"
+          className={`h-5 w-5 ${i < count ? "fill-amber-400" : "fill-zinc-300"}`}
+          aria-hidden="true"
+        >
+          <path d="M10 1.5l2.59 5.25 5.8.84-4.2 4.09.99 5.77L10 14.97l-5.18 2.48.99-5.77-4.2-4.09 5.8-.84L10 1.5z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+function Avatar({ name, url }: { name: string; url?: string }) {
+  const initial = name?.trim()?.charAt(0)?.toUpperCase() || "U";
+  return (
+    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-zinc-200 ring-2 ring-white">
+      {url ? (
+        // pakai <img> biar konsisten dengan file lain
+        <img src={url} alt={name} className="h-full w-full object-cover" />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-zinc-700">
+          {initial}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AboutUs() {
   const [activeTab, setActiveTab] = useState("b2b");
   const [activeIndex, setActiveIndex] = useState(0);
@@ -272,96 +348,105 @@ export default function AboutUs() {
   return (
     <>
       <Header />
-      <div className="max-w-screen-xl mx-auto px-6 py-12 space-y-16 font-sans text-gray-800">
-      
-      {/* Header Image */}
-      <div>
-        <img
-          src="../../temp/about-us1.png"
-          alt="Opening Event"
-          className="w-full rounded-lg shadow-lg"
-        />
-      </div>
-
-      {/* Company History Group Photo */}
-      <div className="text-center max-w-4xl mx-auto">
-        <p className="text-gray-800 font-semibold">
-          Sejarah Sentral Komputer
-        </p>
-        <h1 className="text-4xl font-bold mt-2">
-          Bermula Pada Tahun 1991
-        </h1>
-        <p className="mt-2 text-gray-600">
-          Kami berawal dari sebuah toko komputer dengan nama Sentral Komputer, dan seiring berjalannya waktu, <br /> berkembang dan disahkan menjadi PT Sentral Tekno Selaras pada tahun 2009.
-        </p>
-      </div>
-
-      {/* 1991 Historical Image */}
-      <div className="max-w-screen-xl mx-auto my-12">
-        <img
-          src="../../temp/about-us2.png"
-          alt="Company History 1991"
-          className="rounded-lg shadow-md"
-        />
-      </div>
-
-      <div className="flex flex-wrap items-center justify-between ">
-        {/* Bagian kanan */}
-        <div className="relative w-full md:w-2/5">
-          {/* Bisa diisi gambar atau ilustrasi jika ada, misal: */}
+      <div className="content-width mx-auto px-6 py-12 space-y-16 font-sans text-gray-800">
+        
+        {/* Header Image */}
+        <div>
           <img
-            src="../../temp/about-us3.png" // ganti sesuai gambar
-            alt="Ilustrasi Pelayanan"
-            className="rounded-lg shadow-lg w-full h-auto object-cover"
+            src="../../temp/about-us1.png"
+            alt="Opening Event"
+            className="w-full rounded-lg shadow-lg"
           />
-          {/* Overlay teks tengah */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <h2 className="text-white text-4xl md:text-6xl font-bold drop-shadow-md">
-              1991
-            </h2>
-          </div>
         </div>
 
-        {/* Bagian kiri */}
-        <div className="w-full md:w-3/5 p-8">
-          <h2 className="text-3xl font-bold mb-4">Kami Telah Melayani Ribuan <br />Konsumen, Organisasi & Korporasi</h2>
-          <p className="text-lg text-gray-700 leading-relaxed">
-            Untuk mendapatkan kebutuhan IT  resmi dan berkualitas   melalui program distribusi, retail store, online/e-commerce, proyek, pengadaan korporasi, dan lain sebagainya.
+        {/* Company History Group Photo */}
+        <div className="text-center mx-auto">
+          <p className="text-gray-800 font-semibold">
+            Sejarah Sentral Komputer
+          </p>
+          <h1 className="text-4xl font-bold mt-2">
+            Bermula Pada Tahun 1991
+          </h1>
+          <p className="mt-2 text-gray-600">
+            Kami berawal dari sebuah toko komputer dengan nama Sentral Komputer, dan seiring berjalannya waktu, <br /> berkembang dan disahkan menjadi PT Sentral Tekno Selaras pada tahun 2009.
           </p>
         </div>
 
-      
-    </div>
-
-      {/* Core Values */}
-      <section className="">
-        <p className="text-center text-md">Core Values Kami</p>
-        <h2 className="text-center text-3xl font-bold">Inilah Nilai yang Menuntun Langkah Kami</h2>
-        
-        <div className="max-w-screen-xl mx-auto py-5 grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {coreValues.map((value) => (
-            <div
-          key={value.title}
-          className="relative rounded-lg overflow-hidden shadow-md"
-        >
+        {/* 1991 Historical Image */}
+        <div className="mx-auto flex justify-center">
           <img
-            src={value.imageUrl}
-            alt={value.title}
-            className="w-full h-64 object-cover"
+            src="../../temp/about-us2.png"
+            alt="Company History 1991"
+            className="rounded-lg shadow-md h-[500px]"
           />
-          {/* Gradient overlay di bawah teks */}
-          <div
-            className="absolute bottom-0 left-0 right-0 px-3 py-6 text-white text-lg font-semibold text-center"
-            style={{
-              background:
-                "linear-gradient(180deg, transparent, rgba(9, 37, 102, 0.85))",
-              backgroundSize: "150% 100%",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-            {value.title}
+        </div>
+
+
+        <div className="flex flex-wrap items-center justify-between ">
+          {/* Bagian kanan */}
+          <div className="relative w-full md:w-2/5">
+            {/* Bisa diisi gambar atau ilustrasi jika ada, misal: */}
+            <img
+              src="../../temp/about-us3.png" // ganti sesuai gambar
+              alt="Ilustrasi Pelayanan"
+              className="rounded-lg shadow-lg w-full h-auto object-cover"
+            />
+            {/* Overlay teks tengah */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h2 className="text-white text-4xl md:text-6xl font-bold drop-shadow-md">
+                1991
+              </h2>
+            </div>
           </div>
+
+          {/* Bagian kiri */}
+          <div className="w-full md:w-3/5 p-8">
+            <h2 className="text-3xl font-bold mb-4">Kami Telah Melayani Ribuan <br />Konsumen, Organisasi & Korporasi</h2>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Untuk mendapatkan kebutuhan IT  resmi dan berkualitas   melalui program distribusi, retail store, online/e-commerce, proyek, pengadaan korporasi, dan lain sebagainya.
+            </p>
           </div>
+      </div>
+
+      {/* ================= CORE VALUES ================= */}
+      <section className="mx-auto space-y-10 text-gray-800 font-sans">
+        <div className="text-center">
+          <p className="text-xl">Core Values Kami</p>
+          <h2 className="text-3xl font-bold mt-1">
+            Inilah Nilai yang Menuntun Langkah Kami
+          </h2>
+        </div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {[
+            {
+              title: "Growth Mindset",
+              imageUrl: "../../temp/core1.jpg",
+            },
+            {
+              title: "Customer First",
+              imageUrl: "../../temp/core2.jpg",
+            },
+            {
+              title: "Integrity",
+              imageUrl: "../../temp/core3.jpg",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="relative overflow-hidden rounded-xl shadow-md group hover:shadow-lg transition-all duration-300"
+            >
+              <img
+                src={item.imageUrl}
+                alt={item.title}
+                className="h-[500px] w-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              {/* Overlay teks di bawah */}
+              <div className="absolute bottom-0 left-0 right-0 px-4 py-6 text-white text-lg font-semibold text-center bg-gradient-to-t from-[#092566]/90 via-[#092566]/40 to-transparent">
+                {item.title}
+              </div>
+            </div>
           ))}
         </div>
       </section>
@@ -388,7 +473,7 @@ export default function AboutUs() {
       </div>
 
       {/* Mission */}
-      <section className="max-w-screen-xl mx-auto">
+      <section className="mx-auto">
         <h2 className="text-3xl font-bold text-center mb-8">Misi</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {missions.map((mission, idx) => (
@@ -396,7 +481,7 @@ export default function AboutUs() {
             key={idx}
             className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col"
           >
-            <div className="h-48 md:h-56 lg:h-64 overflow-hidden">
+            <div className="h-full md:h-56 lg:h-[350px] overflow-hidden">
               <img
                 src={mission.image}
                 alt={`Mission ${idx + 1}`}
@@ -412,7 +497,7 @@ export default function AboutUs() {
     </section>
 
     {/* Penyebaran Lokasi Kami */}
-    <section className="max-w-screen-xl mx-auto text-center space-y-6">
+    <section className="mx-auto text-center space-y-6">
       <h2 className="text-3xl font-bold">Penyebaran Lokasi Kami</h2>
       <div
       className="relative w-full sm:h-80 md:h-96 flex items-center justify-center text-center px-4"
@@ -435,7 +520,7 @@ export default function AboutUs() {
     
 
       {/* Business Area */}
-      <section className="max-w-7xl mx-auto px-6 py-10 bg-gray-50">
+      <section className="mx-auto px-6 py-10 bg-gray-50">
       <h2 className="text-3xl font-bold mb-4 text-center">Tentang Bisnis Kami</h2>
 
       {/* Tabs */}
@@ -527,7 +612,7 @@ export default function AboutUs() {
     </section>
 
     {/* Partners Logos */}
-    <div className="max-w-screen-lg mx-auto px-5 py-10 relative overflow-visible">
+    <div className="mx-auto px-5 py-10 relative overflow-visible">
       <p className="text-md text-center">Portofolio Klien</p>
       <h2 className="text-center font-extrabold text-2xl md:text-3xl mb-8 text-zinc-900">
         Pelanggan Setia Kami
@@ -592,7 +677,7 @@ export default function AboutUs() {
 
 
 
-    <section className="max-w-screen-xl" style={{ padding: "20px", backgroundColor: "#fff", textAlign: "center" }}>
+    <section className="content-width mx-auto" style={{ padding: "20px", backgroundColor: "#fff", textAlign: "center" }}>
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 40, flexWrap: "wrap" }}>
         {/* Foto dua orang */}
@@ -643,7 +728,7 @@ export default function AboutUs() {
     </section>
     
     {/* Portfolio */}
-    <section className="max-w-screen-x">
+    <section className="content-width mx-auto">
       <p className="text-md text-center">Portofolio Klien</p>
       <h2 className="text-center font-extrabold text-2xl md:text-3xl mb-8 text-zinc-900">
         Portofolio Event
@@ -715,18 +800,42 @@ export default function AboutUs() {
     </section>
 
       {/* Testimonials */}
-      <section className="max-w-4xl mx-auto space-y-8 text-center">
-        <h2 className="text-3xl font-bold">Apa Kata Mereka Tentang Kami</h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="bg-white border rounded-lg p-6 shadow">
-              <p className="mb-4">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."</p>
-              <p className="font-semibold">Customer Name {i}</p>
-              <div className="text-yellow-400">★★★★★</div>
-            </div>
-          ))}
+      <section className="relative mx-auto px-6 py-12">
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-bold text-zinc-900">
+            Apa Kata Mereka Tentang Kami
+          </h2>
+        </div>
+
+        {/* fade kiri/kanan biar mirip desain */}
+        <div className="relative">
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white to-transparent" />
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent" />
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {testimonials.map((t, idx) => (
+              <article
+                className="rounded-2xl border border-zinc-100 h-[233px] bg-white p-6 shadow-sm ring-1 ring-black/5 hover:shadow-md flex flex-col"
+              >
+                <div className="mb-3 flex items-center gap-3">
+                  <Avatar name={t.name} url={t.avatarUrl} />
+                  <div>
+                    <h3 className="text-sm font-semibold text-zinc-900">{t.name}</h3>
+                    <p className="text-xs text-zinc-500">{t.subtitle}</p>
+                  </div>
+                </div>
+
+                <Stars count={t.rating} />
+
+                <p className="mt-3 text-sm leading-6 text-zinc-600 line-clamp-4 break-words">
+                  {t.text}
+                </p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
+
 
       {/* Contact Form */}
       <section className="max-w-4xl mx-auto p-6 border rounded-md shadow-md">
