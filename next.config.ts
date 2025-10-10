@@ -13,7 +13,6 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "portal.sentralkomputer.com",
-        port: "8000",
         pathname: "/**",
       },
     ],
