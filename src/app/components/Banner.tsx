@@ -1,35 +1,43 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Carousel } from "antd";
 import Image from "next/image";
+import { fetchData } from "@/utils/api";
+import type { Banner as BannerType } from "@/models/banner";
 
-const slides = [
-  {
-    image: "/temp/banner.jpg",
-    title: "CALLING ALL STUDENTS!",
-    subtitle: "Claim Your 10% OFF Discount! Laptops, Desktops & More",
-    note: "Student Discount - Register Now!",
-  },
-  {
-    image: "/temp/banner2.jpg",
-    title: "BACK TO SCHOOL DEALS!",
-    subtitle: "Save big on tech essentials for students.",
-    note: "Limited time offer!",
-  },
-  {
-    image: "/temp/banner3.jpg",
-    title: "EXCLUSIVE STUDENT PRICING!",
-    subtitle: "Desktops, laptops, and accessories at 10% OFF.",
-    note: "Sign up to unlock your discount.",
-  },
+const fallbackSlides: BannerType[] = [
+  { id: 1, title: "", image: "/temp/banner.jpg" },
+  { id: 2, title: "", image: "/temp/banner2.jpg" },
+  { id: 3, title: "", image: "/temp/banner3.jpg" },
 ];
 
 export default function Banner() {
+  const [slides, setSlides] = useState<BannerType[]>(fallbackSlides);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const res = await fetchData<BannerType[]>("/api/v1/banners", "GET");
+        if (mounted && Array.isArray(res.data) && res.data.length > 0) {
+          setSlides(res.data);
+        }
+      } catch (e) {
+        // keep fallback slides on error
+        console.warn("Failed to load banners, using fallback.", e);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <div className="content-width mx-auto relative py-4">
-      {/* <section
-        className="relative w-full overflow-hidden flex justify-center items-center"
-        style={{ minHeight: 320 }}> */}
       <Carousel
         autoplay
         lazyLoad="progressive"
@@ -39,15 +47,15 @@ export default function Banner() {
         dotPosition="bottom"
         arrows={true}
         className="w-full h-[560px]">
-        {slides.map((slide, index) => (
-          <div key={index} className="w-full h-[560px] relative">
+        {slides.map((slide) => (
+          <div key={slide.id} className="w-full h-[560px] relative">
             <Image
               src={slide.image}
-              alt="Banner"
+              alt={slide.title || "Banner"}
               width={1200}
               height={560}
               className="object-cover w-full h-[560px] rounded-xl"
-              priority
+              priority={!loading}
             />
           </div>
         ))}

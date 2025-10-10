@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
 
   // Allow specific paths and assets to pass through
   const allowedPrefixes = [
-    "/be-right-back",
+    // "/be-right-back",
     "/_next", // Next.js internal assets (build output)
     "/api", // API routes (keep if you still need API access)
   ];
@@ -29,15 +29,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Already on maintenance page: allow
-  if (pathname === "/be-right-back") {
-    return NextResponse.next();
-  }
+  // // Already on maintenance page: allow
+  // if (pathname === "/be-right-back") {
+  //   return NextResponse.next();
+  // }
 
-  // Redirect everything else to the maintenance page
-  const url = request.nextUrl.clone();
-  url.pathname = "/be-right-back";
-  return NextResponse.redirect(url);
+  // // Redirect everything else to the maintenance page
+  // const url = request.nextUrl.clone();
+  // url.pathname = "/be-right-back";
+  // return NextResponse.redirect(url);
 }
 
 export const config = {
