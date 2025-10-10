@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
         hostname: "portal.sentralkomputer.com",
         pathname: "/**",
       },
+
+      {
+        protocol: "https",
+        hostname: "https://sk-next-web-staging.vercel.app/",
+        pathname: "/**",
+      },
     ],
   },
 };
