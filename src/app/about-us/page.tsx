@@ -272,7 +272,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     text:
       "Bought Lenovo Legion in 2022, after 2.5 years it had an issue. Brought it for official warranty, staff were friendly, process fast, everything explained clearly. Laptop repaired hassle free, top service.",
-    avatarUrl: "../../temp/testi/asep.jpg",
+    avatarUrl: "../../temp/asep.png",
   },
   {
     name: "Poetri Monalia",
@@ -280,7 +280,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     text:
       "We came to find a basic laptop for the kids, staff offered 5–6 options with specs. Technician also helped install Microsoft Office included in the bundle. Helpful and informative service.",
-    avatarUrl: "../../temp/testi/poetri.jpg",
+    avatarUrl: "../../temp/poetri.png",
   },
   {
     name: "Galih Satriya Praptama",
@@ -296,7 +296,7 @@ const testimonials: Testimonial[] = [
     rating: 5,
     text:
       "Pelayanannya TOP. Dari dibongkar, dijelaskan masalah + solusi, lalu dirakit rapi lagi. Excellent service.",
-    avatarUrl: "../../temp/testi/adhitya.jpg",
+    avatarUrl: "../../temp/adhitya.png",
   },
 ];
 
@@ -348,7 +348,7 @@ export default function AboutUs() {
   return (
     <>
       <Header />
-      <div className="content-width mx-auto px-6 py-12 space-y-16 font-sans text-gray-800">
+      <div className="content-width mx-auto px-6 py-12 space-y-12 font-sans text-gray-800">
         
         {/* Header Image */}
         <div>
@@ -361,13 +361,13 @@ export default function AboutUs() {
 
         {/* Company History Group Photo */}
         <div className="text-center mx-auto">
-          <p className="text-gray-800 font-semibold">
+          <p className="font-medium text-xl">
             Sejarah Sentral Komputer
           </p>
-          <h1 className="text-4xl font-bold mt-2">
+          <h1 className="text-5xl font-extrabold mt-2">
             Bermula Pada Tahun 1991
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 font-medium text-sm leading-[20px]">
             Kami berawal dari sebuah toko komputer dengan nama Sentral Komputer, dan seiring berjalannya waktu, <br /> berkembang dan disahkan menjadi PT Sentral Tekno Selaras pada tahun 2009.
           </p>
         </div>
@@ -401,8 +401,8 @@ export default function AboutUs() {
 
           {/* Bagian kiri */}
           <div className="w-full md:w-3/5 p-8">
-            <h2 className="text-3xl font-bold mb-4">Kami Telah Melayani Ribuan <br />Konsumen, Organisasi & Korporasi</h2>
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <h2 className="text-[32px] font-extrabold mb-4 leading-[35px]">Kami Telah Melayani Ribuan <br />Konsumen, Organisasi & Korporasi</h2>
+            <p className="text-sm font-medium leading-relaxed">
               Untuk mendapatkan kebutuhan IT  resmi dan berkualitas   melalui program distribusi, retail store, online/e-commerce, proyek, pengadaan korporasi, dan lain sebagainya.
             </p>
           </div>
@@ -411,8 +411,8 @@ export default function AboutUs() {
       {/* ================= CORE VALUES ================= */}
       <section className="mx-auto space-y-10 text-gray-800 font-sans">
         <div className="text-center">
-          <p className="text-xl">Core Values Kami</p>
-          <h2 className="text-3xl font-bold mt-1">
+          <p className="text-xl font-medium">Core Values Kami</p>
+          <h2 className="text-[40px] font-extrabold">
             Inilah Nilai yang Menuntun Langkah Kami
           </h2>
         </div>
@@ -443,7 +443,7 @@ export default function AboutUs() {
                 className="h-[500px] w-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               {/* Overlay teks di bawah */}
-              <div className="absolute bottom-0 left-0 right-0 px-4 py-6 text-white text-lg font-semibold text-center bg-gradient-to-t from-[#092566]/90 via-[#092566]/40 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 px-4 py-6 text-white text-2xl font-extrabold text-center bg-gradient-to-t from-[#092566]/90 via-[#092566]/40 to-transparent">
                 {item.title}
               </div>
             </div>
@@ -464,9 +464,9 @@ export default function AboutUs() {
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
         {/* Konten teks di atas overlay */}
-        <div className="relative z-10 text-white max-w-3xl">
-          <h2 className="text-3xl font-bold mb-2">Visi</h2>
-          <p className="text-md sm:text-lg">
+        <div className="relative z-10 text-white w-full">
+          <h2 className="text-[40px] font-extrabold mb-2">Visi</h2>
+          <p className="text-base sm:text-lg">
             Menjadi perusahaan profesional yang bergerak dibidang distribusi dan retail produk IT (Teknologi Informatika) No. 1 di Indonesia.
           </p>
         </div>
@@ -474,7 +474,7 @@ export default function AboutUs() {
 
       {/* Mission */}
       <section className="mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-8">Misi</h2>
+        <h2 className="text-[40px] font-extrabold text-center mb-8">Misi</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {missions.map((mission, idx) => (
           <div
@@ -488,7 +488,7 @@ export default function AboutUs() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="p-4 text-gray-800 text-center text-sm flex-grow">
+            <div className="p-4 text-gray-800 text-center text-base font-medium flex-grow">
               {mission.text}
             </div>
           </div>
@@ -498,7 +498,7 @@ export default function AboutUs() {
 
     {/* Penyebaran Lokasi Kami */}
     <section className="mx-auto text-center space-y-6">
-      <h2 className="text-3xl font-bold">Penyebaran Lokasi Kami</h2>
+      <h2 className="text-[40px] font-extrabold">Penyebaran Lokasi Kami</h2>
       <div
       className="relative w-full sm:h-80 md:h-96 flex items-center justify-center text-center px-4"
       style={{
@@ -512,8 +512,8 @@ export default function AboutUs() {
       {/* <div className="absolute inset-0 bg-white bg-opacity-80"></div> */}
 
         {/* Teks di atas peta */}
-        <div className="relative z-10 text-blue-900 font-semibold text-xl sm:text-2xl max-w-md">
-          Terdapat di <span className="text-blue-600 font-bold">16+ Lokasi</span> di Berbagai Kota di Indonesia
+        <div className="relative z-10 text-[#1444D5] font-regular text-xl sm:text-5xl max-w-2xl">
+          Terdapat di <span className="text-[#1444D5] text-7xl font-extrabold">16+</span> Lokasi di Berbagai Kota di Indonesia
         </div>
       </div>
     </section>
@@ -524,11 +524,11 @@ export default function AboutUs() {
       <h2 className="text-3xl font-bold mb-4 text-center">Tentang Bisnis Kami</h2>
 
       {/* Tabs */}
-      <nav className="flex justify-center space-x-8 mb-8 text-gray-400">
+      <nav className="flex justify-center space-x-8 py-3 mb-8 text-gray-400 border-b-2">
         <button
           onClick={() => setActiveTab("b2b")}
-          className={`font-semibold ${
-            activeTab === "b2b" ? "text-black border-b-2 border-blue-600" : ""
+          className={`${
+            activeTab === "b2b" ? "text-black font-bold" : "cursor-not-allowed font-light"
           }`}
         >
           Business to Business
@@ -536,14 +536,18 @@ export default function AboutUs() {
         <button
           onClick={() => setActiveTab("b2c")}
           disabled
-          className="cursor-not-allowed"
+          className={`${
+            activeTab === "b2c" ? "text-black font-bold" : "cursor-not-allowed font-light"
+          }`}
         >
           Business to Customer
         </button>
         <button
           onClick={() => setActiveTab("projects")}
           disabled
-          className="cursor-not-allowed"
+          className={`${
+            activeTab === "projecs" ? "text-black font-bold" : "cursor-not-allowed font-light"
+          }`}
         >
           Proyek, Pengadaan, dan Kerjasama
         </button>
@@ -559,23 +563,23 @@ export default function AboutUs() {
         />
 
         <div>
-          <h3 className="text-2xl font-bold mb-4">Dealership dan Reseller</h3>
-          <p className="text-gray-700 mb-6">
+          <h3 className="text-[32px] font-extrabold mb-4">Dealership dan Reseller</h3>
+          <p className="text-md font-medium mb-6">
             Kami mendukung UMKM dan individu yang ingin berkembang dengan menyediakan pasokan dari brand IT ternama serta edukasi agar bisnis mereka tumbuh dan adaptif terhadap perkembangan zaman.
           </p>
 
-          <div className="flex justify-between bg-white shadow-md rounded-lg p-6 text-center">
+          <div className="flex justify-between bg-white shadow-md rounded-lg p-6 text-left">
             <div>
-              <div className="text-3xl font-bold text-blue-600">150+</div>
-              <div className="text-sm text-gray-500 mt-1">Dealer Partnership</div>
+              <div className="text-4xl font-extrabold">150+</div>
+              <div className="text-md font-medium mt-1">Dealer Partnership</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-blue-600">100K+</div>
-              <div className="text-sm text-gray-500 mt-1">Total Transaksi</div>
+              <div className="text-4xl font-extrabold">100K+</div>
+              <div className="text-md font-medium mt-1">Total Transaksi</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-blue-600">99%</div>
-              <div className="text-sm text-gray-500 mt-1">Kepuasan Kerjasama</div>
+              <div className="text-4xl font-extrabold">99%</div>
+              <div className="text-md font-medium mt-1">Kepuasan Kerjasama</div>
             </div>
           </div>
         </div>
@@ -629,7 +633,7 @@ export default function AboutUs() {
       aria-hidden
       className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"
     />
-      <p className="text-md text-center">Portofolio Klien</p>
+      <p className="text-xl text-center font-medium">Portofolio Klien</p>
       <h2 className="text-center font-extrabold text-2xl md:text-3xl mb-8 text-zinc-900">
         Pelanggan Setia Kami
       </h2>
@@ -763,20 +767,18 @@ export default function AboutUs() {
       </div>
     </div>
   </section>
-
-
     
     {/* Portfolio */}
-    <section className="content-width mx-auto">
-      <p className="text-md text-center">Portofolio Klien</p>
+    <section className="max-w-screen-4xl mx-auto">
+      <p className="text-xl text-center font-medium">Portofolio Klien</p>
       <h2 className="text-center font-extrabold !text-[40px] md:text-3xl mb-8 text-zinc-900">
         Portofolio Event
       </h2>
-      <div className="portfolio-cards flex flex-wrap justify-center gap-10">
+      <div className="flex flex-wrap justify-center gap-20">
         {portfolioData.map(({ title, mainImage, thumbnails }, i) => (
           <div
             key={i}
-            className="w-full sm:w-[420px] md:w-[460px] bg-white rounded-xl shadow p-6 flex flex-col items-center"
+            className="w-full sm:w-[420px] md:w-[500px] bg-white rounded-xl shadow p-6 flex flex-col items-center"
           >
             <img src={mainImage} alt={title} className="w-full aspect-square object-cover rounded-lg mb-3" />
             <div className="grid grid-cols-3 gap-3 w-full mb-3">
@@ -784,20 +786,20 @@ export default function AboutUs() {
                 <img key={j} src={t} alt="" className="w-full aspect-square object-cover rounded-md shadow-sm" />
               ))}
             </div>
-            <h3 className="font-bold">{title}</h3>
+            <h3 className="font-extrabold text-xl">{title}</h3>
           </div>
         ))}
       </div>
     </section>
 
       {/* Testimonials */}
-      <section className="relative bg-[#FAFAFA] py-16 overflow-hidden">
+      <section className="relative bg-[#FAFAFA] py-5 overflow-hidden">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900">
           Apa Kata Mereka Tentang Kami
         </h2>
       </div>
-        <div className="relative max-w-[90%] mx-auto">
+        <div className="relative mx-auto">
           {/* Fade kiri/kanan */}
           <div
             aria-hidden
@@ -809,7 +811,8 @@ export default function AboutUs() {
           />
           {/* fade kiri/kanan biar mirip desain */}
         <Slider 
-          dots={true}
+          className="client-slider"
+          dots={false}
           infinite={true}
           speed={500}
           autoplay
@@ -826,7 +829,7 @@ export default function AboutUs() {
             {testimonials.map((t, idx) => (
               <div key={idx} className="h-full px-3 flex items-stretch">
                 <article
-                  className="bg-white rounded-2xl border border-zinc-100 shadow-[0_3px_10px_rgba(0,0,0,0.07)] p-6 flexjustify-between w-full h-[250px]"
+                  className="bg-white rounded-2xl border border-zinc-100 shadow-[0_3px_10px_rgba(0,0,0,0.07)] p-6 flexjustify-between w-full h-[210px]"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <Avatar name={t.name} url={t.avatarUrl} />
@@ -840,7 +843,7 @@ export default function AboutUs() {
 
                   <Stars count={t.rating} />
 
-                  <p className="mt-4 text-sm leading-6 text-zinc-700 break-words">
+                  <p className="mt-4 text-xs font-medium text-zinc-700 break-words">
                     {t.text}
                   </p>
                 </article>
@@ -852,41 +855,87 @@ export default function AboutUs() {
 
 
       {/* Contact Form */}
-      <section className="max-w-4xl mx-auto p-6 border rounded-md shadow-md">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Bergabung dengan Kami</h2>
-        <form className="space-y-4 max-w-xl mx-auto">
-          <input
-            type="text"
-            name="name"
-            placeholder="Nama"
-            className="w-full border border-gray-300 rounded px-4 py-2"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="w-full border border-gray-300 rounded px-4 py-2"
-          />
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Nomor Telepon"
-            className="w-full border border-gray-300 rounded px-4 py-2"
-          />
-          <textarea
-            name="message"
-            placeholder="Deskripsi / Keinginan kamu kepada kami"
-            rows={4}
-            className="w-full border border-gray-300 rounded px-4 py-2"
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+      {/* ================== CONTACT FORM ================== */}
+      <section className="mx-auto max-w-screen-4xl py-12">
+        <div className="bg-white   rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] p-10">
+          <h2 className="text-center text-4xl font-extrabold text-zinc-900 mb-10">
+            Bergabung dengan Kami
+          </h2>
+
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch"
           >
-            Kirim
-          </button>
-        </form>
+            {/* === KIRI === */}
+            <div className="flex flex-col gap-4 h-full">
+              <input
+                type="text"
+                name="name"
+                placeholder="Nama"
+                className="h-12 w-full rounded-lg border border-gray-300 px-4 text-gray-700 placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition"
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="h-12 w-full rounded-lg border border-gray-300 px-4 text-gray-700 placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition"
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Nomor Telepon"
+                className="h-12 w-full rounded-lg border border-gray-300 px-4 text-gray-700 placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition"
+              />
+              <div className="relative">
+                <select
+                  defaultValue=""
+                  className="h-12 w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 pr-10 text-gray-700 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition"
+                >
+                  <option value="" disabled>
+                    — Pilih —
+                  </option>
+                  <option>Kerjasama</option>
+                  <option>Pengadaan</option>
+                  <option>Konsultasi</option>
+                  <option>Lainnya</option>
+                </select>
+
+                {/* Icon arrow */}
+                <svg
+                  className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-blue-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 1 1 .92 1.18l-4.2 3.33a.75.75 0 0 1-.94 0l-4.2-3.33a.75.75 0 0 1-.06-1.1z" />
+                </svg>
+              </div>
+            </div>
+
+            {/* === KANAN === */}
+            <div className="flex flex-col justify-between h-full">
+              {/* Textarea sejajar total kiri */}
+              <textarea
+                name="message"
+                placeholder="Deskripsi Keperluan (maksimal 500 kata)"
+                className="flex-grow rounded-lg border border-gray-300 px-4 py-3 text-gray-700 placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition resize-none h-full min-h-[240px]"
+              />
+
+              {/* Tombol tetap di bawah */}
+              <div className="flex justify-end mt-4">
+                <button
+                  type="submit"
+                  className="rounded-lg bg-blue-700 px-8 py-2 w-[150px] text-white font-semibold shadow-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition"
+                >
+                  Kirim
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </section>
+
+
+
     </div>
       <Footer />
     
