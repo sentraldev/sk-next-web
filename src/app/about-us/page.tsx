@@ -520,7 +520,7 @@ export default function AboutUs() {
     
 
       {/* Business Area */}
-      <section className="mx-auto px-6 py-10 bg-gray-50">
+    <section className="mx-auto px-6 py-10 bg-gray-50">
       <h2 className="text-3xl font-bold mb-4 text-center">Tentang Bisnis Kami</h2>
 
       {/* Tabs */}
@@ -582,37 +582,53 @@ export default function AboutUs() {
       </div>
     </section>
 
-    <section className="max-w-screen-xl mx-auto px-6 py-10 bg-white">
-      {/* Badge Row */}
-      <div className="flex justify-center gap-6 flex-wrap">
-        <h2 className="text-3xl font-bold w-full text-center">Penghargaan Kami</h2>
-        <img
-          src="../../temp/penghargaan.png"
-          alt="Handshake"
-          className="w-2/3 rounded-lg object-cover"
-        />
-      </div>
+    <section className="py-12 bg-white">
+  <div className="mx-auto w-[90%]">
+    {/* Badge Row */}
+    <div className="flex flex-col items-center gap-6">
+      <h2 className="text-3xl font-bold text-center">Penghargaan Kami</h2>
+      <img
+        src="../../temp/penghargaan.png"
+        alt="Penghargaan"
+        className="w-full max-w-4xl rounded-lg object-contain"
+      />
+    </div>
 
-      {/* Trophy Row */}
-      <div className="flex justify-center gap-6 flex-wrap">
-        {trophies.map((trophy, i) => (
-          <div
-            key={i}
-            className="flex flex-col items-center max-w-[95px] text-center"
-          >
-            <img
-              src={trophy.imgUrl}
-              alt={trophy.title}
-              className="h-50 object-contain rounded-md"
-            />
-            <div className="mt-2 text-xs font-medium">{trophy.title}</div>
+    {/* Trophy Row */}
+    <div className="mt-10 flex justify-start items-start gap-8 overflow-x-auto overflow-y-visible flex-nowrap pb-4">
+      {trophies.map((trophy, i) => (
+        <div
+          key={i}
+          className="flex-shrink-0 flex flex-col items-center text-center"
+          style={{ width: 120 }}
+        >
+          <img
+            src={trophy.imgUrl}
+            alt={trophy.title}
+            className="h-[120px] w-auto object-contain"
+          />
+          <div className="mt-2 text-xs font-medium leading-snug max-w-[8rem]">
+            {trophy.title}
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
     {/* Partners Logos */}
-    <div className="mx-auto px-5 py-10 relative overflow-visible">
+    <section className="w-full">
+  <div className="relative mx-auto max-w-[90%] px-5 py-10
+                  overflow-x-hidden overflow-y-visible"> 
+      <div
+      aria-hidden
+      className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"
+    />
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"
+    />
       <p className="text-md text-center">Portofolio Klien</p>
       <h2 className="text-center font-extrabold text-2xl md:text-3xl mb-8 text-zinc-900">
         Pelanggan Setia Kami
@@ -621,6 +637,7 @@ export default function AboutUs() {
       {/* Carousel by Category */}
       {/* pastikan sudah import Slider & CSS slick di file ini */}
       <Slider
+        className="client-slider"
         dots={false}
         infinite
         speed={450}
@@ -630,15 +647,15 @@ export default function AboutUs() {
         autoplaySpeed={2600}
         arrows
         responsive={[
-          { breakpoint: 1280, settings: { slidesToShow: 2 } },
+          { breakpoint: 1280, settings: { slidesToShow: 1 } },
           { breakpoint: 768,  settings: { slidesToShow: 1 } },
         ]}
         centerMode={true}
-        centerPadding="120px"
+        centerPadding="200px"
       >
         {categories.map((cat) => (
           <div key={cat.id} className="px-2">
-            <div className="bg-white rounded-xl shadow-sm border border-zinc-100 p-5 flex flex-col h-[600px]">
+            <div className="bg-white rounded-xl shadow-lg border border-zinc-100 p-5 flex flex-col h-[600px]">
               <h3 className="text-center font-bold text-zinc-900 mb-4">
                 {cat.label}
               </h3>
@@ -674,123 +691,97 @@ export default function AboutUs() {
         ))}
       </Slider>
     </div>
+  </section>  
 
 
-
-    <section className="content-width mx-auto" style={{ padding: "20px", backgroundColor: "#fff", textAlign: "center" }}>
-
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 40, flexWrap: "wrap" }}>
-        {/* Foto dua orang */}
-        <div style={{ flex: "0 0 auto", maxWidth: 420, height: 'auto' }}>
+  <section className="relative bg-white overflow-visible pb-10">
+    {/* Bagian atas: foto + teks */}
+    <div className="mx-auto w-[90%] pt-16 relative z-10">
+      <div className="grid items-center gap-10 lg:grid-cols-12">
+        
+        {/* Foto kiri */}
+        <div className="lg:col-span-5 relative z-10">
           <img
-            src="../../temp/mitrakami.png" 
+            src="../../temp/mitrakami.png"
             alt="Mitra Kami"
-            style={{ width: "100%", height: "100%", borderRadius: 8, objectFit: "contain" }}
+            className="mx-auto h-auto max-w-[580px] w-full object-contain"
           />
         </div>
 
-        {/* Teks alasan jadi mitra dalam dua kolom */}
-        <div style={{ flex: "1 1 300px", maxWidth: 700, textAlign: "left" }}>
-          <div className="text-center">
-            <h2 className="text-3xl font-bold">Mitra Kami</h2>
-            <h2 className="font-bold" style={{ marginBottom: 24, color: "#1444D5" /* biru teks */ }}>
-              Kenapa Jadi Bagian Kami?
-            </h2>
-          </div>
-          <div className="flex content-between gap-48">
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, color: "#444", fontSize: 16 }}>
-              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Pengalaman Sejak 1991</li>
-              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Barang 100% ORI</li>
-              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Garansi Resmi</li>
-            </ul>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, color: "#444", fontSize: 16 }}>
-              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Service Center Certified</li>
-              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Tingkat Kepuasan Pelanggan Terbaik</li>
-              <li><FontAwesomeIcon icon={faCheck} color="#1444D5" /> Sales & Teknisi Profesional</li>
-            </ul>
-          </div>
-          {/* Brand Partner Logo */}
-          <div className="mt-10">
-            <h3 className="mb-5 font-bold text-center" style={{ color: "#1444D5"}}>Brand Partner</h3>
-            <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 24 }}>
-              {partners.map((partner) => (
-                <img
-                  key={partner.name}
-                  src={partner.logo}
-                  alt={partner.name}
-                  style={{ height: 20, width: "auto", objectFit: "contain" }}
-                />
+        {/* Teks kanan */}
+        <div className="lg:col-span-7 relative z-10 -top-32">
+          <h2 className="text-center text-4xl md:text-5xl font-extrabold text-zinc-900">
+            Mitra Kami
+          </h2>
+          <h3 className="mt-2 text-center text-xl md:text-2xl font-extrabold text-[#1444D5]">
+            Kenapa Jadi Bagian Kami?
+          </h3>
+
+          {/* Bullet 2 kolom */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 md:gap-x-16 gap-y-4 text-zinc-800">
+            <ul className="space-y-4">
+              {["Pengalaman Sejak 1991", "Barang 100% ORI", "Garansi Resmi"].map((t) => (
+                <li key={t} className="flex items-center gap-3 font-medium">
+                  <FontAwesomeIcon icon={faCheck} className="text-[#1444D5]" />
+                  <span>{t}</span>
+                </li>
               ))}
-            </div>
+            </ul>
+            <ul className="space-y-4">
+              {[
+                "Service Center Certified",
+                "Tingkat Kepuasan Pelanggan Terbaik",
+                "Sales & Teknisi Profesional",
+              ].map((t) => (
+                <li key={t} className="flex items-center gap-3 font-medium">
+                  <FontAwesomeIcon icon={faCheck} className="text-[#1444D5]" />
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+
+    {/* Panel Brand Partner - Overlay */}
+    <div className="absolute right-0 md:right-0 md:left-auto left-1/2 md:translate-x-0 -translate-x-1/2 md:w-[70%] w-[90%] top-[60%] md:absolute md:-bottom-12">
+      <div className=" w-[100%] bg-zinc-100  py-10 px-6 ml-auto md:py-10 md:ml-auto">
+        <h4 className="mb-6 text-center text-xl md:text-2xl font-extrabold text-[#1444D5] ps-36">
+          Brand Partner
+        </h4>
+        <div className="flex flex-wrap items-center justify-center gap-x-5 ps-52">
+          {partners.map((p) => (
+            <img
+              key={p.name}
+              src={p.logo}
+              alt={p.name}
+              className="h-[50px] w-[80px] object-contain opacity-90 sm:h-7 md:h-8 lg:h-9"
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+
     
     {/* Portfolio */}
     <section className="content-width mx-auto">
       <p className="text-md text-center">Portofolio Klien</p>
-      <h2 className="text-center font-extrabold text-2xl md:text-3xl mb-8 text-zinc-900">
+      <h2 className="text-center font-extrabold !text-[40px] md:text-3xl mb-8 text-zinc-900">
         Portofolio Event
       </h2>
-      <div
-        className="portfolio-cards"
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          gap: 10,
-          flexWrap: "wrap",
-        }}
-      >
-        {portfolioData.map(({ title, mainImage, thumbnails }, index) => (
+      <div className="portfolio-cards flex flex-wrap justify-center gap-10">
+        {portfolioData.map(({ title, mainImage, thumbnails }, i) => (
           <div
-            key={index}
-            className="portfolio-card"
-            style={{
-              width: 340,
-              background: "white",
-              borderRadius: 12,
-              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-              padding: 16,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            key={i}
+            className="w-full sm:w-[420px] md:w-[460px] bg-white rounded-xl shadow p-6 flex flex-col items-center"
           >
-            <img
-              src={mainImage}
-              alt={title}
-              style={{
-                width: "100%",
-                borderRadius: 12,
-                marginBottom: 12,
-                objectFit: "cover",
-                aspectRatio: "1 / 1",
-              }}
-            />
-            <div
-            className="grid w-full"
-              style={{
-                gridTemplateColumns: `repeat(${thumbnails.length}, 1fr)`, // otomatis menyesuaikan jumlah thumbnail
-                gap: 10,
-                marginBottom: 12,
-                width: "100%", // ✅ agar full container (340px)
-              }}
-            >
-              {thumbnails.map((thumb, i) => (
-                <img
-                  key={i}
-                  src={thumb}
-                  alt={`${title} thumbnail ${i + 1}`}
-                  style={{
-                    width: 95,
-                    height: 95,
-                    borderRadius: 8,
-                    objectFit: "cover",
-                    cursor: "pointer",
-                    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-                  }}
-                />
+            <img src={mainImage} alt={title} className="w-full aspect-square object-cover rounded-lg mb-3" />
+            <div className="grid grid-cols-3 gap-3 w-full mb-3">
+              {thumbnails.map((t, j) => (
+                <img key={j} src={t} alt="" className="w-full aspect-square object-cover rounded-md shadow-sm" />
               ))}
             </div>
             <h3 className="font-bold">{title}</h3>
@@ -800,39 +791,62 @@ export default function AboutUs() {
     </section>
 
       {/* Testimonials */}
-      <section className="relative mx-auto px-6 py-12">
-        <div className="mb-8 text-center">
-          <h2 className="text-3xl font-bold text-zinc-900">
-            Apa Kata Mereka Tentang Kami
-          </h2>
-        </div>
-
-        {/* fade kiri/kanan biar mirip desain */}
-        <div className="relative">
-          <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-white to-transparent" />
-          <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-white to-transparent" />
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <section className="relative bg-[#FAFAFA] py-16 overflow-hidden">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900">
+          Apa Kata Mereka Tentang Kami
+        </h2>
+      </div>
+        <div className="relative max-w-[90%] mx-auto">
+          {/* Fade kiri/kanan */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#FAFAFA] to-transparent z-10"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#FAFAFA] to-transparent z-10"
+          />
+          {/* fade kiri/kanan biar mirip desain */}
+        <Slider 
+          dots={true}
+          infinite={true}
+          speed={500}
+          autoplay
+          autoplaySpeed={3500}
+          slidesToShow={4}
+          slidesToScroll={1}
+          arrows={false}
+          responsive={[
+            { breakpoint: 1280, settings: { slidesToShow: 3 } },
+            { breakpoint: 1024, settings: { slidesToShow: 2 } },
+            { breakpoint: 640, settings: { slidesToShow: 1 } },
+          ]}
+          >
             {testimonials.map((t, idx) => (
-              <article
-                className="rounded-2xl border border-zinc-100 h-[233px] bg-white p-6 shadow-sm ring-1 ring-black/5 hover:shadow-md flex flex-col"
-              >
-                <div className="mb-3 flex items-center gap-3">
-                  <Avatar name={t.name} url={t.avatarUrl} />
-                  <div>
-                    <h3 className="text-sm font-semibold text-zinc-900">{t.name}</h3>
-                    <p className="text-xs text-zinc-500">{t.subtitle}</p>
+              <div key={idx} className="h-full px-3 flex items-stretch">
+                <article
+                  className="bg-white rounded-2xl border border-zinc-100 shadow-[0_3px_10px_rgba(0,0,0,0.07)] p-6 flexjustify-between w-full h-[250px]"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <Avatar name={t.name} url={t.avatarUrl} />
+                    <div>
+                      <h3 className="font-bold text-zinc-900 text-base">
+                        {t.name}
+                      </h3>
+                      <p className="text-sm text-zinc-500">{t.subtitle}</p>
+                    </div>
                   </div>
-                </div>
 
-                <Stars count={t.rating} />
+                  <Stars count={t.rating} />
 
-                <p className="mt-3 text-sm leading-6 text-zinc-600 line-clamp-4 break-words">
-                  {t.text}
-                </p>
-              </article>
+                  <p className="mt-4 text-sm leading-6 text-zinc-700 break-words">
+                    {t.text}
+                  </p>
+                </article>
+              </div>
             ))}
-          </div>
+          </Slider>
         </div>
       </section>
 

@@ -32,3 +32,24 @@ body {
 .content-width {
   max-width: 90%;
 }
+
+/* Biarkan konten melewati area slick-list; kanan-kiri “ditutup” oleh overlay gradient di atas */
+.client-slider .slick-list {
+  overflow: visible !important;
+}
+
+/* Rapikan track/slide tinggi penuh */
+.client-slider .slick-track {
+  display: flex;
+}
+.client-slider .slick-slide {
+  height: auto;
+}
+.client-slider .slick-slide > div {
+  height: 100%;
+}
+
+/* Sedikit ruang bawah agar shadow tidak menempel ke container */
+.client-slider {
+  padding-bottom: 1.5rem;
+}
