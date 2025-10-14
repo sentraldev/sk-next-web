@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules"; // import modul fitur
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -17,21 +15,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface Client {
-  id: string;
-  name: string;
-  logo: string;
-}
-
-interface Category {
-  id: string;
-  label: string;
-}
-
-interface Props {
-  categories: Category[];
-  clients: Record<string, Client[]>;
-}
 
 type Testimonial = {
   name: string;
@@ -41,24 +24,6 @@ type Testimonial = {
   avatarUrl?: string;
 };
 
-
-const coreValues = [
-  {
-    title: "Growth Mindset",
-    imageUrl:
-      "../../temp/core1.jpg",
-  },
-  {
-    title: "Customer First",
-    imageUrl:
-      "../../temp/core2.jpg",
-  },
-  {
-    title: "Integrity",
-    imageUrl:
-      "../../temp/core3.jpg",
-  },
-];
 
 const missions = [
   {
@@ -78,43 +43,6 @@ const missions = [
   },
 ];
 
-const awardsBadges = [
-  {
-    title: "Best Usability",
-    season: "Winter",
-    year: 2025,
-    color: "bg-yellow-400",
-    imgUrl: "https://cdn.iconscout.com/icon/free/png-256/g2crowd-12-461026.png",
-  },
-  {
-    title: "High Performer",
-    season: "Winter",
-    year: 2025,
-    color: "bg-red-500",
-    imgUrl: "https://cdn.iconscout.com/icon/free/png-256/g2crowd-12-461026.png",
-  },
-  {
-    title: "Best Results",
-    season: "Winter",
-    year: 2025,
-    color: "bg-purple-600",
-    imgUrl: "https://cdn.iconscout.com/icon/free/png-256/g2crowd-12-461026.png",
-  },
-  {
-    title: "Best Support",
-    season: "Winter",
-    year: 2025,
-    color: "bg-teal-400",
-    imgUrl: "https://cdn.iconscout.com/icon/free/png-256/g2crowd-12-461026.png",
-  },
-  {
-    title: "Leader",
-    season: "Winter",
-    year: 2025,
-    color: "bg-red-500",
-    imgUrl: "https://cdn.iconscout.com/icon/free/png-256/g2crowd-12-461026.png",
-  },
-];
 
 const trophies = [
   {
@@ -335,16 +263,7 @@ function Avatar({ name, url }: { name: string; url?: string }) {
 
 export default function AboutUs() {
   const [activeTab, setActiveTab] = useState("b2b");
-  const [activeIndex, setActiveIndex] = useState(0);
 
-  const onTabClick = (index: number) => {
-    setActiveIndex(index);
-  };  
-
-  // Saat slide berubah, update tab aktif
-  const onSlideChange = (swiper: any) => {
-    setActiveIndex(swiper.activeIndex);
-  };
   return (
     <>
       <Header />
