@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
         hostname: "**.portal.sentralkomputer.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "portal.sentralkomputer.com",
+        pathname: "/**",
+      },
     ],
   },
 };
