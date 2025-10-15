@@ -1,7 +1,7 @@
 "use client";
 
 import Head from "next/head";
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
 
 import ProductCard from "../components/ProductCard";

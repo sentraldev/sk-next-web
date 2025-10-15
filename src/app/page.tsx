@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Banner from "./components/Banner";
 import NewArrivals from "./components/NewArrivals";
 // import Articles from "./components/Articles";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 
 export default function Home() {

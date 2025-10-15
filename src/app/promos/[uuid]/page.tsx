@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+import Footer from "../../components/Footer/Footer";
 import Breadcrumb from "@/app/components/Breadcrumb";
 
 interface PromoDetailProps {
@@ -63,10 +63,7 @@ export default async function PromoDetail({ params }: DetailPageProps) {
       <Header />
       <div className="max-w-screen-xl mx-auto">
         <Breadcrumb
-          items={[
-            { label: "Promo", href: "/promos" },
-            { label: promo.title },
-          ]}
+          items={[{ label: "Promo", href: "/promos" }, { label: promo.title }]}
         />
         <div className="mb-6 overflow-hidden rounded-lg shadow-lg">
           <img
