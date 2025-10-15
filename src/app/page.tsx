@@ -8,16 +8,19 @@ import WhatsAppButton from "./components/WhatsAppButton";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50 mx-auto">
+    <div className="flex flex-col min-h-screen bg-gray-50 mx-auto">
       <Head>
         <title>Sentral Komputer</title>
         <meta name="description" content="Sentral Komputer - Tech Store" />
       </Head>
       <Header />
-      <Banner />
+      <div className="shrink-0">
+        <Banner />
+      </div>
       <NewArrivals />
       <WhatsAppButton />
       {/* <Articles /> */}
+
       <Footer />
     </div>
   );
