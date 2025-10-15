@@ -1,7 +1,7 @@
 "use client";
 
 import Footer from "@/app/components/Footer/Footer";
-import Header from "@/app/components/Header";
+import Header from "@/app/components/Header/Header";
 import Image from "next/image";
 import { mockProducts } from "../mockProducts";
 import { notFound } from "next/navigation";

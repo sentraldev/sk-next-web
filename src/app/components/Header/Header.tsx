@@ -2,19 +2,17 @@
 
 import {
   HeartOutlined,
-  MailOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { fetchData } from "@/utils/api";
-import LoginPopup from "../components/LoginPopup";
-import RegisterPopup from "../components/RegisterPopup";
+import LoginPopup from "../LoginPopup";
+import RegisterPopup from "../RegisterPopup";
 import { User } from "@/models/user";
+import TopBar from "./TopBar";
 
 export default function Header() {
   const [showLogin, setShowLogin] = useState(false);
@@ -90,33 +88,7 @@ export default function Header() {
     <>
       <header className="w-full bg-white">
         {/* Top Bar */}
-        <div className="bg-primary-900 text-xs text-white flex justify-between items-center py-1">
-          <div className="w-full content-width flex flex-row mx-auto justify-between items-center">
-            <div className="flex flex-row gap-4">
-              <Image
-                src={"/icons/sk-white.png"}
-                alt="white-logo"
-                width={80}
-                height={80}
-                className="object-cover w-full h-[24]"
-              />
-              <Image
-                src={"/icons/ss-white.png"}
-                alt="white-service-logo"
-                width={80}
-                height={80}
-                className="object-cover w-full h-[24]"
-              />
-            </div>
-            <span>Pusat IT, Laptop, dan Service Terbaik di Indonesia</span>
-            <div className="flex items-center gap-2">
-              <MailOutlined />
-              <Link href="#" className="font-semibold">
-                Hubungi Kami
-              </Link>
-            </div>
-          </div>
-        </div>
+        <TopBar />
         {/* Main Header */}
         <div className="content-width mx-auto flex flex-col md:flex-row md:items-center pt-1 pb-2 gap-2">
           <div className="flex items-center gap-2 mr-8 mt-4 hover:cursor-pointer">
@@ -187,7 +159,7 @@ export default function Header() {
           </div>
         </div>
         {/* Navigation */}
-        <div className="mx-auto border-b pt-2">
+        <div className="mx-auto border-b border- pt-2">
           <div className="content-width mx-auto flex flex-row items-center justify-between ">
             <nav className="border-gray-200 flex flex-wrap items-center text-sm font-medium gap-4 md:gap-8 lg:gap-12 xl:gap-16">
               <Link

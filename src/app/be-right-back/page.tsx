@@ -5,7 +5,7 @@ import Image from "next/image";
 // import Articles from "./components/Articles";
 // import WhatsAppButton from "./components/WhatsAppButton";
 import Footer from "../components/Footer/Footer";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 
 export default function BeRightBack() {
   return (

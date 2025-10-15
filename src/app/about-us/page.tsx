@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";

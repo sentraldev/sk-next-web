@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import Footer from "../components/Footer/Footer";
-import Header from "../components/Header";
+import Header from "../components/Header/Header";
 
 import ProductCard from "../components/ProductCard";
 import { mockProducts } from "./mockProducts";

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Banner from "./components/Banner";
 import NewArrivals from "./components/NewArrivals";
 // import Articles from "./components/Articles";
