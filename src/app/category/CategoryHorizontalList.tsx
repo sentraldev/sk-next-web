@@ -72,30 +72,38 @@ const CategoryHorizontalList: React.FC = () => {
   return (
     <section className="content-width mx-auto px-4 py-6 w-full">
       <h2 className="text-xl font-bold mb-3">Kategori</h2>
-      <div className="flex justify-between overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent py-1 divide-x divide-gray-200">
-        {categories.map((cat) => (
-          <div key={cat.id} className="flex-shrink-0 px-4 items-center">
-            <Link
-              href={`/category/${encodeURIComponent(cat.slug)}`}
-              className="flex flex-col items-center group">
-              <div className="w-28 h-28 md:w-32 md:h-32 flex items-center justify-center overflow-hidden">
-                {cat.image ? (
-                  <Image
-                    src={cat.image}
-                    alt={cat.name}
-                    width={128}
-                    height={128}
-                    className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="text-gray-400 text-sm">No Image</div>
-                )}
-              </div>
-              <div className="mt-2 text-center text-sm text-gray-700 line-clamp-1 w-28 md:w-32">
-                {cat.name}
-              </div>
-            </Link>
-          </div>
+      <div className="relative flex justify-between overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent py-1 px-4">
+        {categories.map((cat, index) => (
+          <React.Fragment key={cat.id}>
+            {/* Category item */}
+            <div className="flex flex-col items-center flex-shrink-0 w-28 md:w-32">
+              <Link
+                href={`/category/${encodeURIComponent(cat.slug)}`}
+                className="flex flex-col items-center group">
+                <div className="w-28 h-28 md:w-32 md:h-32 flex items-center justify-center overflow-hidden">
+                  {cat.image ? (
+                    <Image
+                      src={cat.image}
+                      alt={cat.name}
+                      width={128}
+                      height={128}
+                      className="object-contain w-full h-full transition-transform duration-200 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="text-gray-400 text-sm">No Image</div>
+                  )}
+                </div>
+                <div className="mt-2 text-center text-sm text-gray-700 line-clamp-1 w-full">
+                  {cat.name}
+                </div>
+              </Link>
+            </div>
+
+            {/* Divider — except after last item */}
+            {index < categories.length - 1 && (
+              <div className=" top-6 bottom-6 w-px bg-gray-200" />
+            )}
+          </React.Fragment>
         ))}
       </div>
     </section>
