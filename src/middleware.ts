@@ -20,6 +20,8 @@ export function middleware(request: NextRequest) {
     );
 
   if (
+    pathname === "/" || // allow home page
+    pathname === "/be-right-back" || // allow maintenance page itself
     allowedPrefixes.some((prefix) => pathname.startsWith(prefix)) ||
     isStaticAsset ||
     pathname === "/favicon.ico" ||
@@ -29,15 +31,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // // Already on maintenance page: allow
-  // if (pathname === "/be-right-back") {
-  //   return NextResponse.next();
-  // }
-
-  // // Redirect everything else to the maintenance page
-  // const url = request.nextUrl.clone();
-  // url.pathname = "/be-right-back";
-  // return NextResponse.redirect(url);
+  // Redirect everything else to the maintenance page
+  const url = request.nextUrl.clone();
+  url.pathname = "/be-right-back";
+  return NextResponse.redirect(url);
 }
 
 export const config = {
