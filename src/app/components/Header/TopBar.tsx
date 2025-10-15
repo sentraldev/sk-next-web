@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import { MailOutlined } from "@ant-design/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,

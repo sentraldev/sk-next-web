@@ -99,6 +99,9 @@ async function getNewArrivals(): Promise<Product[]> {
     return payload.map(toProduct);
   } catch (e) {
     // On error, return empty list to avoid breaking the page
+    if (process.env.NEXT_PUBLIC_APP_ENV != "production") {
+      console.error("Error fetching new arrivals:", e);
+    }
     return [];
   }
 }
