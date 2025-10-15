@@ -267,8 +267,8 @@ export default function AboutUs() {
   return (
     <>
       <Header />
-      <div className="content-width mx-auto px-6 py-12 sm:py-16 space-y-12 lg:space-y-6 md:space-y-4 sm:space-y-4 font-sans text-gray-800">
-        
+      {/* <div className="content-width sm:w-full mx-auto px-6 py-12 sm:py-16 space-y-12 xl:space-y-12 lg:space-y-6 md:space-y-4 sm:space-y-4 font-sans text-gray-800"> */}
+      <div className="mx-auto content-width px-6 py-12 space-y-12 font-sans text-gray-800">
         {/* Header Image */}
         <div>
           <img
@@ -280,13 +280,13 @@ export default function AboutUs() {
 
         {/* Company History Group Photo */}
         <div className="text-center mx-auto">
-          <p className="font-medium text-xl lg:text-lg md:text-base sm:text-sm">
+          <p className="font-medium text-xl xl:text-2xl lg:text-lg md:text-base sm:text-sm">
             Sejarah Sentral Komputer
           </p>
-          <h1 className="text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold mt-2">
+          <h1 className="text-5xl xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold mt-2">
             Bermula Pada Tahun 1991
           </h1>
-          <p className="mt-2 font-medium text-sm lg:text-sm md:text-xs sm:text-[10px] leading-[20px]">
+          <p className="mt-2 font-medium text-sm xl:text-lg lg:text-sm md:text-xs sm:text-[10px] leading-[20px]">
             Kami berawal dari sebuah toko komputer dengan nama Sentral Komputer, dan seiring berjalannya waktu, <br /> berkembang dan disahkan menjadi PT Sentral Tekno Selaras pada tahun 2009.
           </p>
         </div>
@@ -296,7 +296,7 @@ export default function AboutUs() {
           <img
             src="../../temp/about-us2.png"
             alt="Company History 1991"
-            className="rounded-lg shadow-md h-[500px] object-fit lg:h-[400px] md:h[325px] sm:h-[250px]"
+            className="rounded-lg shadow-md h-[500px] object-fit xl:h-[700px] lg:h-[400px] md:h-[325px] sm:h-[250px]"
           />
         </div>
 
@@ -320,8 +320,8 @@ export default function AboutUs() {
 
           {/* Bagian kiri */}
           <div className="w-full md:w-3/5 lg:p-8 md:p-6">
-            <h2 className="text-[32px] lg:text-2xl md:text-base sm:text-xl font-extrabold mb-4 sm:mb-1 leading-[35px]">Kami Telah Melayani Ribuan <br />Konsumen, Organisasi & Korporasi</h2>
-            <p className="text-sm font-medium leading-relaxed">
+            <h2 className="text-[32px] xl:text-4xl lg:text-2xl md:text-base sm:text-xl font-extrabold mb-4 sm:mb-1 leading-[35px]">Kami Telah Melayani Ribuan <br />Konsumen, Organisasi & Korporasi</h2>
+            <p className="text-sm font-medium leading-relaxed xl:text-lg lg:text-base md:text-sm sm:text-xs xl:pt-4">
               Untuk mendapatkan kebutuhan IT  resmi dan berkualitas   melalui program distribusi, retail store, online/e-commerce, proyek, pengadaan korporasi, dan lain sebagainya.
             </p>
           </div>
@@ -330,8 +330,8 @@ export default function AboutUs() {
       {/* ================= CORE VALUES ================= */}
       <section className="mx-auto space-y-10 sm:pt-9 text-gray-800 font-sans">
         <div className="text-center">
-          <p className="text-xl lg:text-lg md:text-base sm:text-sm font-medium">Core Values Kami</p>
-          <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">
+          <p className="text-xl xl:text-xl lg:text-lg md:text-base sm:text-sm font-medium">Core Values Kami</p>
+          <h2 className="text-[40px] xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">
             Inilah Nilai yang Menuntun Langkah Kami
           </h2>
         </div>
@@ -356,13 +356,16 @@ export default function AboutUs() {
               key={item.title}
               className="relative overflow-hidden rounded-xl shadow-md group hover:shadow-lg transition-all duration-300"
             >
-              <img
-                src={item.imageUrl}
-                alt={item.title}
-                className="h-[500px] w-full lg:h-[400px] md:h-[325px] sm:h-[250px] object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+              <div className="relative w-full overflow-hidden aspect-[4/3] md:aspect[5/3]">
+                <img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  className="absolute inset-0 h-full w-full object-cover group-cover:scale-105 transition-transform duration-500"
+                  // className="h-[500px] w-full xl:h-[500px] lg:h-[400px] md:h-[325px] sm:h-[250px] object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
               {/* Overlay teks di bawah */}
-              <div className="absolute bottom-0 left-0 right-0 px-4 py-6 lg:py-4 md:py-3 sm:py-2 text-white text-2xl lg:text-xl md:text-lg sm:text-base font-extrabold text-center bg-gradient-to-t from-[#092566]/90 via-[#092566]/40 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 px-4 py-6 xl:py-6 lg:py-4 md:py-3 sm:py-2 text-white text-2xl xl:text-2xl lg:text-xl md:text-lg sm:text-base font-extrabold text-center bg-gradient-to-t from-[#092566]/90 via-[#092566]/40 to-transparent">
                 {item.title}
               </div>
             </div>
@@ -372,7 +375,8 @@ export default function AboutUs() {
 
       {/* Vision */}
       <div
-        className="relative w-full h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden flex items-center justify-center text-center px-4"
+        // className="relative w-full h-48 xl:h-[400px] sm:h-64 md:h-80 rounded-lg overflow-hidden flex items-center justify-center text-center px-4"
+        className="relative w-full rounded-lg overflow-hidden flex items-center justify-center text-center px-4 aspect-[48/9] lg:aspect-[48/9]"
         style={{
           backgroundImage: `url(${"../../temp/vision.jpg"})`,
           backgroundSize: "cover",
@@ -380,12 +384,12 @@ export default function AboutUs() {
         }}
       >
         {/* Overlay gelap semi transparan */}
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div className="absolute inset-0 bg-black/50"></div>
 
         {/* Konten teks di atas overlay */}
         <div className="relative z-10 text-white w-full">
-          <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-extrabold mb-2">Visi</h2>
-          <p className="text-base lg:text-base md:text-sm sm:text-xs">
+          <h2 className="xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold mb-2">Visi</h2>
+          <p className="text-base xl:text-lg lg:text-base md:text-sm sm:text-xs">
             Menjadi perusahaan profesional yang bergerak dibidang distribusi dan retail produk IT (Teknologi Informatika) No. 1 di Indonesia.
           </p>
         </div>
@@ -393,21 +397,21 @@ export default function AboutUs() {
 
       {/* Mission */}
       <section className="mx-auto">
-        <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-extrabold text-center mb-8">Misi</h2>
+        <h2 className="text-[40px] xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold text-center mb-8">Misi</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {missions.map((mission, idx) => (
           <div
             key={idx}
             className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col"
           >
-            <div className="h-full md:h-56 lg:h-[350px] overflow-hidden">
+            <div className="relative w-full overflow-hidden aspect-[4/3] md:aspect[5/3]">
               <img
                 src={mission.image}
                 alt={`Mission ${idx + 1}`}
-                className="w-full h-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
-            <div className="p-4 text-gray-800 text-center text-base lg:text-sm md:text-xs sm:text-[10px] sm:leading-[15px] font-medium flex-grow">
+            <div className="p-4 text-gray-800 text-center text-base xl:text-lg lg:text-sm md:text-xs sm:text-[10px] sm:leading-[15px] font-medium flex-grow">
               {mission.text}
             </div>
           </div>
@@ -417,7 +421,7 @@ export default function AboutUs() {
 
     {/* Penyebaran Lokasi Kami */}
     <section className="mx-auto text-center space-y-6 sm:pt-9">
-      <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">Penyebaran Lokasi Kami</h2>
+      <h2 className="text-[40px] xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">Penyebaran Lokasi Kami</h2>
       <div
       className="relative w-full sm:h-80 md:h-96 flex items-center justify-center text-center px-4"
       style={{
@@ -431,8 +435,8 @@ export default function AboutUs() {
       {/* <div className="absolute inset-0 bg-white bg-opacity-80"></div> */}
 
         {/* Teks di atas peta */}
-        <div className="relative z-10 text-[#1444D5] font-regular text-xl sm:text-5xl max-w-2xl">
-          Terdapat di <span className="text-[#1444D5] text-7xl font-extrabold">16+</span> Lokasi di Berbagai Kota di Indonesia
+        <div className="relative z-10 text-[#1444D5] font-regular text-xl sm:text-xl md:text-3xl max-w-2xl">
+          Terdapat di <span className="text-[#1444D5] text-7xl lg:text-5xl md:text-5xl sm:text-3xl xs:text-xl font-extrabold">16+</span> Lokasi di Berbagai Kota di Indonesia
         </div>
       </div>
     </section>
@@ -440,13 +444,13 @@ export default function AboutUs() {
 
       {/* Business Area */}
     <section className="mx-auto px-6 py-10 bg-gray-50">
-      <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-extrabold mb-4 text-center">Tentang Bisnis Kami</h2>
+      <h2 className="text-[40px] xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold mb-4 text-center">Tentang Bisnis Kami</h2>
 
       {/* Tabs */}
       <nav className="flex justify-center space-x-8 py-3 mb-8 text-gray-400 border-b-2">
         <button
           onClick={() => setActiveTab("b2b")}
-          className={` text-sm sm:text-[10px] ${
+          className={` text-sm xl:text-lg lg:text-base md:text-sm sm:text-[10px] ${
             activeTab === "b2b" ? "text-black font-bold text-sm " : "cursor-not-allowed font-light"
           }`}
         >
@@ -455,7 +459,7 @@ export default function AboutUs() {
         <button
           onClick={() => setActiveTab("b2c")}
           disabled
-          className={` text-sm sm:text-[10px] ${
+          className={` text-sm xl:text-lg lg:text-base md:text-sm sm:text-[10px] ${
             activeTab === "b2c" ? "text-black font-bold" : "cursor-not-allowed font-light"
           }`}
         >
@@ -464,7 +468,7 @@ export default function AboutUs() {
         <button
           onClick={() => setActiveTab("projects")}
           disabled
-          className={` text-sm sm:text-[10px] ${
+          className={` text-sm xl:text-lg lg:text-base md:text-sm sm:text-[10px] ${
             activeTab === "projecs" ? "text-black font-bold" : "cursor-not-allowed font-light"
           }`}
         >
@@ -482,23 +486,23 @@ export default function AboutUs() {
         />
 
         <div>
-          <h3 className="text-[32px] lg:text-3xl md:text-2xl sm:text-xl font-extrabold mb-4">Dealership dan Reseller</h3>
-          <p className="text-sm lg:text-xs font-medium mb-6">
+          <h3 className="text-[32px] xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl font-extrabold mb-4">Dealership dan Reseller</h3>
+          <p className="text-sm xl:text-lg lg:text-base md:text-sn sm:text-xs font-medium mb-6">
             Kami mendukung UMKM dan individu yang ingin berkembang dengan menyediakan pasokan dari brand IT ternama serta edukasi agar bisnis mereka tumbuh dan adaptif terhadap perkembangan zaman.
           </p>
 
           <div className="flex justify-between bg-white shadow-md rounded-lg p-6 text-left">
             <div>
-              <div className="text-4xl lg:text-3xl md:text-2xl sm:text-xl font-extrabold">150+</div>
-              <div className="text-sm lg:text-xs font-medium mt-1">Dealer Partnership</div>
+              <div className="text-4xl xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl font-extrabold">150+</div>
+              <div className="text-sm xl:text-base lg:text-xs font-medium mt-1">Dealer Partnership</div>
             </div>
             <div>
-              <div className="text-4xl font-extrabold">100K+</div>
-              <div className="text-sm lg:text-xs font-medium mt-1">Total Transaksi</div>
+              <div className="text-4xl xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl font-extrabold">100K+</div>
+              <div className="text-sm xl:text-base lg:text-xs font-medium mt-1">Total Transaksi</div>
             </div>
             <div>
-              <div className="text-4xl font-extrabold">99%</div>
-              <div className="text-sm lg:text-xs font-medium mt-1">Kepuasan Kerjasama</div>
+              <div className="text-4xl xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl font-extrabold">99%</div>
+              <div className="text-sm xl:text-base lg:text-xs font-medium mt-1">Kepuasan Kerjasama</div>
             </div>
           </div>
         </div>
@@ -510,7 +514,7 @@ export default function AboutUs() {
       <div className="mx-auto w-[90%]">
         {/* Badge Row */}
         <div className="flex flex-col items-center gap-6">
-          <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-bold text-center">Penghargaan</h2>
+          <h2 className="text-[40px] xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-bold text-center">Penghargaan</h2>
           <img
             src="../../temp/penghargaan.png"
             alt="Penghargaan"
@@ -519,18 +523,18 @@ export default function AboutUs() {
         </div>
 
         {/* Trophy Row */}
-        <div className="mt-10 flex justify-start items-start gap-8 overflow-x-auto overflow-y-visible flex-nowrap pb-4">
+        <div className="mt-10 flex justify-start items-start gap-8 xl:gap-1 overflow-x-auto overflow-y-visible flex-nowrap pb-4">
           {trophies.map((trophy, i) => (
             <div
               key={i}
-              className="flex-shrink-0 flex flex-col items-center text-center w-[120px] lg:w-[80px]"
+              className="flex-shrink-0 flex flex-col items-center text-center w-[120px] xl:w-[195px] lg:w-[80px]"
             >
               <img
                 src={trophy.imgUrl}
                 alt={trophy.title}
-                className="h-[120px] w-auto object-contain lg:w-[60px]"
+                className="h-[120px] w-auto object-contain xl:w-[100px] xl:h-auto lg:w-[60px]"
               />
-              <div className="mt-2 text-xs lg:text-[10px] font-medium leading-snug max-w-[8rem]">
+              <div className="mt-2 text-xs xl:text-base lg:text-[10px] font-medium leading-snug max-w-[8rem]">
                 {trophy.title}
               </div>
             </div>
@@ -552,8 +556,8 @@ export default function AboutUs() {
         aria-hidden
         className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"
       />
-      <p className="text-xl lg:text-lg md:text-base sm:text-sm text-center font-medium">Portofolio Klien</p>
-      <h2 className="text-center font-extrabold text-[40px] lg:text-4xl md:text-3xl sm:text-2xl mb-8 text-zinc-900">
+      <p className="text-xl xl:text-xl lg:text-lg md:text-base sm:text-sm text-center font-medium">Portofolio Klien</p>
+      <h2 className="text-center font-extrabold text-[40px] xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl mb-8 text-zinc-900">
         Pelanggan Setia Kami
       </h2>
 
@@ -594,13 +598,13 @@ export default function AboutUs() {
                 {clients[cat.id].map((client: any) => (
                   <div
                     key={client.id}
-                    className="flex items-center justify-center h-[60px] lg:h-[50px] md:h-[40px] sm:h-[30px] px-2"
+                    className="flex items-center justify-center h-[60px] xl:h-[80px] lg:h-[50px] md:h-[40px] sm:h-[30px] px-2"
                   >
                     <img
                       src={client.logo}
                       alt={client.name}
                       loading="lazy"
-                      className="max-h-[40px] max-w-full object-contain lg:h-[30px] md:h-[25px] sm:h-[20px]"
+                      className="max-w-full object-contain xl:h-[50px] lg:h-[30px] md:h-[25px] sm:h-[20px]"
                     />
                   </div>
                 ))}
@@ -623,16 +627,16 @@ export default function AboutUs() {
           <img
             src="../../temp/mitrakami.png"
             alt="Mitra Kami"
-            className="mx-auto h-auto max-w-[580px] w-full object-contain"
+            className="mx-auto h-auto max-w-[780px] w-full object-contain"
           />
         </div>
 
         {/* Teks kanan */}
         <div className="lg:col-span-7 relative z-10 -top-32">
-          <h2 className="text-center text-[40px] md:text-3xl lg:text-4xl font-extrabold text-zinc-900">
+          <h2 className="text-center text-[40px] md:text-3xl lg:text-4xl xl:text-5xl font-extrabold text-zinc-900">
             Mitra Kami
           </h2>
-          <h3 className="mt-2 text-center text-2xl md:text-xl font-extrabold text-[#1444D5]">
+          <h3 className="mt-2 text-center text-2xl md:text-xl lg:text-2xl font-extrabold text-[#1444D5]">
             Kenapa Jadi Bagian Kami?
           </h3>
 
@@ -642,7 +646,7 @@ export default function AboutUs() {
               {["Pengalaman Sejak 1991", "Barang 100% ORI", "Garansi Resmi"].map((t) => (
                 <li key={t} className="flex items-center gap-3 sm:gap-2 font-medium">
                   <FontAwesomeIcon icon={faCheck} className="text-[#1444D5]" />
-                  <span className="text-sm sm:text-xs">{t}</span>
+                  <span className="text-lg xl:text-base lg:text-sm md:text=sm sm:text-xs ">{t}</span>
                 </li>
               ))}
             </ul>
@@ -654,7 +658,7 @@ export default function AboutUs() {
               ].map((t) => (
                 <li key={t} className="flex items-center gap-3 sm:gap-2 font-medium">
                   <FontAwesomeIcon icon={faCheck} className="text-[#1444D5]" />
-                  <span className="text-sm sm:text-xs">{t}</span>
+                  <span className="text-lg xl:text-base lg:text-sm md:text-sm sm:text-xs">{t}</span>
                 </li>
               ))}
             </ul>
@@ -664,9 +668,9 @@ export default function AboutUs() {
     </div>
 
     {/* Panel Brand Partner - Overlay */}
-    <div className="absolute right-0 md:right-0 md:left-auto left-1/2 md:translate-x-0 -translate-x-1/2 md:w-[70%] w-[90%] top-[60%] lg:top-[56%] md:absolute md:-bottom-12">
+    <div className="absolute right-0 md:right-0 md:left-auto left-1/2 md:translate-x-0 -translate-x-1/2 md:w-[70%] w-[90%] top-[60%] lg:top-[56%] xl:top-[70%] md:absolute md:-bottom-12">
       <div className=" w-[100%] bg-zinc-100  py-10 px-6 ml-auto md:py-10 md:ml-auto">
-        <h4 className="mb-6 text-center text-2xl md:text-xl font-extrabold text-[#1444D5] ps-36 lg:ps-32">
+        <h4 className="mb-6 text-center text-2xl lg:text-2xl md:text-xl font-extrabold text-[#1444D5] ps-36 xl:ps-52 lg:ps-32">
           Brand Partner
         </h4>
         <div className="flex flex-wrap items-center justify-center gap-x-5 ps-52 lg:ps-32">
@@ -675,7 +679,7 @@ export default function AboutUs() {
               key={p.name}
               src={p.logo}
               alt={p.name}
-              className="h-[50px] w-[80px] lg:h-[30px] lg:w-[60px] object-contain opacity-90 sm:h-3 md:h-5"
+              className="h-[50px] w-[80px] xl:h-[50px] lg:h-[30px] lg:w-[35px] object-contain opacity-90 sm:h-3 md:h-5"
             />
           ))}
         </div>
