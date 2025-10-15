@@ -6,7 +6,7 @@ const SocialMediaRow = () => {
   return (
     <div className="flex flex-row gap-2">
       <a
-        href="https://www.facebook.com/sentralkomputer"
+        href="https://www.facebook.com/sentralkomputerofficial/"
         target="_blank"
         rel="noopener noreferrer">
         <Image
@@ -18,7 +18,7 @@ const SocialMediaRow = () => {
       </a>
 
       <a
-        href="https://www.tiktok.com/@sentralkomputer"
+        href="https://www.tiktok.com/@sentralkomputer_id"
         target="_blank"
         rel="noopener noreferrer">
         <Image
@@ -29,7 +29,7 @@ const SocialMediaRow = () => {
         />
       </a>
       <a
-        href="https://www.youtube.com/@sentralkomputer"
+        href="https://www.youtube.com/channel/UCj6VTjcNLLJiJo9YS7YgeSA"
         target="_blank"
         rel="noopener noreferrer">
         <Image
@@ -41,7 +41,7 @@ const SocialMediaRow = () => {
       </a>
 
       <a
-        href="https://www.instagram.com/sentralkomputer/"
+        href="https://www.instagram.com/sentralkomputer_id/"
         target="_blank"
         rel="noopener noreferrer">
         <Image
@@ -52,7 +52,7 @@ const SocialMediaRow = () => {
         />
       </a>
       <a
-        href="https://www.youtube.com/@sentralkomputer"
+        href="https://www.youtube.com/@sentralkomputer_id"
         target="_blank"
         rel="noopener noreferrer">
         <Image

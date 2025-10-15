@@ -33,7 +33,7 @@ const LocationAddress = () => {
             <a
               href="mailto:partnership@sentral-komputer.com"
               className="underline">
-              partnership@sentral-komputer.com
+              partnership@sentralkomputer.com
             </a>
           </span>
         </p>
