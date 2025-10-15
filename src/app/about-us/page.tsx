@@ -235,7 +235,7 @@ function Stars({ count }: { count: number }) {
         <svg
           key={i}
           viewBox="0 0 20 20"
-          className={`h-5 w-5 ${i < count ? "fill-amber-400" : "fill-zinc-300"}`}
+          className={`h-5 w-5 lg:h-4 lg:w-4 ${i < count ? "fill-amber-400" : "fill-zinc-300"}`}
           aria-hidden="true"
         >
           <path d="M10 1.5l2.59 5.25 5.8.84-4.2 4.09.99 5.77L10 14.97l-5.18 2.48.99-5.77-4.2-4.09 5.8-.84L10 1.5z" />
@@ -267,7 +267,7 @@ export default function AboutUs() {
   return (
     <>
       <Header />
-      <div className="content-width mx-auto px-6 py-12 space-y-12 font-sans text-gray-800">
+      <div className="content-width mx-auto px-6 py-12 sm:py-16 space-y-12 lg:space-y-6 md:space-y-4 sm:space-y-4 font-sans text-gray-800">
         
         {/* Header Image */}
         <div>
@@ -280,13 +280,13 @@ export default function AboutUs() {
 
         {/* Company History Group Photo */}
         <div className="text-center mx-auto">
-          <p className="font-medium text-xl">
+          <p className="font-medium text-xl lg:text-lg md:text-base sm:text-sm">
             Sejarah Sentral Komputer
           </p>
-          <h1 className="text-5xl font-extrabold mt-2">
+          <h1 className="text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold mt-2">
             Bermula Pada Tahun 1991
           </h1>
-          <p className="mt-2 font-medium text-sm leading-[20px]">
+          <p className="mt-2 font-medium text-sm lg:text-sm md:text-xs sm:text-[10px] leading-[20px]">
             Kami berawal dari sebuah toko komputer dengan nama Sentral Komputer, dan seiring berjalannya waktu, <br /> berkembang dan disahkan menjadi PT Sentral Tekno Selaras pada tahun 2009.
           </p>
         </div>
@@ -296,7 +296,7 @@ export default function AboutUs() {
           <img
             src="../../temp/about-us2.png"
             alt="Company History 1991"
-            className="rounded-lg shadow-md h-[500px]"
+            className="rounded-lg shadow-md h-[500px] object-fit lg:h-[400px] md:h[325px] sm:h-[250px]"
           />
         </div>
 
@@ -319,8 +319,8 @@ export default function AboutUs() {
           </div>
 
           {/* Bagian kiri */}
-          <div className="w-full md:w-3/5 p-8">
-            <h2 className="text-[32px] font-extrabold mb-4 leading-[35px]">Kami Telah Melayani Ribuan <br />Konsumen, Organisasi & Korporasi</h2>
+          <div className="w-full md:w-3/5 lg:p-8 md:p-6">
+            <h2 className="text-[32px] lg:text-2xl md:text-base sm:text-xl font-extrabold mb-4 sm:mb-1 leading-[35px]">Kami Telah Melayani Ribuan <br />Konsumen, Organisasi & Korporasi</h2>
             <p className="text-sm font-medium leading-relaxed">
               Untuk mendapatkan kebutuhan IT  resmi dan berkualitas   melalui program distribusi, retail store, online/e-commerce, proyek, pengadaan korporasi, dan lain sebagainya.
             </p>
@@ -328,10 +328,10 @@ export default function AboutUs() {
       </div>
 
       {/* ================= CORE VALUES ================= */}
-      <section className="mx-auto space-y-10 text-gray-800 font-sans">
+      <section className="mx-auto space-y-10 sm:pt-9 text-gray-800 font-sans">
         <div className="text-center">
-          <p className="text-xl font-medium">Core Values Kami</p>
-          <h2 className="text-[40px] font-extrabold">
+          <p className="text-xl lg:text-lg md:text-base sm:text-sm font-medium">Core Values Kami</p>
+          <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">
             Inilah Nilai yang Menuntun Langkah Kami
           </h2>
         </div>
@@ -359,10 +359,10 @@ export default function AboutUs() {
               <img
                 src={item.imageUrl}
                 alt={item.title}
-                className="h-[500px] w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                className="h-[500px] w-full lg:h-[400px] md:h-[325px] sm:h-[250px] object-cover group-hover:scale-105 transition-transform duration-500"
               />
               {/* Overlay teks di bawah */}
-              <div className="absolute bottom-0 left-0 right-0 px-4 py-6 text-white text-2xl font-extrabold text-center bg-gradient-to-t from-[#092566]/90 via-[#092566]/40 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 px-4 py-6 lg:py-4 md:py-3 sm:py-2 text-white text-2xl lg:text-xl md:text-lg sm:text-base font-extrabold text-center bg-gradient-to-t from-[#092566]/90 via-[#092566]/40 to-transparent">
                 {item.title}
               </div>
             </div>
@@ -384,8 +384,8 @@ export default function AboutUs() {
 
         {/* Konten teks di atas overlay */}
         <div className="relative z-10 text-white w-full">
-          <h2 className="text-[40px] font-extrabold mb-2">Visi</h2>
-          <p className="text-base sm:text-lg">
+          <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-extrabold mb-2">Visi</h2>
+          <p className="text-base lg:text-base md:text-sm sm:text-xs">
             Menjadi perusahaan profesional yang bergerak dibidang distribusi dan retail produk IT (Teknologi Informatika) No. 1 di Indonesia.
           </p>
         </div>
@@ -393,7 +393,7 @@ export default function AboutUs() {
 
       {/* Mission */}
       <section className="mx-auto">
-        <h2 className="text-[40px] font-extrabold text-center mb-8">Misi</h2>
+        <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-extrabold text-center mb-8">Misi</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {missions.map((mission, idx) => (
           <div
@@ -407,7 +407,7 @@ export default function AboutUs() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="p-4 text-gray-800 text-center text-base font-medium flex-grow">
+            <div className="p-4 text-gray-800 text-center text-base lg:text-sm md:text-xs sm:text-[10px] sm:leading-[15px] font-medium flex-grow">
               {mission.text}
             </div>
           </div>
@@ -416,8 +416,8 @@ export default function AboutUs() {
     </section>
 
     {/* Penyebaran Lokasi Kami */}
-    <section className="mx-auto text-center space-y-6">
-      <h2 className="text-[40px] font-extrabold">Penyebaran Lokasi Kami</h2>
+    <section className="mx-auto text-center space-y-6 sm:pt-9">
+      <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">Penyebaran Lokasi Kami</h2>
       <div
       className="relative w-full sm:h-80 md:h-96 flex items-center justify-center text-center px-4"
       style={{
@@ -440,14 +440,14 @@ export default function AboutUs() {
 
       {/* Business Area */}
     <section className="mx-auto px-6 py-10 bg-gray-50">
-      <h2 className="text-3xl font-bold mb-4 text-center">Tentang Bisnis Kami</h2>
+      <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-extrabold mb-4 text-center">Tentang Bisnis Kami</h2>
 
       {/* Tabs */}
       <nav className="flex justify-center space-x-8 py-3 mb-8 text-gray-400 border-b-2">
         <button
           onClick={() => setActiveTab("b2b")}
-          className={`${
-            activeTab === "b2b" ? "text-black font-bold" : "cursor-not-allowed font-light"
+          className={` text-sm sm:text-[10px] ${
+            activeTab === "b2b" ? "text-black font-bold text-sm " : "cursor-not-allowed font-light"
           }`}
         >
           Business to Business
@@ -455,7 +455,7 @@ export default function AboutUs() {
         <button
           onClick={() => setActiveTab("b2c")}
           disabled
-          className={`${
+          className={` text-sm sm:text-[10px] ${
             activeTab === "b2c" ? "text-black font-bold" : "cursor-not-allowed font-light"
           }`}
         >
@@ -464,7 +464,7 @@ export default function AboutUs() {
         <button
           onClick={() => setActiveTab("projects")}
           disabled
-          className={`${
+          className={` text-sm sm:text-[10px] ${
             activeTab === "projecs" ? "text-black font-bold" : "cursor-not-allowed font-light"
           }`}
         >
@@ -482,78 +482,78 @@ export default function AboutUs() {
         />
 
         <div>
-          <h3 className="text-[32px] font-extrabold mb-4">Dealership dan Reseller</h3>
-          <p className="text-md font-medium mb-6">
+          <h3 className="text-[32px] lg:text-3xl md:text-2xl sm:text-xl font-extrabold mb-4">Dealership dan Reseller</h3>
+          <p className="text-sm lg:text-xs font-medium mb-6">
             Kami mendukung UMKM dan individu yang ingin berkembang dengan menyediakan pasokan dari brand IT ternama serta edukasi agar bisnis mereka tumbuh dan adaptif terhadap perkembangan zaman.
           </p>
 
           <div className="flex justify-between bg-white shadow-md rounded-lg p-6 text-left">
             <div>
-              <div className="text-4xl font-extrabold">150+</div>
-              <div className="text-md font-medium mt-1">Dealer Partnership</div>
+              <div className="text-4xl lg:text-3xl md:text-2xl sm:text-xl font-extrabold">150+</div>
+              <div className="text-sm lg:text-xs font-medium mt-1">Dealer Partnership</div>
             </div>
             <div>
               <div className="text-4xl font-extrabold">100K+</div>
-              <div className="text-md font-medium mt-1">Total Transaksi</div>
+              <div className="text-sm lg:text-xs font-medium mt-1">Total Transaksi</div>
             </div>
             <div>
               <div className="text-4xl font-extrabold">99%</div>
-              <div className="text-md font-medium mt-1">Kepuasan Kerjasama</div>
+              <div className="text-sm lg:text-xs font-medium mt-1">Kepuasan Kerjasama</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+    {/* Penghargaan */}
     <section className="py-12 bg-white">
-  <div className="mx-auto w-[90%]">
-    {/* Badge Row */}
-    <div className="flex flex-col items-center gap-6">
-      <h2 className="text-3xl font-bold text-center">Penghargaan Kami</h2>
-      <img
-        src="../../temp/penghargaan.png"
-        alt="Penghargaan"
-        className="w-full max-w-4xl rounded-lg object-contain"
-      />
-    </div>
-
-    {/* Trophy Row */}
-    <div className="mt-10 flex justify-start items-start gap-8 overflow-x-auto overflow-y-visible flex-nowrap pb-4">
-      {trophies.map((trophy, i) => (
-        <div
-          key={i}
-          className="flex-shrink-0 flex flex-col items-center text-center"
-          style={{ width: 120 }}
-        >
+      <div className="mx-auto w-[90%]">
+        {/* Badge Row */}
+        <div className="flex flex-col items-center gap-6">
+          <h2 className="text-[40px] lg:text-4xl md:text-3xl sm:text-2xl font-bold text-center">Penghargaan</h2>
           <img
-            src={trophy.imgUrl}
-            alt={trophy.title}
-            className="h-[120px] w-auto object-contain"
+            src="../../temp/penghargaan.png"
+            alt="Penghargaan"
+            className="w-full max-w-4xl lg:w-2/3 rounded-lg object-contain"
           />
-          <div className="mt-2 text-xs font-medium leading-snug max-w-[8rem]">
-            {trophy.title}
-          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+
+        {/* Trophy Row */}
+        <div className="mt-10 flex justify-start items-start gap-8 overflow-x-auto overflow-y-visible flex-nowrap pb-4">
+          {trophies.map((trophy, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 flex flex-col items-center text-center w-[120px] lg:w-[80px]"
+            >
+              <img
+                src={trophy.imgUrl}
+                alt={trophy.title}
+                className="h-[120px] w-auto object-contain lg:w-[60px]"
+              />
+              <div className="mt-2 text-xs lg:text-[10px] font-medium leading-snug max-w-[8rem]">
+                {trophy.title}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
 
     {/* Partners Logos */}
-    <section className="w-full">
-  <div className="relative mx-auto max-w-[90%] px-5 py-10
-                  overflow-x-hidden overflow-y-visible"> 
+  <section className="w-full">
+    <div className="relative mx-auto max-w-[90%] px-5 py-10 lg:py-2
+                    overflow-x-hidden overflow-y-visible"> 
+        <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"
+      />
       <div
-      aria-hidden
-      className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"
-    />
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"
-    />
-      <p className="text-xl text-center font-medium">Portofolio Klien</p>
-      <h2 className="text-center font-extrabold text-2xl md:text-3xl mb-8 text-zinc-900">
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"
+      />
+      <p className="text-xl lg:text-lg md:text-base sm:text-sm text-center font-medium">Portofolio Klien</p>
+      <h2 className="text-center font-extrabold text-[40px] lg:text-4xl md:text-3xl sm:text-2xl mb-8 text-zinc-900">
         Pelanggan Setia Kami
       </h2>
 
@@ -594,17 +594,13 @@ export default function AboutUs() {
                 {clients[cat.id].map((client: any) => (
                   <div
                     key={client.id}
-                    className="flex items-center justify-center h-[60px] px-2"
+                    className="flex items-center justify-center h-[60px] lg:h-[50px] md:h-[40px] sm:h-[30px] px-2"
                   >
                     <img
                       src={client.logo}
                       alt={client.name}
                       loading="lazy"
-                      style={{
-                        maxHeight: 40,
-                        maxWidth: "100%",
-                        objectFit: "contain",
-                      }}
+                      className="max-h-[40px] max-w-full object-contain lg:h-[30px] md:h-[25px] sm:h-[20px]"
                     />
                   </div>
                 ))}
@@ -619,11 +615,11 @@ export default function AboutUs() {
 
   <section className="relative bg-white overflow-visible pb-10">
     {/* Bagian atas: foto + teks */}
-    <div className="mx-auto w-[90%] pt-16 relative z-10">
+    <div className="mx-auto max-w-[90%] pt-16 relative z-10">
       <div className="grid items-center gap-10 lg:grid-cols-12">
         
         {/* Foto kiri */}
-        <div className="lg:col-span-5 relative z-10">
+        <div className="lg:col-span-5 md:col-span-3 relative z-10">
           <img
             src="../../temp/mitrakami.png"
             alt="Mitra Kami"
@@ -633,20 +629,20 @@ export default function AboutUs() {
 
         {/* Teks kanan */}
         <div className="lg:col-span-7 relative z-10 -top-32">
-          <h2 className="text-center text-4xl md:text-5xl font-extrabold text-zinc-900">
+          <h2 className="text-center text-[40px] md:text-3xl lg:text-4xl font-extrabold text-zinc-900">
             Mitra Kami
           </h2>
-          <h3 className="mt-2 text-center text-xl md:text-2xl font-extrabold text-[#1444D5]">
+          <h3 className="mt-2 text-center text-2xl md:text-xl font-extrabold text-[#1444D5]">
             Kenapa Jadi Bagian Kami?
           </h3>
 
           {/* Bullet 2 kolom */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 md:gap-x-16 gap-y-4 text-zinc-800">
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 md:gap-x-10 sm:gap-x-10 gap-y-4 text-zinc-800">
             <ul className="space-y-4">
               {["Pengalaman Sejak 1991", "Barang 100% ORI", "Garansi Resmi"].map((t) => (
-                <li key={t} className="flex items-center gap-3 font-medium">
+                <li key={t} className="flex items-center gap-3 sm:gap-2 font-medium">
                   <FontAwesomeIcon icon={faCheck} className="text-[#1444D5]" />
-                  <span>{t}</span>
+                  <span className="text-sm sm:text-xs">{t}</span>
                 </li>
               ))}
             </ul>
@@ -656,9 +652,9 @@ export default function AboutUs() {
                 "Tingkat Kepuasan Pelanggan Terbaik",
                 "Sales & Teknisi Profesional",
               ].map((t) => (
-                <li key={t} className="flex items-center gap-3 font-medium">
+                <li key={t} className="flex items-center gap-3 sm:gap-2 font-medium">
                   <FontAwesomeIcon icon={faCheck} className="text-[#1444D5]" />
-                  <span>{t}</span>
+                  <span className="text-sm sm:text-xs">{t}</span>
                 </li>
               ))}
             </ul>
@@ -668,18 +664,18 @@ export default function AboutUs() {
     </div>
 
     {/* Panel Brand Partner - Overlay */}
-    <div className="absolute right-0 md:right-0 md:left-auto left-1/2 md:translate-x-0 -translate-x-1/2 md:w-[70%] w-[90%] top-[60%] md:absolute md:-bottom-12">
+    <div className="absolute right-0 md:right-0 md:left-auto left-1/2 md:translate-x-0 -translate-x-1/2 md:w-[70%] w-[90%] top-[60%] lg:top-[56%] md:absolute md:-bottom-12">
       <div className=" w-[100%] bg-zinc-100  py-10 px-6 ml-auto md:py-10 md:ml-auto">
-        <h4 className="mb-6 text-center text-xl md:text-2xl font-extrabold text-[#1444D5] ps-36">
+        <h4 className="mb-6 text-center text-2xl md:text-xl font-extrabold text-[#1444D5] ps-36 lg:ps-32">
           Brand Partner
         </h4>
-        <div className="flex flex-wrap items-center justify-center gap-x-5 ps-52">
+        <div className="flex flex-wrap items-center justify-center gap-x-5 ps-52 lg:ps-32">
           {partners.map((p) => (
             <img
               key={p.name}
               src={p.logo}
               alt={p.name}
-              className="h-[50px] w-[80px] object-contain opacity-90 sm:h-7 md:h-8 lg:h-9"
+              className="h-[50px] w-[80px] lg:h-[30px] lg:w-[60px] object-contain opacity-90 sm:h-3 md:h-5"
             />
           ))}
         </div>
@@ -689,15 +685,15 @@ export default function AboutUs() {
     
     {/* Portfolio */}
     <section className="max-w-screen-4xl mx-auto">
-      <p className="text-xl text-center font-medium">Portofolio Klien</p>
-      <h2 className="text-center font-extrabold !text-[40px] md:text-3xl mb-8 text-zinc-900">
+      <p className="text-xl text-center font-medium lg:text-lg md:text-base sm:text-sm">Portofolio Klien</p>
+      <h2 className="text-center font-extrabold text-[40px] lg:text-4xl md:text-3xl sm:text-2xl mb-8 text-zinc-900">
         Portofolio Event
       </h2>
-      <div className="flex flex-wrap justify-center gap-20">
+      <div className="flex flex-wrap justify-center gap-20 lg:gap-10">
         {portfolioData.map(({ title, mainImage, thumbnails }, i) => (
           <div
             key={i}
-            className="w-full sm:w-[420px] md:w-[500px] bg-white rounded-xl shadow p-6 flex flex-col items-center"
+            className="w-full sm:w-[420px] md:w-[500px] lg:w-[375px] bg-white rounded-xl shadow p-6 flex flex-col items-center"
           >
             <img src={mainImage} alt={title} className="w-full aspect-square object-cover rounded-lg mb-3" />
             <div className="grid grid-cols-3 gap-3 w-full mb-3">
@@ -705,16 +701,16 @@ export default function AboutUs() {
                 <img key={j} src={t} alt="" className="w-full aspect-square object-cover rounded-md shadow-sm" />
               ))}
             </div>
-            <h3 className="font-extrabold text-xl">{title}</h3>
+            <h3 className="font-extrabold text-xl lg:text-lg md:text-base sm:text-sm">{title}</h3>
           </div>
         ))}
       </div>
     </section>
 
       {/* Testimonials */}
-      <section className="relative bg-[#FAFAFA] py-5 overflow-hidden">
+      <section className="relative bg-[#FAFAFA] py-6 overflow-hidden">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900">
+        <h2 className="text-[40px] lg:text-4xl md:text-3xl font-extrabold text-zinc-900">
           Apa Kata Mereka Tentang Kami
         </h2>
       </div>
@@ -748,21 +744,21 @@ export default function AboutUs() {
             {testimonials.map((t, idx) => (
               <div key={idx} className="h-full px-3 flex items-stretch">
                 <article
-                  className="bg-white rounded-2xl border border-zinc-100 shadow-[0_3px_10px_rgba(0,0,0,0.07)] p-6 flexjustify-between w-full h-[210px]"
+                  className="bg-white rounded-2xl border border-zinc-100 shadow-[0_3px_10px_rgba(0,0,0,0.07)] p-6 flexjustify-between w-full h-[210px] lg:h-[225px]"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <Avatar name={t.name} url={t.avatarUrl} />
                     <div>
-                      <h3 className="font-bold text-zinc-900 text-base">
+                      <h3 className="font-bold text-zinc-900 text-base lg:text-sm md:text-xs">
                         {t.name}
                       </h3>
-                      <p className="text-sm text-zinc-500">{t.subtitle}</p>
+                      <p className="text-sm text-zinc-500 lg:text-xs">{t.subtitle}</p>
                     </div>
                   </div>
 
                   <Stars count={t.rating} />
 
-                  <p className="mt-4 text-xs font-medium text-zinc-700 break-words">
+                  <p className="mt-3 text-xs font-medium text-zinc-700 break-words">
                     {t.text}
                   </p>
                 </article>
@@ -775,7 +771,7 @@ export default function AboutUs() {
 
       {/* Contact Form */}
       {/* ================== CONTACT FORM ================== */}
-      <section className="mx-auto max-w-screen-4xl py-12">
+      <section className="mx-auto max-w-screen-4xl py-12 lg:py-2">
         <div className="bg-white   rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] p-10">
           <h2 className="text-center text-4xl font-extrabold text-zinc-900 mb-10">
             Bergabung dengan Kami
