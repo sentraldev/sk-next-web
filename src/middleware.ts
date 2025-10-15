@@ -21,6 +21,7 @@ export function middleware(request: NextRequest) {
 
   if (
     pathname === "/" || // allow home page
+    pathname === "/about-us" ||
     pathname === "/be-right-back" || // allow maintenance page itself
     allowedPrefixes.some((prefix) => pathname.startsWith(prefix)) ||
     isStaticAsset ||
