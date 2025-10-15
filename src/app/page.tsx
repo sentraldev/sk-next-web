@@ -14,7 +14,9 @@ export default function Home() {
         <meta name="description" content="Sentral Komputer - Tech Store" />
       </Head>
       <Header />
-      <Banner />
+      <div className="shrink-0">
+        <Banner />
+      </div>
       <NewArrivals />
       <WhatsAppButton />
       {/* <Articles /> */}
