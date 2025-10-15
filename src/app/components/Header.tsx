@@ -206,11 +206,6 @@ export default function Header() {
                 Lokasi Kami
               </Link>
               <Link
-                href="/service-center"
-                className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
-                Sentral Service
-              </Link>
-              <Link
                 href="/about-us"
                 className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
                 Tentang Kami
