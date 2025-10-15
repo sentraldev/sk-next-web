@@ -6,18 +6,12 @@ import Image from "next/image";
 import { fetchData } from "@/utils/api";
 import type { Banner as BannerType } from "@/models/banner";
 
-const fallbackSlides: BannerType[] = [
-  { id: 1, title: "", image: "/temp/banner.jpg" },
-  { id: 2, title: "", image: "/temp/banner2.jpg" },
-  { id: 3, title: "", image: "/temp/banner3.jpg" },
-];
-
 export default function Banner() {
   const [slides, setSlides] = useState<BannerType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    let mounted = true;
+    const mounted = true;
     (async () => {
       try {
         const res = await fetchData<BannerType[]>("/api/v1/banners", "GET");
