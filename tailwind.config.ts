@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-geist-sans)"],
+      },
       fontStretch: {
         "semi-expanded": "semi-expanded",
       },
@@ -40,11 +43,8 @@ export default {
         900: "#ECA639", // Updated to requested color
       },
       ...colors,
-      // "gpdi-white": "#F8FAFC", // Unchanged
     },
   },
-  plugins: [
-    require('@tailwindcss/line-clamp'),
-  ],
+  plugins: [require("@tailwindcss/line-clamp")],
   // plugins: [require("tailwindcss-textshadow")],
 } satisfies Config;

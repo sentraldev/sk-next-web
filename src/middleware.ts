@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
 
   // Allow specific paths and assets to pass through
   const allowedPrefixes = [
-    "/be-right-back",
+    // "/be-right-back",
     "/_next", // Next.js internal assets (build output)
     "/api", // API routes (keep if you still need API access)
   ];
@@ -20,17 +20,15 @@ export function middleware(request: NextRequest) {
     );
 
   if (
+    pathname === "/" || // allow home page
+    pathname === "/about-us" ||
+    pathname === "/be-right-back" || // allow maintenance page itself
     allowedPrefixes.some((prefix) => pathname.startsWith(prefix)) ||
     isStaticAsset ||
     pathname === "/favicon.ico" ||
     pathname === "/robots.txt" ||
     pathname === "/sitemap.xml"
   ) {
-    return NextResponse.next();
-  }
-
-  // Already on maintenance page: allow
-  if (pathname === "/be-right-back") {
     return NextResponse.next();
   }
 

@@ -1,10 +1,11 @@
 import Head from "next/head";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Banner from "./components/Banner";
-import NewArrivals from "./components/NewArrivals";
+import NewArrivals from "./products/NewArrivals";
 // import Articles from "./components/Articles";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
+import CategoryHorizontalList from "./category/CategoryHorizontalList";
 
 export default function Home() {
   return (
@@ -14,7 +15,10 @@ export default function Home() {
         <meta name="description" content="Sentral Komputer - Tech Store" />
       </Head>
       <Header />
-      <Banner />
+      <div className="shrink-0">
+        <Banner />
+      </div>
+      <CategoryHorizontalList />
       <NewArrivals />
       <WhatsAppButton />
       {/* <Articles /> */}
