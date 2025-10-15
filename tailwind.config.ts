@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-geist-sans)'],
+      },
       fontStretch: {
         "semi-expanded": "semi-expanded",
       },
