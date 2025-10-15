@@ -217,12 +217,12 @@ export default function Header() {
               </Link>
             </nav>
 
-            <div className="flex items-center gap-2 text-xs text-gray-600">
+            {/* <div className="flex items-center gap-2 text-xs text-gray-600">
               <FontAwesomeIcon icon={faLocationDot} />
               <span className="ml-4 text-sm">
                 Aktifkan lokasi untuk melihat toko terdekat
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </header>
