@@ -19,6 +19,10 @@ export default function Header() {
   const [showRegister, setShowRegister] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
+  const [showDevModal, setShowDevModal] = useState(false);
+  const openDevModal = () => setShowDevModal(true);
+  const closeDevModal = () => setShowDevModal(false);
+
   const handleLoginSubmit = async () => {
     // Handle login submission logic here
     try {
@@ -145,12 +149,12 @@ export default function Header() {
                 <>
                   <button
                     className="text-sm bg-white border-2 border-primary-900 text-primary-900 px-4 py-1 rounded hover:bg-primary-900 hover:text-white transition"
-                    onClick={() => setShowLogin(true)}>
+                    onClick={() => openDevModal()}>
                     Masuk
                   </button>
                   <button
                     className="text-sm bg-primary-900 text-white px-4 py-1 rounded border-2 border-primary-900 hover:bg-primary-800 transition"
-                    onClick={() => setShowRegister(true)}>
+                    onClick={() => openDevModal()}>
                     Daftar
                   </button>
                 </>
@@ -176,6 +180,12 @@ export default function Header() {
                 href="/our-location"
                 className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
                 Lokasi Kami
+              </Link>
+
+              <Link
+                href="/service-center"
+                className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
+                Sentral Service
               </Link>
               <Link
                 href="/about-us"
@@ -224,6 +234,35 @@ export default function Header() {
             window.location.reload(); // Reload to reflect registration state
           }}
         />
+      )}
+
+      {showDevModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          role="dialog"
+          aria-modal="true">
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={closeDevModal}
+          />
+          <div className="relative z-10 w-[90%] max-w-sm rounded-lg bg-white p-5 shadow-xl">
+            <h3 className="text-lg font-semibold mb-2">
+              Feature Under Development
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Fitur ini masih dalam pengerjaan. Mohon tunggu update berikutnya
+              🙏
+            </p>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={closeDevModal}
+                className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                autoFocus>
+                Oke
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
