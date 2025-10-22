@@ -70,8 +70,8 @@ const CategoryHorizontalList: React.FC = () => {
   }
 
   return (
-    <section className="content-width mx-auto px-4 py-6 w-full">
-      <h2 className="text-xl font-bold mb-3">Kategori</h2>
+    <section className="content-width mx-auto  py-6 w-full">
+      <h2 className="text-xl md:text-2xl font-bold">Kategori</h2>
       <div className="relative flex justify-between overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent py-1 px-4">
         {categories.map((cat, index) => (
           <React.Fragment key={cat.id}>
