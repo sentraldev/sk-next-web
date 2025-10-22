@@ -22,14 +22,14 @@ const LocationAddress = () => {
           <p className="text-sm font-semibold">Sentral Komputer Head Office</p>
           <p>Ruko Taman Pulo Indah</p>
           <p>Jl. Manggis M No. 34</p>
-          <p>Jakarta Timur 14940</p>
+          <p>Jakarta Timur 13940</p>
         </div>
       </div>
       <div className="flex flex-col gap-1">
         <p className="text-sm flex items-center gap-2">
           <FontAwesomeIcon icon={faEnvelope} className="w-3.5 h-3.5" />
           <span>
-            Email:{" "}
+            Email:
             <a
               href="mailto:partnership@sentral-komputer.com"
               className="underline">
@@ -43,11 +43,11 @@ const LocationAddress = () => {
           <span>
             Contact:{" "}
             <a
-              href="https://wa.me/628897772400"
+              href="https://wa.me/6281977772400"
               target="_blank"
               rel="noopener noreferrer"
               className="underline">
-              +62-889-777-2400
+              +62-819-7777-2400
             </a>
           </span>
         </p>
