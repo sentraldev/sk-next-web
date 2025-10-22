@@ -15,7 +15,7 @@ const LocationAddress = () => {
           width={128}
           height={128}
         />
-        <p className="text-sm pb-4">PT Sentral Tekno Sejahtera</p>
+        <p className="text-sm pb-4">PT Sentral Tekno Selaras</p>
       </div>
       <div>
         <div className="flex flex-col text-xs mt-1 gap-1">
