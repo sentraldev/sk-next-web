@@ -58,19 +58,19 @@ function toProduct(p: ApiProduct): Product {
   const displaySize = sizeMatch ? parseFloat(sizeMatch[1]) : 0;
 
   const ram =
-    typeof p.laptop?.ram === "string"
-      ? parseInt(p.laptop!.ram, 10)
-      : p.laptop?.ram || 0;
+    typeof p.laptop?.ram_size === "string"
+      ? parseInt(p.laptop!.ram_size, 10)
+      : p.laptop?.ram_size || 0;
   const storageNum =
-    typeof p.laptop?.storage === "string"
-      ? parseInt(p.laptop!.storage, 10)
-      : p.laptop?.storage || 0;
+    typeof p.laptop?.storage_size === "string"
+      ? parseInt(p.laptop!.storage_size, 10)
+      : p.laptop?.storage_size || 0;
 
   return {
     id: p.id,
     name: p.name,
     category: "Laptop",
-    brand: p.brand,
+    brand: p.brand.name,
     price,
     images: p.images && p.images.length > 0 ? p.images : [firstImg],
     slug: p.slug,

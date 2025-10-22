@@ -8,7 +8,6 @@ import { useEffect, useMemo, useState } from "react";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
-import ProductCard from "@/app/components/ProductCard";
 import { fetchData } from "@/utils/api";
 import Link from "next/link";
 import SpecsRenderer from "@/app/components/SpecsRenderer";
@@ -145,16 +144,6 @@ export default function ProductDetail() {
   }, [product]);
 
   const totalPrice = useMemo(() => unitPrice * qty, [unitPrice, qty]);
-
-  // For gallery, repeat the same image as placeholder when data exists
-  const gallery = useMemo(() => {
-    const fallback = mainImg || "/temp/laptop.jpg";
-    const src =
-      product?.images && product.images.length > 0
-        ? product.images[0]
-        : fallback;
-    return Array(5).fill(src);
-  }, [product?.images, mainImg]);
 
   // Filter reviews berdasarkan rating
   const filteredReviews =
