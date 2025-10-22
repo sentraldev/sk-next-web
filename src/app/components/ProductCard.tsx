@@ -5,7 +5,7 @@ import { Product } from "../../models/product";
 
 export default function ProductCard({ product }: { product: Product }) {
   const handleClick = () => {
-    window.location.href = `/products/${product.id}`; // Navigate to product details page
+    window.location.href = `/products/${product.slug}`; // Navigate to product details page by slug
   };
 
   return (
@@ -15,7 +15,7 @@ export default function ProductCard({ product }: { product: Product }) {
       {/* Badge */}
       <Image
         key={product.id}
-        src={product.img}
+        src={product.images[0]}
         alt={product.name}
         width={160}
         height={120}
