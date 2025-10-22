@@ -6,6 +6,8 @@ import NewArrivals from "./products/NewArrivals";
 import Footer from "./components/Footer/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import CategoryHorizontalList from "./category/CategoryHorizontalList";
+import SEOSection from "./components/SEOSection";
+import PreferredBrandList from "./brands/PreferredBrandList";
 
 export default function Home() {
   return (
@@ -22,6 +24,9 @@ export default function Home() {
       <NewArrivals />
       <WhatsAppButton />
       {/* <Articles /> */}
+      <PreferredBrandList />
+
+      <SEOSection />
 
       <Footer />
     </div>

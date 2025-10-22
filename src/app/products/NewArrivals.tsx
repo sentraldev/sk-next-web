@@ -101,7 +101,7 @@ export default async function NewArrivals() {
           Lihat Semua
         </a>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {products.length === 0 ? (
           <div className="col-span-full text-center text-gray-500 py-6">
             Produk baru belum tersedia.
