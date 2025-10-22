@@ -2,25 +2,6 @@ import { Product } from "../../models/product";
 import ProductCard from "../components/ProductCard";
 import { fetchData } from "../../utils/api";
 
-type ApiLaptop = {
-  processor?: string;
-  gpu?: string;
-  ram?: number | string;
-  storage?: number | string;
-  specs?: string;
-};
-
-type ApiProduct = {
-  id: number;
-  name: string;
-  brand: string;
-  price: string;
-  discounted_price?: string | null;
-  discount_value?: number | null; // percentage from API
-  images?: string[];
-  laptop?: ApiLaptop | null;
-};
-
 function toProduct(p: ApiProduct): Product {
   const price = parseFloat(p.price ?? "0");
   // Prefer server-provided discounted_price; else compute from discount_value
@@ -72,10 +53,11 @@ function toProduct(p: ApiProduct): Product {
   return {
     id: p.id,
     name: p.name,
+    slug: p.slug,
     category: "Laptop",
     brand: p.brand,
     price,
-    img: firstImg,
+    images: p.images && p.images.length > 0 ? p.images : [firstImg],
     badge: discountPct ? `${discountPct}%` : "",
     discount: discountPct,
     priceAfterDiscount:
