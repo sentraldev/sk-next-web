@@ -296,7 +296,7 @@ export default function AboutUs() {
           <img
             src="../../temp/about-us2.png"
             alt="Company History 1991"
-            className="rounded-lg shadow-md h-[500px] object-fit xl:h-[700px] lg:h-[400px] md:h-[325px] sm:h-[250px]"
+            className="rounded-lg shadow-md h-[500px] aspect-auto object-fit xl:h-[500px] lg:h-[400px] md:h-[325px] sm:h-[250px]"
           />
         </div>
 
@@ -509,40 +509,46 @@ export default function AboutUs() {
       </div>
     </section>
 
-    {/* Penghargaan */}
-    <section className="py-12 bg-white">
-      <div className="mx-auto w-[90%]">
-        {/* Badge Row */}
-        <div className="flex flex-col items-center gap-6">
-          <h2 className="text-[40px] xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-bold text-center">Penghargaan</h2>
-          <img
-            src="../../temp/penghargaan.png"
-            alt="Penghargaan"
-            className="w-full max-w-4xl lg:w-2/3 rounded-lg object-contain"
-          />
-        </div>
+  {/* Penghargaan — satu baris, no border, no shadow, max width 90% */}
+  <section className="py-12 bg-white">
+    <div className="mx-auto w-[90%]">
+      <h2 className="text-center font-extrabold text-[40px] xl:text-5xl lg:text-4xl md:text-3xl">
+        Penghargaan
+      </h2>
 
-        {/* Trophy Row */}
-        <div className="mt-10 flex justify-start items-start gap-8 xl:gap-1 overflow-x-auto overflow-y-visible flex-nowrap pb-4">
-          {trophies.map((trophy, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 flex flex-col items-center text-center w-[120px] xl:w-[195px] lg:w-[80px]"
-            >
-              <img
-                src={trophy.imgUrl}
-                alt={trophy.title}
-                className="h-[120px] w-auto object-contain xl:w-[100px] xl:h-auto lg:w-[60px]"
-              />
-              <div className="mt-2 text-xs xl:text-base lg:text-[10px] font-medium leading-snug max-w-[8rem]">
-                {trophy.title}
+      {/* Banner (opsional) */}
+      <div className="mt-6 flex justify-center">
+        <img
+          src="../../temp/penghargaan.png"
+          alt="Lencana penghargaan"
+          className="w-full max-w-4xl rounded-lg object-contain"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Trofi: selalu satu baris */}
+      <div className="mt-10 grid grid-flow-col auto-cols-fr gap-6">
+        {trophies.map((t, i) => (
+          <div key={i} className="flex flex-col items-center text-center">
+            <div className="relative w-full overflow-hidden rounded-xl">
+              {/* no border, no shadow */}
+              <div className="relative aspect-[3/4]">
+                <img
+                  src={t.imgUrl}
+                  alt={t.title}
+                  className="absolute inset-0 h-full w-full object-contain p-3"
+                  loading="lazy"
+                />
               </div>
             </div>
-          ))}
-        </div>
+            <div className="mt-2 text-xs md:text-xs font-semibold leading-snug">
+              {t.title}
+            </div>
+          </div>
+        ))}
       </div>
-    </section>
-
+    </div>
+  </section>
 
     {/* Partners Logos */}
   <section className="w-full">
@@ -568,17 +574,18 @@ export default function AboutUs() {
         dots={false}
         infinite
         speed={450}
-        slidesToShow={1}         
+        slidesToShow={1}
         slidesToScroll={1}
         autoplay
         autoplaySpeed={2600}
         arrows
+        centerMode
+        centerPadding="100px"
         responsive={[
-          { breakpoint: 1280, settings: { slidesToShow: 1 } },
-          { breakpoint: 768,  settings: { slidesToShow: 1 } },
+          { breakpoint: 1280, settings: { centerPadding: '120px' } },
+          { breakpoint: 1024, settings: { centerPadding: '80px' } },
+          { breakpoint: 768,  settings: { centerPadding: '32px' } },
         ]}
-        centerMode={true}
-        centerPadding="200px"
       >
         {categories.map((cat) => (
           <div key={cat.id} className="px-2">
@@ -616,77 +623,108 @@ export default function AboutUs() {
     </div>
   </section>  
 
+<section
+  className={`
+    relative mx-auto w-[90%] py-6
+  `}
+  style={
+    {
+      // BASE untuk desktop lebar — jangan diubah
+      ['--overlap' as any]: '300px',
+      ['--panelW'  as any]: '80%',
+      ['--logoH'   as any]: 'clamp(40px,3.3vw,29px)',
+    } as React.CSSProperties
+  }
+>
+  {/* ROW ATAS */}
+  <div className="grid grid-flow-col grid-rows-2  items-start gap-4 lg:grid-cols-12">
+    {/* KIRI: gambar jadi anchor visual */}
+    <div className="row-span-3 xl:col-span-5 lg:col-span-6 shrink-0 z-10">
+      <div className="flex items-start justify-end">
+        <img
+          src="../../temp/mitrakami.png"
+          alt="Mitra Kami"
+          className="block h-auto max-w-full"
+        />
+      </div>
+    </div>
 
-  <section className="relative bg-white overflow-visible pb-10">
-    {/* Bagian atas: foto + teks */}
-    <div className="mx-auto max-w-[90%] pt-16 relative z-10">
-      <div className="grid items-center gap-10 lg:grid-cols-12">
-        
-        {/* Foto kiri */}
-        <div className="lg:col-span-5 md:col-span-3 relative z-10">
-          <img
-            src="../../temp/mitrakami.png"
-            alt="Mitra Kami"
-            className="mx-auto h-auto max-w-[780px] w-full object-contain"
-          />
-        </div>
+    {/* KANAN: heading + bullets (rata atas) */}
+    <div className="mt-10 col-span-2 xl:col-span-7 lg:col-span-12">
+      <div className="flex flex-col items-center lg:items-center">
+        <h2 className="text-center lg:text-center font-extrabold
+                       text-[40px] xl:text-[48px] lg:text-3xl leading-tight  text-zinc-900">
+          Mitra Kami
+        </h2>
+        <h3 className="mt-2 text-center lg:text-center font-extrabold
+                       text-[20px] xl:text-[22px] lg:text-lg  text-[#1444D5]">
+          Kenapa Jadi Bagian Kami?
+        </h3>
 
-        {/* Teks kanan */}
-        <div className="lg:col-span-7 relative z-10 -top-32">
-          <h2 className="text-center text-[40px] md:text-3xl lg:text-4xl xl:text-5xl font-extrabold text-zinc-900">
-            Mitra Kami
-          </h2>
-          <h3 className="mt-2 text-center text-2xl md:text-xl lg:text-2xl font-extrabold text-[#1444D5]">
-            Kenapa Jadi Bagian Kami?
-          </h3>
-
-          {/* Bullet 2 kolom */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 md:gap-x-10 sm:gap-x-10 gap-y-4 text-zinc-800">
-            <ul className="space-y-4">
-              {["Pengalaman Sejak 1991", "Barang 100% ORI", "Garansi Resmi"].map((t) => (
-                <li key={t} className="flex items-center gap-3 sm:gap-2 font-medium">
-                  <FontAwesomeIcon icon={faCheck} className="text-[#1444D5]" />
-                  <span className="text-lg xl:text-base lg:text-sm md:text=sm sm:text-xs ">{t}</span>
-                </li>
-              ))}
-            </ul>
-            <ul className="space-y-4">
-              {[
-                "Service Center Certified",
-                "Tingkat Kepuasan Pelanggan Terbaik",
-                "Sales & Teknisi Profesional",
-              ].map((t) => (
-                <li key={t} className="flex items-center gap-3 sm:gap-2 font-medium">
-                  <FontAwesomeIcon icon={faCheck} className="text-[#1444D5]" />
-                  <span className="text-lg xl:text-base lg:text-sm md:text-sm sm:text-xs">{t}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Bullets 2 kolom */}
+        <div className="mt-6 grid w-full
+                        grid-cols-1 md:grid-cols-2 gap-y-5 xl:gap-x-12 lg:gap-x-5
+                       leading-relaxed xl:ps-14 lg:ps-5">
+          <ul className="space-y-5">
+            {['Pengalaman Sejak 1991', 'Barang 100% ORI', 'Garansi Resmi'].map(t => (
+              <li key={t} className="flex items-center gap-3">
+                <FontAwesomeIcon icon={faCheck} className="text-[#1444D5]" />
+                <span className="font-medium xl:text-[15px] lg:text-[11px] md:text-xs">{t}</span>
+              </li>
+            ))}
+          </ul>
+          <ul className="space-y-5">
+            {['Service Center Certified', 'Tingkat Kepuasan Pelanggan Terbaik', 'Sales & Teknisi Profesional'].map(t => (
+              <li key={t} className="flex items-center gap-3">
+                <FontAwesomeIcon icon={faCheck} className="text-[#1444D5]"/>
+                <span className="font-medium xl:text-[15px] lg:text-[11px] md:text-xs">{t}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
 
-    {/* Panel Brand Partner - Overlay */}
-    <div className="absolute right-0 md:right-0 md:left-auto left-1/2 md:translate-x-0 -translate-x-1/2 md:w-[70%] w-[90%] top-[60%] lg:top-[56%] xl:top-[70%] md:absolute md:-bottom-12">
-      <div className=" w-[100%] bg-zinc-100  py-10 px-6 ml-auto md:py-10 md:ml-auto">
-        <h4 className="mb-6 text-center text-2xl lg:text-2xl md:text-xl font-extrabold text-[#1444D5] ps-36 xl:ps-52 lg:ps-32">
+  
+    {/* PANEL BRAND PARTNER: overlap, lebar 2/3-an, rata kanan */}
+    <div className="mt-12 col-span-2 row-span-2 xl:col-span-7 lg:col-span-12 w-full ">
+      <div
+        className="
+          bg-zinc-100
+          flex flex-col mt-4 p-4
+        "
+      >
+        <h4 className="mb-[clamp(12px,2vw,20px)] text-center text-[clamp(18px,1.7vw,22px)] font-extrabold text-[#1444D5]">
           Brand Partner
         </h4>
-        <div className="flex flex-wrap items-center justify-center gap-x-5 ps-52 lg:ps-32">
+
+        {/* Grid logo responsif; akan menambah tinggi jika isi butuh */}
+        <div
+          className="
+            mx-auto
+            grid place-items-center
+            grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9
+            flex-1 gap-4
+          "
+        >
           {partners.map((p) => (
             <img
               key={p.name}
               src={p.logo}
               alt={p.name}
-              className="h-[50px] w-[80px] xl:h-[50px] lg:h-[30px] lg:w-[35px] object-contain opacity-90 sm:h-3 md:h-5"
+              loading="lazy"
+              className="xl:h-10 lg:h-5 w-auto object-contain"
             />
           ))}
         </div>
       </div>
     </div>
-  </section>
-    
+  </div>
+
+
+
+</section>
+
     {/* Portfolio */}
     <section className="max-w-screen-4xl mx-auto">
       <p className="text-xl text-center font-medium lg:text-lg md:text-base sm:text-sm">Portofolio Klien</p>
