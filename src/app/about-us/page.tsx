@@ -268,7 +268,7 @@ export default function AboutUs() {
     <>
       <Header />
       {/* <div className="content-width sm:w-full mx-auto px-6 py-12 sm:py-16 space-y-12 xl:space-y-12 lg:space-y-6 md:space-y-4 sm:space-y-4 font-sans text-gray-800"> */}
-      <div className="mx-auto content-width px-6 py-12 space-y-12 font-sans text-gray-800">
+      <div className="mx-auto content-width px-6 py-12 space-y-12 font-sans">
         {/* Header Image */}
         <div>
           <img
@@ -328,7 +328,7 @@ export default function AboutUs() {
       </div>
 
       {/* ================= CORE VALUES ================= */}
-      <section className="mx-auto space-y-10 sm:pt-9 text-gray-800 font-sans">
+      <section className="mx-auto space-y-10 sm:pt-9 font-sans">
         <div className="text-center">
           <p className="text-xl xl:text-xl lg:text-lg md:text-base sm:text-sm font-medium">Core Values Kami</p>
           <h2 className="text-[40px] xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl font-extrabold">
