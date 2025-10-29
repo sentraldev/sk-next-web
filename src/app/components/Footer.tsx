@@ -48,7 +48,7 @@ export default function Footer() {
                   Profil Perusahaan
                 </a>
 
-                <a href="#" className="hover:underline">
+                <a href="/article" className="hover:underline">
                   Berita
                 </a>
               </ul>
