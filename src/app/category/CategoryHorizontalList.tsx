@@ -70,9 +70,9 @@ const CategoryHorizontalList: React.FC = () => {
   }
 
   return (
-    <section className="content-width mx-auto px-4 py-6 w-full">
-      <h2 className="text-xl font-bold mb-3">Kategori</h2>
-      <div className="relative flex justify-between overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent py-1 px-4">
+    <section className="content-width mx-auto py-6 w-full">
+      <h2 className="text-xl md:text-2xl font-bold mb-4">Kategori</h2>
+      <div className="relative py-8 flex justify-around overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent py-1 px-4 shadow radius-lg bg-white flex-row gap-2 lg:gap-1">
         {categories.map((cat, index) => (
           <React.Fragment key={cat.id}>
             {/* Category item */}
@@ -101,7 +101,7 @@ const CategoryHorizontalList: React.FC = () => {
 
             {/* Divider — except after last item */}
             {index < categories.length - 1 && (
-              <div className=" top-6 bottom-6 w-px bg-gray-200" />
+              <div className="top-6 bottom-6 w-px bg-gray-200" />
             )}
           </React.Fragment>
         ))}

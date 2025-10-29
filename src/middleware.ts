@@ -11,6 +11,11 @@ export function middleware(request: NextRequest) {
     // "/be-right-back",
     "/_next", // Next.js internal assets (build output)
     "/api", // API routes (keep if you still need API access)
+    "/products/", // Allow product detail pages e.g., /products/:id
+    "/products", // Allow product detail pages e.g., /products/:id
+    "/our-location",
+    "/service-center",
+    "/article",
   ];
 
   // Allow static assets by extension (served from /public)

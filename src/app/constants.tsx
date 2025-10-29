@@ -1,6 +1,6 @@
 export const ramOptions = [4, 8, 16, 24, 32];
 
-export const storageOptions = ["256GB", "512GB", "1TB", "2TB"];
+export const storageOptions = ["256GB", "512GB", "1024GB", "2TB"];
 
 export const processorOptions = ["Intel", "AMD", "Apple"];
 

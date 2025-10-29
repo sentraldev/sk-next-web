@@ -4,12 +4,12 @@ export default function Footer() {
   return (
     // TODO: Add absolute bottom
     <footer className="bg-gray-100 pt-8 mt-8 border-blue-900 bottom-0 w-full">
-      <div className="flex md:flex-row content-width w-full mx-auto px-4">
+      <div className="flex flex-col md:flex-row content-width w-full mx-auto px-4">
         {/* Logo and Address */}
         <LocationAddress />
 
         {/* Links */}
-        <div className="w-full grid grid-cols-2 md:grid-cols-3 justify-items-end">
+        <div className="w-full grid grid-cols-2 md:grid-cols-3 md:justify-items-end">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2">
               <h4 className="font-bold mb-2 text-sm">Tentang Kami</h4>
@@ -31,7 +31,7 @@ export default function Footer() {
                 <a href="#" className="hover:underline">
                   Karir
                 </a>
-                <a href="#" className="hover:underline">
+                <a href="/article" className="hover:underline">
                   Blog
                 </a>
                 <a href="#" className="hover:underline">

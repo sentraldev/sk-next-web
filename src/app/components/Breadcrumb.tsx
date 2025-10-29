@@ -18,9 +18,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
             ) : (
               <span className="font-semibold">{item.label}</span>
             )}
-            {index < items.length - 1 && (
-              <span className="select-none">/</span>
-            )}
+            {index < items.length - 1 && <span className="select-none">/</span>}
           </li>
         ))}
       </ol>

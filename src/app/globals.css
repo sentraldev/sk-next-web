@@ -53,3 +53,11 @@ body {
 .client-slider {
   padding-bottom: 1.5rem;
 }
+
+/* sembunyikan scrollbar horizontal trophy */
+.trophies-scrollbar {
+  scrollbar-width: none;       /* Firefox */
+}
+.trophies-scrollbar::-webkit-scrollbar {
+  display: none;               /* Chrome/Safari */
+}

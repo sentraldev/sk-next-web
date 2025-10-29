@@ -3,14 +3,14 @@
 import Footer from "@/app/components/Footer/Footer";
 import Header from "@/app/components/Header/Header";
 import Image from "next/image";
-import { mockProducts } from "../mockProducts";
-import { notFound } from "next/navigation";
-import { useParams } from "next/navigation";
-import { useState } from "react";
+import { notFound, useParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
-import ProductCard from "@/app/components/ProductCard";
+import { fetchData } from "@/utils/api";
+import Link from "next/link";
+import HtmlRenderer from "@/app/components/HtmlRenderer";
 
 type Review = {
   id: number;
@@ -51,24 +51,100 @@ const ratingDistribution = [5, 4, 3, 2, 1].map((star) => ({
 }));
 
 export default function ProductDetail() {
-  // Get product id from URL
-  const params = useParams();
-  const id = Number(params?.uuid);
-  const product = mockProducts.find((p) => p.id === id);
-  const [mainImg, setMainImg] = useState(product?.img || "/temp/laptop.jpg");
+  // Get product slug from URL
+  const params = useParams<{ uuid: string }>();
+  const slug = String(params?.uuid || "");
+
+  const [product, setProduct] = useState<ApiProduct | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [related, setRelated] = useState<ApiProduct[]>([]);
+
+  const [mainImg, setMainImg] = useState("/temp/laptop.jpg");
   const [qty, setQty] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(
-    Number(product?.discount ? product.priceAfterDiscount : product?.price) || 0
-  );
   const [activeTab, setActiveTab] = useState<"description" | "reviews">(
     "description"
   );
   const [filterRating, setFilterRating] = useState<number | "all">("all");
+  const [showDevModal, setShowDevModal] = useState(false);
+  const openDevModal = () => setShowDevModal(true);
+  const closeDevModal = () => setShowDevModal(false);
 
-  if (!product) return notFound();
+  // Fetch product detail
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setError(null);
+    if (!slug) return;
+    (async () => {
+      try {
+        const { data } = await fetchData<ApiProduct>(
+          `api/v1/products/${slug}`,
+          "GET"
+        );
+        if (!active) return;
+        if (!data) {
+          setProduct(null);
+        } else {
+          setProduct(data as ApiProduct);
+          const firstImg =
+            (data as any).images && (data as any).images.length > 0
+              ? (data as any).images[0]
+              : "/temp/laptop.jpg";
+          setMainImg(firstImg);
+        }
+      } catch (e: any) {
+        setError(e?.message || "Terjadi kesalahan saat memuat produk");
+      } finally {
+        if (active) setLoading(false);
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, [slug]);
 
-  // For gallery, just repeat the same image as in the design
-  const gallery = Array(5).fill(product.img);
+  // Fetch related products (best-effort)
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      try {
+        const { data } = await fetchData<ApiProduct[]>(
+          `api/v1/products`,
+          "GET"
+        );
+        if (!active) return;
+        if (Array.isArray(data)) {
+          const filtered = data.filter((p) => p.slug !== slug).slice(0, 6);
+          setRelated(filtered);
+        }
+      } catch {
+        // ignore related errors silently
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, [slug]);
+
+  const unitPrice = useMemo(() => {
+    if (!product) return 0;
+    const priceNum = parseFloat(product.price ?? "0");
+    const discountedStr = (product.discount as any)?.discounted_price as
+      | string
+      | undefined;
+    const discountedNum = discountedStr ? parseFloat(discountedStr) : undefined;
+    const discountPct =
+      typeof product.discount?.percentage === "number"
+        ? product.discount.percentage
+        : undefined;
+    return (
+      discountedNum ??
+      (discountPct ? priceNum * (1 - discountPct / 100) : priceNum)
+    );
+  }, [product]);
+
+  const totalPrice = useMemo(() => unitPrice * qty, [unitPrice, qty]);
 
   // Filter reviews berdasarkan rating
   const filteredReviews =
@@ -76,7 +152,31 @@ export default function ProductDetail() {
       ? reviewsData
       : reviewsData.filter((r) => r.rating === filterRating);
 
-  console.log("Test Staging");
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <div className="content-width mx-auto py-16 text-center text-gray-500">
+          Memuat detail produk…
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Header />
+        <div className="content-width mx-auto py-16 text-center text-red-600">
+          {error}
+        </div>
+        <Footer />
+      </>
+    );
+  }
+
+  if (!product) return notFound();
 
   return (
     <>
@@ -94,22 +194,24 @@ export default function ProductDetail() {
             />
           </div>
           <div className="flex gap-3 mt-4">
-            {gallery.map((img, i) => (
-              <button
-                key={i}
-                className={`border rounded-lg w-14 h-14 flex items-center justify-center bg-white ${
-                  mainImg === img ? "border-blue-500" : "border-gray-200"
-                }`}
-                onClick={() => setMainImg(img)}>
-                <Image
-                  src={img}
-                  alt={product.name + " thumb"}
-                  width={56}
-                  height={56}
-                  className="object-contain"
-                />
-              </button>
-            ))}
+            {product.images &&
+              product.images.length > 0 &&
+              product.images.map((img, i) => (
+                <button
+                  key={i}
+                  className={`border rounded-lg w-14 h-14 flex items-center justify-center bg-white overflow-hidden ${
+                    mainImg === img ? "border-blue-500" : "border-gray-200"
+                  }`}
+                  onClick={() => setMainImg(img)}>
+                  <Image
+                    src={img}
+                    alt={product.name + " thumb"}
+                    width={56}
+                    height={56}
+                    className="object-contain"
+                  />
+                </button>
+              ))}
           </div>
         </div>
 
@@ -129,17 +231,27 @@ export default function ProductDetail() {
           </div>
           <div className="flex items-center gap-3 mb-2">
             <span className="text-2xl font-bold text-gray-900">
-              {product.discount
-                ? product.priceAfterDiscount!.toLocaleString("id-ID")
-                : product.price.toLocaleString("id-ID")}
+              {unitPrice.toLocaleString("id-ID")}
             </span>
-            {product.discount && (
+            {(((product.discount as any)?.discounted_price as
+              | string
+              | undefined) ||
+              typeof product.discount?.percentage === "number") && (
               <>
                 <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                  Rp {product.discount.toLocaleString("id-ID")}%
+                  {(
+                    (typeof product.discount?.percentage === "number"
+                      ? product.discount.percentage
+                      : (product.discount as any)?.discounted_price
+                      ? Math.round(
+                          (1 - unitPrice / parseFloat(product.price)) * 100
+                        )
+                      : undefined) ?? 0
+                  ).toLocaleString("id-ID")}
+                  %
                 </span>
                 <span className="text-gray-400 line-through text-sm">
-                  Rp {product.price.toLocaleString("id-ID")}
+                  Rp {parseFloat(product.price).toLocaleString("id-ID")}
                 </span>
               </>
             )}
@@ -147,22 +259,41 @@ export default function ProductDetail() {
           <div className="border-t border-gray-200 mb-4 pt-2">
             <h2 className="font-bold mb-2 text-base">Detail Produk</h2>
             <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
-              <li>Brand: {product.brand}</li>
-              <li>Processor: {product.processor}</li>
-              <li>Display: {product.displaySize} inch</li>
-              <li>RAM: {product.ram} GB</li>
-              <li>Storage: {product.storage}</li>
+              <li>Brand: {product.brand.name}</li>
+              <li>Processor: {product.laptop?.processor || "-"}</li>
+              {/* <li>
+                Display:{" "}
+                {(() => {
+                  const specs = product.laptop?.specs || "";
+                  const m = specs.match(
+                    /(\d{1,2}(?:\.\d)?)\s*-?\s*(?:in|inch)/i
+                  );
+                  return m ? `${m[1]} inch` : "-";
+                })()}
+              </li> */}
+              <li>
+                RAM:{" "}
+                {typeof product.laptop?.ram_size === "number"
+                  ? `${product.laptop?.ram_size} GB`
+                  : product.laptop?.ram_size || "-"}
+              </li>
+              <li>
+                Storage:{" "}
+                {typeof product.laptop?.storage_size === "number"
+                  ? `${product.laptop?.storage_size} GB`
+                  : product.laptop?.storage_size || "-"}
+              </li>
             </ul>
           </div>
 
           {/* Pick up location confirmation */}
-          <div className="border-t border-gray-200 mb-4 pt-2">
+          {/* <div className="border-t border-gray-200 mb-4 pt-2">
             <p className="text-sm font-light mb-2">
               Produk tersedia di{" "}
               <span className="font-bold">Sentral Komputer</span> untuk di pick
               up secara langsung!
             </p>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex-1 max-w-xs">
@@ -178,17 +309,7 @@ export default function ProductDetail() {
                   data-input-counter-decrement="quantity-input"
                   className="   border border-gray-300 rounded-s-lg p-3 h-11 focus:outline-none"
                   onClick={() => {
-                    setQty((prev) => {
-                      const newQty = prev - 1;
-                      setTotalPrice(
-                        Number(
-                          product.discount
-                            ? product.priceAfterDiscount
-                            : product.price
-                        ) * newQty
-                      );
-                      return newQty;
-                    });
+                    setQty((prev) => Math.max(1, prev - 1));
                   }}>
                   <svg
                     className="w-3 h-3 text-gray-900 text-gray-400"
@@ -198,9 +319,9 @@ export default function ProductDetail() {
                     viewBox="0 0 18 2">
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M1 1h16"
                     />
                   </svg>
@@ -212,10 +333,10 @@ export default function ProductDetail() {
                   aria-describedby="helper-text-explanation"
                   className="border border-x-0 h-11 text-center border-gray-300 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder={qty.toString()}
-                  defaultValue={qty}
+                  value={qty}
                   onChange={(e) => {
-                    setQty(Number(e.target.value));
-                    setTotalPrice(totalPrice * Number(e.target.value));
+                    const val = Number(e.target.value || 1);
+                    setQty(Number.isNaN(val) ? 1 : Math.max(1, val));
                   }}
                   required
                 />
@@ -225,17 +346,7 @@ export default function ProductDetail() {
                   data-input-counter-increment="quantity-input"
                   className="border border-gray-300 rounded-e-lg p-3 h-11 focus:outline-none"
                   onClick={() => {
-                    setQty((prev) => {
-                      const newQty = prev + 1;
-                      setTotalPrice(
-                        Number(
-                          product.discount
-                            ? product.priceAfterDiscount
-                            : product.price
-                        ) * newQty
-                      );
-                      return newQty;
-                    });
+                    setQty((prev) => prev + 1);
                   }}>
                   <svg
                     className="w-3 h-3 text-gray-900 text-gray-400"
@@ -245,9 +356,9 @@ export default function ProductDetail() {
                     viewBox="0 0 18 18">
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M9 1v16M1 9h16"
                     />
                   </svg>
@@ -262,20 +373,28 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg px-6 py-2 transition">
+            <button
+              onClick={openDevModal}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg px-6 py-2 transition">
               Tambahkan ke Keranjang
             </button>
-            <button className="border bg-white border-blue-600 text-blue-600 font-semibold rounded-lg px-6 py-2 transition hover:bg-blue-50">
+            <button
+              onClick={openDevModal}
+              className="border bg-white border-blue-600 text-blue-600 font-semibold rounded-lg px-6 py-2 transition hover:bg-blue-50">
               Beli Sekarang
             </button>
 
             <div className="flex gap-4 text-sm mt-2 justify-center items-center text-center">
-              <span className="flex-1 cursor-pointer hover:underline">
+              <span
+                onClick={openDevModal}
+                className="flex-1 cursor-pointer hover:underline">
                 <FontAwesomeIcon icon={faHeart} className="mr-1" />
                 Wishlist
               </span>
               <div className="h-8 w-[0.5] bg-gray-100" />
-              <span className="flex-1 cursor-pointer hover:underline">
+              <span
+                onClick={openDevModal}
+                className="flex-1 cursor-pointer hover:underline">
                 <FontAwesomeIcon icon={faShare} className="mr-1" />
                 Share
               </span>
@@ -321,7 +440,7 @@ export default function ProductDetail() {
         {/* Tab Content */}
         {activeTab === "description" && (
           <div className="text-gray-800 text-sm leading-relaxed">
-            <p className="text-sm text-gray-600">{product.description}</p>
+            <HtmlRenderer html={product.description} />
           </div>
         )}
 
@@ -442,16 +561,97 @@ export default function ProductDetail() {
       <div className="content-width mx-auto mb-16">
         <h2 className="text-lg font-bold mb-4">Produk Lainnya</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {mockProducts
-            .filter((p) => p.id !== product.id)
+          {related
+            .filter((p) => p.slug !== product.slug)
             .slice(0, 6)
-            .map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
+            .map((p) => {
+              const firstImg =
+                p.images && p.images.length > 0
+                  ? p.images[0]
+                  : "/temp/laptop.jpg";
+              const basePrice = parseFloat(p.price);
+              const relDiscountedStr = (p.discount as any)?.discounted_price as
+                | string
+                | undefined;
+              const relPrice = relDiscountedStr
+                ? parseFloat(relDiscountedStr)
+                : typeof p.discount?.percentage === "number"
+                ? basePrice * (1 - p.discount.percentage / 100)
+                : basePrice;
+              const relDiscountPct =
+                typeof p.discount?.percentage === "number"
+                  ? p.discount.percentage
+                  : relDiscountedStr
+                  ? Math.round((1 - relPrice / basePrice) * 100)
+                  : undefined;
+              return (
+                <Link
+                  key={p.id}
+                  href={`/products/${p.slug}`}
+                  className="relative bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg transition overflow-hidden flex flex-col items-start p-3">
+                  <Image
+                    key={p.id}
+                    src={firstImg}
+                    alt={p.name}
+                    width={160}
+                    height={120}
+                    className="object-contain mb-2 self-center rounded-lg"
+                  />
+                  <p className="text-xs italic font-extralight mb-1">
+                    {p.brand.name}
+                  </p>
+                  <p className="text-sm font-semibold text-gray-800 line-clamp-2">
+                    {p.name}
+                  </p>
+                  <p className="text-red-600 font-bold text-sm mt-4">
+                    Rp {relPrice.toLocaleString("id-ID")}
+                  </p>
+                  {relDiscountPct && (
+                    <div className="flex flex-row items-center mt-1">
+                      <span className="bg-red-500 text-white text-xs font-bold p-1 rounded">
+                        {relDiscountPct}%
+                      </span>
+                      <span className="text-gray-500 line-through text-xs ml-2">
+                        Rp {basePrice.toLocaleString("id-ID")}
+                      </span>
+                    </div>
+                  )}
+                </Link>
+              );
+            })}
         </div>
       </div>
 
       <Footer />
+
+      {showDevModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          role="dialog"
+          aria-modal="true">
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={closeDevModal}
+          />
+          <div className="relative z-10 w-[90%] max-w-sm rounded-lg bg-white p-5 shadow-xl">
+            <h3 className="text-lg font-semibold mb-2">
+              Feature Under Development
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Fitur ini masih dalam pengerjaan. Mohon tunggu update berikutnya
+              🙏
+            </p>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={closeDevModal}
+                className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                autoFocus>
+                Mengerti
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

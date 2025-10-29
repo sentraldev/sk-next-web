@@ -2,34 +2,16 @@ import { Product } from "../../models/product";
 import ProductCard from "../components/ProductCard";
 import { fetchData } from "../../utils/api";
 
-type ApiLaptop = {
-  processor?: string;
-  gpu?: string;
-  ram?: number | string;
-  storage?: number | string;
-  specs?: string;
-};
-
-type ApiProduct = {
-  id: number;
-  name: string;
-  brand: string;
-  price: string;
-  discounted_price?: string | null;
-  discount_value?: number | null; // percentage from API
-  images?: string[];
-  laptop?: ApiLaptop | null;
-};
-
 function toProduct(p: ApiProduct): Product {
   const price = parseFloat(p.price ?? "0");
   // Prefer server-provided discounted_price; else compute from discount_value
-  const serverDiscounted = p.discounted_price
-    ? parseFloat(p.discounted_price)
+  const serverDiscounted = p.discount?.discounted_price
+    ? parseFloat(p.discount.discounted_price as string)
     : undefined;
   const apiDiscountPct =
-    typeof p.discount_value === "number" && isFinite(p.discount_value)
-      ? p.discount_value
+    typeof p.discount?.percentage === "number" &&
+    isFinite(p.discount.percentage as number)
+      ? (p.discount.percentage as number)
       : undefined;
   const computedDiscounted =
     apiDiscountPct && price > 0
@@ -61,21 +43,22 @@ function toProduct(p: ApiProduct): Product {
   const displaySize = sizeMatch ? parseFloat(sizeMatch[1]) : 0;
 
   const ram =
-    typeof p.laptop?.ram === "string"
-      ? parseInt(p.laptop!.ram, 10)
-      : p.laptop?.ram || 0;
+    typeof p.laptop?.ram_size === "string"
+      ? parseInt(p.laptop!.ram_size, 10)
+      : p.laptop?.ram_size || 0;
   const storageNum =
-    typeof p.laptop?.storage === "string"
-      ? parseInt(p.laptop!.storage, 10)
-      : p.laptop?.storage || 0;
+    typeof p.laptop?.storage_size === "string"
+      ? parseInt(p.laptop!.storage_size, 10)
+      : p.laptop?.storage_size || 0;
 
   return {
     id: p.id,
     name: p.name,
+    slug: p.slug,
     category: "Laptop",
-    brand: p.brand,
+    brand: p.brand.name,
     price,
-    img: firstImg,
+    images: p.images && p.images.length > 0 ? p.images : [firstImg],
     badge: discountPct ? `${discountPct}%` : "",
     discount: discountPct,
     priceAfterDiscount:
@@ -119,7 +102,7 @@ export default async function NewArrivals() {
           Lihat Semua
         </a>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         {products.length === 0 ? (
           <div className="col-span-full text-center text-gray-500 py-6">
             Produk baru belum tersedia.
