@@ -5,12 +5,13 @@ import { fetchData } from "../../utils/api";
 function toProduct(p: ApiProduct): Product {
   const price = parseFloat(p.price ?? "0");
   // Prefer server-provided discounted_price; else compute from discount_value
-  const serverDiscounted = p.discounted_price
-    ? parseFloat(p.discounted_price)
+  const serverDiscounted = p.discount?.discounted_price
+    ? parseFloat(p.discount.discounted_price as string)
     : undefined;
   const apiDiscountPct =
-    typeof p.discount_value === "number" && isFinite(p.discount_value)
-      ? p.discount_value
+    typeof p.discount?.percentage === "number" &&
+    isFinite(p.discount.percentage as number)
+      ? (p.discount.percentage as number)
       : undefined;
   const computedDiscounted =
     apiDiscountPct && price > 0

@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { fetchData } from "@/utils/api";
 import Link from "next/link";
-import SpecsRenderer from "@/app/components/SpecsRenderer";
+import HtmlRenderer from "@/app/components/HtmlRenderer";
 
 type Review = {
   id: number;
@@ -129,13 +129,14 @@ export default function ProductDetail() {
 
   const unitPrice = useMemo(() => {
     if (!product) return 0;
-    const priceNum = parseFloat((product.price as any) ?? "0");
-    const discountedNum = product.discounted_price
-      ? parseFloat(product.discounted_price as any)
-      : undefined;
+    const priceNum = parseFloat(product.price ?? "0");
+    const discountedStr = (product.discount as any)?.discounted_price as
+      | string
+      | undefined;
+    const discountedNum = discountedStr ? parseFloat(discountedStr) : undefined;
     const discountPct =
-      typeof product.discount_value === "number"
-        ? product.discount_value
+      typeof product.discount?.percentage === "number"
+        ? product.discount.percentage
         : undefined;
     return (
       discountedNum ??
@@ -232,13 +233,16 @@ export default function ProductDetail() {
             <span className="text-2xl font-bold text-gray-900">
               {unitPrice.toLocaleString("id-ID")}
             </span>
-            {(product.discounted_price || product.discount_value) && (
+            {(((product.discount as any)?.discounted_price as
+              | string
+              | undefined) ||
+              typeof product.discount?.percentage === "number") && (
               <>
                 <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
                   {(
-                    (typeof product.discount_value === "number"
-                      ? product.discount_value
-                      : product.discounted_price
+                    (typeof product.discount?.percentage === "number"
+                      ? product.discount.percentage
+                      : (product.discount as any)?.discounted_price
                       ? Math.round(
                           (1 - unitPrice / parseFloat(product.price)) * 100
                         )
@@ -566,15 +570,18 @@ export default function ProductDetail() {
                   ? p.images[0]
                   : "/temp/laptop.jpg";
               const basePrice = parseFloat(p.price);
-              const relPrice = p.discounted_price
-                ? parseFloat(p.discounted_price)
-                : typeof p.discount_value === "number"
-                ? basePrice * (1 - p.discount_value / 100)
+              const relDiscountedStr = (p.discount as any)?.discounted_price as
+                | string
+                | undefined;
+              const relPrice = relDiscountedStr
+                ? parseFloat(relDiscountedStr)
+                : typeof p.discount?.percentage === "number"
+                ? basePrice * (1 - p.discount.percentage / 100)
                 : basePrice;
               const relDiscountPct =
-                typeof p.discount_value === "number"
-                  ? p.discount_value
-                  : p.discounted_price
+                typeof p.discount?.percentage === "number"
+                  ? p.discount.percentage
+                  : relDiscountedStr
                   ? Math.round((1 - relPrice / basePrice) * 100)
                   : undefined;
               return (
