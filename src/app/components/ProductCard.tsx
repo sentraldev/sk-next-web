@@ -45,12 +45,12 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
       )}
-      <div className="flex items-center gap-2 mt-2">
+      {/* <div className="flex items-center gap-2 mt-2">
         <span className="text-yellow-500 text-[0.7rem]">★ 5.0</span>
         <span className="text-[0.7rem] text-gray-400">
           (3 rating) | 20 terjual
         </span>
-      </div>
+      </div> */}
       {/* Discount */}
     </div>
   );
