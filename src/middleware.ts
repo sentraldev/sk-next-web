@@ -14,6 +14,7 @@ export function middleware(request: NextRequest) {
     "/products/", // Allow product detail pages e.g., /products/:id
     "/products", // Allow product detail pages e.g., /products/:id
     "/our-location",
+    "/service-center",
   ];
 
   // Allow static assets by extension (served from /public)

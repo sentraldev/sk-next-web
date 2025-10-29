@@ -72,7 +72,7 @@ export default function ServiceCenterPage() {
           {/* Sentral Service */}
           <div
             // className="relative w-full h-48 xl:h-[400px] sm:h-64 md:h-80 rounded-lg overflow-hidden flex items-center justify-center text-center px-4"
-            className="relative w-full rounded-lg overflow-hidden flex items-center justify-center text-center px-4 aspect-[48/9] lg:aspect-[48/9]"
+            className="relative w-full rounded-xl overflow-hidden flex items-center justify-center text-center px-4 aspect-[48/9] lg:aspect-[48/9]"
             style={{
               backgroundImage: `url(${"../../images/sentral-service/sentral-service.jpg"})`,
               backgroundSize: "cover",
@@ -197,21 +197,15 @@ export default function ServiceCenterPage() {
             </div>
           </div>
         </section>
-        <section className="py-16">
+        <section className="py-6">
           <div className="content-width mx-auto">
             {/* TITLE */}
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-center mb-12">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold text-center mb-12">
               Layanan Unggulan Kami
             </h2>
 
             {/* GRID LIST */}
-            <div
-              className="
-      grid
-      grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7
-      gap-6 md:gap-8
-      justify-items-center
-    ">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-6 md:gap-5 justify-items-center">
               {/* ITEM */}
               {[
                 {
@@ -288,7 +282,7 @@ export default function ServiceCenterPage() {
 
             {/* CARD: background white area with icons */}
             <div
-              className="relative -mt-6 bg-white shadow-md sm:-mt-10 rounded-t-none border border-transparent
+              className="relative -mt-6 bg-white shadow-md sm:-mt-10 rounded-xl rounded-t-none border border-transparent
                      px-6 sm:px-10 py-8 md:py-10"
               // jika mau overlap lebih dramatis sesuaikan margin-top negatif di atas (-mt-..)
             >
@@ -304,12 +298,12 @@ export default function ServiceCenterPage() {
                     key={p.key}
                     className="flex items-center gap-4 min-h-[56px] md:min-h-[64px]">
                     {/* icon container */}
-                    <div className="flex-none h-12 w-12 sm:h-12 sm:w-12 md:h-14 md:w-14 rounded-lg flex items-center justify-center bg-gradient-to-tr from-indigo-50 to-pink-50">
+                    <div className="flex-none h-12 w-12 sm:h-12 sm:w-12 md:h-14 md:w-14 rounded-lg flex items-center justify-center">
                       {/* use <img> so you can swap icons easily */}
                       <img
                         src={p.icon}
                         alt={p.label}
-                        className="h-8 w-8 md:h-9 md:w-9 object-contain"
+                        className="h-16 w-16 md:h-16 md:w-16 object-contain"
                       />
                     </div>
 
@@ -334,7 +328,7 @@ export default function ServiceCenterPage() {
               {services.map((s, i) => (
                 <article
                   key={i}
-                  className="w-full max-w-[300px] aspect-square bg-white shadow-md rounded-lg p-4 flex flex-col items-start">
+                  className="w-full  aspect-square bg-white shadow-md rounded-lg p-4 flex flex-col items-start">
                   {/* gambar atas */}
                   <div className="w-full rounded-xl overflow-hidden">
                     <img
@@ -353,7 +347,7 @@ export default function ServiceCenterPage() {
                       className="h-10 w-10 object-contain"
                       loading="lazy"
                     />
-                    <p className="text-sm md:text-sm lg:text-sm text-left font-semibold leading-snug max-w-[160px]">
+                    <p className="text-sm md:text-sm lg:text-sm text-left font-bold leading-snug max-w-[160px]">
                       {s.title}
                     </p>
                   </div>
