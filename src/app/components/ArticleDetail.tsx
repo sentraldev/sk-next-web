@@ -25,7 +25,7 @@ type ArticleData = {
 export default function ArticleDetail({ uuid }: { uuid?: string }) {
   const [article, setArticle] = useState<ArticleData | null>(null);
   const [loading, setLoading] = useState<boolean>(Boolean(uuid));
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
 
   // Data fallback bila fetch gagal
   const fallback: ArticleData = {
@@ -76,7 +76,7 @@ export default function ArticleDetail({ uuid }: { uuid?: string }) {
 
     let cancelled = false;
     setLoading(true);
-    setError(null);
+    // setError(null);
 
     // fetch API backend berdasarkan uuid
     fetch(`/api/articles/${encodeURIComponent(uuid)}`)
@@ -91,7 +91,7 @@ export default function ArticleDetail({ uuid }: { uuid?: string }) {
       .catch((err) => {
         console.error("Failed to load article", err);
         if (!cancelled) {
-          setError("Gagal memuat artikel. Menampilkan konten cadangan.");
+          // setError("Gagal memuat artikel. Menampilkan konten cadangan.");
           setArticle(fallback);
           setLoading(false);
         }
