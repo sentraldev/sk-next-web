@@ -94,43 +94,45 @@ export default function Header() {
         {/* Top Bar */}
         <TopBar />
         {/* Main Header */}
-        <div className="content-width mx-auto flex flex-col md:flex-row md:items-center pt-1 pb-2 gap-2">
-          <div className="flex items-center gap-2 mr-8 mt-4 hover:cursor-pointer">
-            <Image
-              src="/logo.png"
-              alt="Sentral Komputer Logo"
-              width={120}
-              height={36}
-              onClick={() => (window.location.href = "/")}
-            />
-          </div>
-          {/* TODO: Category Dropdown */}
-          <div className="flex flex-1 items-center gap-2 mx-auto">
-            <div className="relative w-full">
-              <input
-                type="text"
-                placeholder="Cari di Sentral Komputer!"
-                className="flex w-full border border-gray-300 rounded px-3 py-2 pl-10 focus:outline-none text-sm"
+        <div className="content-width mx-auto flex flex-col md:flex-row md:items-center pt-1 pb-2 gap-1 md:gap-2">
+          <div className="flex flex-row w-full mt-2">
+            <div className="items-center gap-1 md:gap-2 mr-8 mt-4 hover:cursor-pointer">
+              <Image
+                src="/logo.png"
+                alt="Sentral Komputer Logo"
+                width={120}
+                height={36}
+                onClick={() => (window.location.href = "/")}
               />
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                <SearchOutlined />
-              </span>
             </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="border-r border-gray-300 pr-6 mr-6 gap-2 flex">
-              <button
-                className="ml-8 p-2 rounded-full hover:bg-gray-100 text-xl"
-                onClick={() => (window.location.href = "/wishlist")}>
-                <HeartOutlined />
-              </button>
-              <button
-                className="p-2 rounded-full hover:bg-gray-100 text-xl"
-                onClick={() => (window.location.href = "/shopping-cart")}>
-                <ShoppingCartOutlined />
-              </button>
+            {/* TODO: Category Dropdown */}
+            <div className="flex items-center mx-auto w-full">
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  placeholder="Cari di Sentral Komputer!"
+                  className="flex w-full border border-gray-300 rounded px-3 py-2 pl-10 focus:outline-none text-sm"
+                />
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <SearchOutlined />
+                </span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center md:gap-2">
+              <div className="border-r border-gray-300 pr-2 mr-4 md:pr-6 md:mr-6 md:gap-2 flex">
+                <button
+                  className="ml-4 md:ml-8 p-2 rounded-full hover:bg-gray-100 text-xl"
+                  onClick={() => (window.location.href = "/wishlist")}>
+                  <HeartOutlined />
+                </button>
+                <button
+                  className="p-2 rounded-full hover:bg-gray-100 text-xl"
+                  onClick={() => (window.location.href = "/shopping-cart")}>
+                  <ShoppingCartOutlined />
+                </button>
+              </div>
+            </div>
+            <div className="flex items-center gap-1 md:gap-2">
               {user ? (
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-700 hover:bg-gray-100 px-4 py-1 rounded h-full">
@@ -163,7 +165,7 @@ export default function Header() {
           </div>
         </div>
         {/* Navigation */}
-        <div className="mx-auto border-b border- pt-2">
+        <div className="mx-auto border-b  pt-2">
           <div className="content-width mx-auto flex flex-row items-center justify-between ">
             <nav className="border-gray-200 flex flex-wrap items-center text-sm font-medium gap-4 md:gap-8 lg:gap-12 xl:gap-16">
               <Link

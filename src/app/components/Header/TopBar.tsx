@@ -14,9 +14,9 @@ const iconSize = "lg";
 const TopBar = () => {
   return (
     <div className="bg-primary-900 text-xs text-white flex justify-between items-center py-2">
-      <div className="w-full content-width flex flex-row mx-auto justify-between items-center">
+      <div className="w-full content-width flex flex-row mx-auto justify-between items-center gap-4">
         {/* Left Section: Social Icons */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <Link
             href="https://www.facebook.com/sentralkomputerofficial/"
             target="_blank"
@@ -75,24 +75,24 @@ const TopBar = () => {
         </div>
 
         {/* Center Text */}
-        <span className="text-center text-xs font-semibold text-white">
+        <span className="text-center text-xs font-semibold text-white line-clamp-1">
           Pusat IT, Laptop, dan Service Terbaik Online & Offline di Indonesia
         </span>
 
         {/* Right Section */}
-        <div className="flex flex-row gap-8">
+        <div className="flex flex-row gap-4 md:gap-8">
           <div className="flex items-center gap-2">
             <Link href="#" className="font-extrabold">
               Marketplace
             </Link>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-row items-center gap-2">
             <FontAwesomeIcon
               icon={faEnvelope}
               size={iconSize}
               className="w-4 h-4 hover:text-blue-300 transition-colors"
             />
-            <Link href="#" className="font-extrabold">
+            <Link href="#" className="hidden lg:block lg:font-extrabold">
               Hubungi Kami
             </Link>
           </div>
