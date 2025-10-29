@@ -8,6 +8,7 @@ import WhatsAppButton from "./components/WhatsAppButton";
 import CategoryHorizontalList from "./category/CategoryHorizontalList";
 import SEOSection from "./components/SEOSection";
 import PreferredBrandList from "./brands/PreferredBrandList";
+import WhyChooseUsView from "./components/WhyChooseUs";
 
 export default function Home() {
   return (
@@ -25,6 +26,8 @@ export default function Home() {
       <WhatsAppButton />
       {/* <Articles /> */}
       <PreferredBrandList />
+
+      <WhyChooseUsView />
 
       <SEOSection />
 

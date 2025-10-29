@@ -90,9 +90,9 @@ const PreferredBrandList = () => {
   if (!brands.length) return null;
 
   return (
-    <section className="content-width mx-auto py-8 w-full">
-      <div className="mb-2">
-        <h3 className="text-2xl font-bold">Brand Pilihan</h3>
+    <section className="content-width mx-auto py-8 w-full flex flex-col gap-4">
+      <div className="">
+        <h3 className="text-xl md:text-2xl font-bold">Brand Pilihan</h3>
       </div>
       <div className="relative bg-[#EDEDED] rounded-md shadow">
         {/* Left/Right scroll buttons (desktop+) */}
