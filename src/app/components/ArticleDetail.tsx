@@ -1,7 +1,7 @@
 "use client";
 
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
 import React, { useEffect, useState } from "react";
 import Breadcrumb from "./Breadcrumb";
 
@@ -124,12 +124,9 @@ export default function ArticleDetail({ uuid }: { uuid?: string }) {
       <Header />
 
       <section className="content-width mx-auto px-6 py-6">
-       <Breadcrumb
-                 items={[
-                   { label: "Artikel", href: "/article" },
-                   { label: a.title },
-                 ]}
-               />
+        <Breadcrumb
+          items={[{ label: "Artikel", href: "/article" }, { label: a.title }]}
+        />
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* ===== KIRI: KONTEN ARTIKEL ===== */}
           <article className="md:col-span-3">
@@ -139,7 +136,8 @@ export default function ArticleDetail({ uuid }: { uuid?: string }) {
               </h1>
             </header>
             <div className="text-sm font-bold text-gray-500 mb-3 leading-6">
-              {a.category ?? "Artikel"} <br /> <time className="font-normal italic">{a.date}</time>
+              {a.category ?? "Artikel"} <br />{" "}
+              <time className="font-normal italic">{a.date}</time>
             </div>
 
             {a.heroImage && (
@@ -169,8 +167,7 @@ export default function ArticleDetail({ uuid }: { uuid?: string }) {
                 <a
                   key={r.id}
                   href={`/article/${r.id}`}
-                  className="block rounded-xl overflow-hidden bg-white transition-shadow duration-300"
-                >
+                  className="block rounded-xl overflow-hidden bg-white transition-shadow duration-300">
                   <div className="aspect-video w-full overflow-hidden">
                     <img
                       src={r.img}
@@ -180,7 +177,9 @@ export default function ArticleDetail({ uuid }: { uuid?: string }) {
                     />
                   </div>
                   <div className="p-4">
-                    <div className="text-xs font-bold text-gray-500 mb-1">{r.date}</div>
+                    <div className="text-xs font-bold text-gray-500 mb-1">
+                      {r.date}
+                    </div>
                     <h3 className="text-sm font-bold  leading-snug line-clamp-2 hover:text-zinc-700 transition">
                       {r.title}
                     </h3>
@@ -189,12 +188,12 @@ export default function ArticleDetail({ uuid }: { uuid?: string }) {
               ))}
 
               {(!a.related || a.related.length === 0) && (
-                <div className="text-sm text-gray-500">Tidak ada artikel terkait.</div>
+                <div className="text-sm text-gray-500">
+                  Tidak ada artikel terkait.
+                </div>
               )}
             </div>
-
           </aside>
-
         </div>
 
         {/* {error && (
