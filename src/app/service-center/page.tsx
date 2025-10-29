@@ -38,53 +38,98 @@ export default function ServiceCenterPage() {
             </div>
           </div>
         </div>
-        <section className="bg-gray-100 pt-10 pb-10">
-          <h2 className="font-extrabold text-center text-2xl md:text-3xl lg:text-[32px]">
-            Teknisi Tersertifikasi & Selalu Update Skill
-          </h2>
+        <section className="bg-white py-16">
+  <div className="content-width mx-auto px-6 lg:px-8">
+    {/* GRID UTAMA */}
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 items-start">
+      
+      {/* === KIRI: GRID FOTO === */}
+      <div className="grid grid-cols-3 gap-4 max-w-lg">
+        {/* Foto besar */}
+        <div className="col-span-3 lg:col-span-2 lg:row-span-2">
+          <img
+            src="/images/sentral-service/teknisi-utama.jpg"
+            alt="Teknisi utama"
+            className="w-full h-auto rounded-xl object-cover"
+          />
+        </div>
 
-          <div className="content-width mx-auto mt-10 grid grid-cols-3 gap-4 px-4">
+        {/* Foto kecil kanan atas */}
+        <img
+          src="/images/sentral-service/teknisi-2.jpg"
+          alt="Teknisi 2"
+          className="rounded-xl object-cover aspect-square w-full h-full"
+        />
+        <img
+          src="/images/sentral-service/teknisi-3.jpg"
+          alt="Teknisi 3"
+          className="rounded-xl object-cover aspect-square w-full h-full"
+        />
 
-            {/* Gambar utama */}
-            <div className="col-span-3 md:col-span-2 row-span-2">
-              <img
-                src="/images/sentral-service/teknisi-utama.jpg"
-                alt="Teknisi Utama"
-                className="w-[235px] h-[235px] object-cover rounded-xl aspect-square md:aspect-[4/5]"
-              />
-            </div>
+        {/* Baris bawah */}
+        <img
+          src="/images/sentral-service/teknisi-4.jpg"
+          alt="Teknisi 4"
+          className="rounded-xl object-cover aspect-square w-full h-full"
+        />
+        <img
+          src="/images/sentral-service/teknisi-5.jpg"
+          alt="Teknisi 5"
+          className="rounded-xl object-cover aspect-square w-full h-full"
+        />
+        <img
+          src="/images/sentral-service/teknisi-6.jpg"
+          alt="Teknisi 6"
+          className="rounded-xl object-cover aspect-square w-full h-full"
+        />
+      </div>
 
-            {/* 2 gambar kecil kanan */}
-            <img
-              src="/images/sentral-service/teknisi-2.jpg"
-              alt="Teknisi 1"
-              className="w-[110px] aspect-square object-cover rounded-xl"
-            />
-            <img
-              src="/images/sentral-service/teknisi-3.jpg"
-              alt="Teknisi 2"
-              className="w-[110px] aspect-square object-cover rounded-xl"
-            />
+      {/* === KANAN: TEKS === */}
+      <div className="flex flex-col justify-start text-zinc-800 max-w-xl">
+        <h2 className="font-extrabold text-[24px] md:text-[30px] lg:text-[32px] mb-6 leading-tight">
+          Teknisi Tersertifikasi & Selalu Update Skill
+        </h2>
 
-            {/* Baris bawah 3 gambar */}
-            <img
-              src="/images/sentral-service/teknisi-4.jpg"
-              alt="Teknisi 3"
-              className="w-[110px] aspect-square object-cover rounded-xl"
-            />
-            <img
-              src="/images/sentral-service/teknisi-5.jpg"
-              alt="Teknisi 4"
-              className="w-[110px] aspect-square object-cover rounded-xl"
-            />
-            <img
-              src="/images/sentral-service/teknisi-6.jpg"
-              alt="Teknisi 5"
-              className="w-[110px] aspect-square object-cover rounded-xl"
-            />
+        <p className="text-base md:text-lg mb-4 leading-relaxed">
+          Kami bangga memiliki tim teknisi{" "}
+          <span className="font-semibold text-blue-600">bersertifikat resmi</span>{" "}
+          dengan pengalaman luas di bidang perbaikan laptop.
+        </p>
 
-          </div>
-        </section>
+        <p className="text-base md:text-lg mb-4 leading-relaxed">
+          Secara rutin, teknisi kami mengikuti{" "}
+          <span className="font-semibold text-blue-600">
+            pelatihan update teknologi terbaru
+          </span>
+          . Dengan pembaruan ini, mereka siap menghadapi berbagai jenis kerusakan,
+          mulai dari masalah ringan hingga perbaikan tingkat lanjut, menggunakan{" "}
+          <span className="font-semibold text-blue-600">
+            metode terbaik yang sesuai standar industri
+          </span>
+          .
+        </p>
+
+        <p className="text-base md:text-lg leading-relaxed">
+          Selain keterampilan teknis, kami juga membekali tim dengan{" "}
+          <span className="font-semibold text-blue-600">
+            pengetahuan keselamatan kerja
+          </span>{" "}
+          serta{" "}
+          <span className="font-semibold text-blue-600">
+            etika pelayanan pelanggan
+          </span>
+          , sehingga setiap proses servis dilakukan secara{" "}
+          <span className="font-semibold text-blue-600">
+            profesional, aman, dan transparan
+          </span>
+          .
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
       </div>
       <Footer />
