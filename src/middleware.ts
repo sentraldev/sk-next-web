@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
     "/api", // API routes (keep if you still need API access)
     "/products/", // Allow product detail pages e.g., /products/:id
     "/products", // Allow product detail pages e.g., /products/:id
-    // "/our-locations",
+    "/our-location",
   ];
 
   // Allow static assets by extension (served from /public)

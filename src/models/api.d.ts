@@ -12,8 +12,12 @@ type ApiProduct = {
   slug: string;
   brand: Brand;
   price: string;
-  discounted_price?: string | null;
-  discount_value?: number | null; // percentage from API
+  description: string;
+  discount?: {
+    discount_value: number;
+    percentage: number;
+    discounted_price?: string; // server-provided discounted price when available
+  };
   images?: string[];
   laptop?: ApiLaptop | null;
 };
