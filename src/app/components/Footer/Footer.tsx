@@ -31,7 +31,7 @@ export default function Footer() {
                 <a href="#" className="hover:underline">
                   Karir
                 </a>
-                <a href="#" className="hover:underline">
+                <a href="/article" className="hover:underline">
                   Blog
                 </a>
                 <a href="#" className="hover:underline">
