@@ -1,7 +1,7 @@
 "use client";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 import React, { useState } from "react";
 import Link from "next/link";
 
@@ -69,53 +69,56 @@ export default function PromoPage() {
 
   return (
     <>
-    <Header />
-    
-    <div className="max-w-6xl mx-auto p-6">
-      <div className="flex border-b border-gray-300 mb-6">
-        <button
-          className={`px-6 py-3 font-semibold ${
-            activeTab === "website"
-              ? "border-b-4 border-blue-600 text-blue-600"
-              : "text-gray-600 hover:text-blue-600"
-          }`}
-          onClick={() => setActiveTab("website")}
-        >
-          Promo Website
-        </button>
-        <button
-          className={`px-6 py-3 font-semibold ${
-            activeTab === "store"
-              ? "border-b-4 border-blue-600 text-blue-600"
-              : "text-gray-600 hover:text-blue-600"
-          }`}
-          onClick={() => setActiveTab("store")}
-        >
-          Promo Toko
-        </button>
-      </div>
+      <Header />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {currentPromos.map((promo) => (
-          <Link key={promo.id} href={`/promos/${promo.id}`} className="block border rounded shadow-sm overflow-hidden hover:shadow-lg transition-shadow bg-white">
-            <div className="overflow-hidden">
-              <img
-                src={promo.imageUrl}
-                alt={promo.title}
-                className="object-cover w-full h-full"
-              />
-            </div>
-            <div className="p-4">
-              <h6 className="font-semibold mb-2 text-sm line-clamp-2">
-                {promo.title}
-              </h6>
-              <p className="text-sm text-gray-500">Periode : {promo.period}</p>
-            </div>
-          </Link>
-        ))}
+      <div className="max-w-6xl mx-auto p-6">
+        <div className="flex border-b border-gray-300 mb-6">
+          <button
+            className={`px-6 py-3 font-semibold ${
+              activeTab === "website"
+                ? "border-b-4 border-blue-600 text-blue-600"
+                : "text-gray-600 hover:text-blue-600"
+            }`}
+            onClick={() => setActiveTab("website")}>
+            Promo Website
+          </button>
+          <button
+            className={`px-6 py-3 font-semibold ${
+              activeTab === "store"
+                ? "border-b-4 border-blue-600 text-blue-600"
+                : "text-gray-600 hover:text-blue-600"
+            }`}
+            onClick={() => setActiveTab("store")}>
+            Promo Toko
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {currentPromos.map((promo) => (
+            <Link
+              key={promo.id}
+              href={`/promos/${promo.id}`}
+              className="block border rounded shadow-sm overflow-hidden hover:shadow-lg transition-shadow bg-white">
+              <div className="overflow-hidden">
+                <img
+                  src={promo.imageUrl}
+                  alt={promo.title}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <div className="p-4">
+                <h6 className="font-semibold mb-2 text-sm line-clamp-2">
+                  {promo.title}
+                </h6>
+                <p className="text-sm text-gray-500">
+                  Periode : {promo.period}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
-    <Footer />
-  </>
+      <Footer />
+    </>
   );
 }

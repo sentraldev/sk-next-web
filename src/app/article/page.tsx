@@ -1,7 +1,7 @@
 "use client";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 import Link from "next/link";
 import React from "react";
 
@@ -62,8 +62,7 @@ export default function ArticlePage() {
             <Link
               key={item.id}
               href={`/article/${item.id}`}
-              className="block bg-white border border-gray-100 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow"
-            >
+              className="block bg-white border border-gray-100 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
               <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src={item.imageUrl}

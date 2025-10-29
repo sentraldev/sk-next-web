@@ -1,11 +1,10 @@
 "use client";
 
 import Head from "next/head";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header";
 
 import ProductCard from "../components/ProductCard";
-import { mockProducts } from "./mockProducts";
 import { useState, useMemo, useEffect, useRef } from "react";
 import SidebarFilter from "../components/SidebarFilter";
 import {
@@ -16,6 +15,77 @@ import {
   brands,
 } from "../constants";
 import WhatsAppButton from "../components/WhatsAppButton";
+import { fetchData } from "../../utils/api";
+import type { Product } from "../../models/product";
+
+function toProduct(p: ApiProduct): Product {
+  const price = parseFloat(p.price ?? "0");
+  // Prefer server-provided discounted_price; else compute from discount_value
+  const serverDiscounted = p.discount?.discounted_price
+    ? parseFloat(p.discount.discounted_price as string)
+    : undefined;
+  const apiDiscountPct =
+    typeof p.discount?.percentage === "number" &&
+    isFinite(p.discount.percentage as number)
+      ? (p.discount.percentage as number)
+      : undefined;
+  const computedDiscounted =
+    apiDiscountPct && price > 0
+      ? price * (1 - apiDiscountPct / 100)
+      : undefined;
+
+  const discounted = serverDiscounted ?? computedDiscounted ?? 0;
+
+  // Determine discount percentage to show on badge
+  const discountPct =
+    apiDiscountPct ??
+    (serverDiscounted && price > 0
+      ? Math.round((1 - (serverDiscounted as number) / price) * 100)
+      : undefined);
+
+  const firstImg =
+    p.images && p.images.length > 0 ? p.images[0] : "/temp/laptop.jpg";
+
+  const rawProcessor = p.laptop?.processor || "";
+  const processor: Product["processor"] = /apple/i.test(rawProcessor)
+    ? "Apple"
+    : /amd/i.test(rawProcessor)
+    ? "AMD"
+    : "Intel"; // default bucket
+
+  // Try to infer display size from specs like "11.6-inch"
+  const specs = p.laptop?.specs || "";
+  const sizeMatch = specs.match(/(\d{1,2}(?:\.\d)?)\s*-?\s*(?:in|inch)/i);
+  const displaySize = sizeMatch ? parseFloat(sizeMatch[1]) : 0;
+
+  const ram =
+    typeof p.laptop?.ram_size === "string"
+      ? parseInt(p.laptop!.ram_size, 10)
+      : p.laptop?.ram_size || 0;
+  const storageNum =
+    typeof p.laptop?.storage_size === "string"
+      ? parseInt(p.laptop!.storage_size, 10)
+      : p.laptop?.storage_size || 0;
+
+  return {
+    id: p.id,
+    name: p.name,
+    category: "Laptop",
+    brand: p.brand.name,
+    price,
+    images: p.images && p.images.length > 0 ? p.images : [firstImg],
+    slug: p.slug,
+    badge: discountPct ? `${discountPct}%` : "",
+    discount: discountPct,
+    priceAfterDiscount:
+      typeof discounted === "number" && discounted > 0 ? discounted : undefined,
+    description: specs,
+    ram: Number.isFinite(ram) ? (ram as number) : 0,
+    storage: storageNum ? `${storageNum}GB` : "",
+    processor,
+    displaySize,
+  };
+}
 
 type FilterValues = {
   ram: number[];
@@ -45,18 +115,47 @@ export default function ProductsPage() {
     displaySize: [],
     brand: [],
   });
-  const [products, setProducts] = useState<typeof mockProducts>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [brandOptions, setBrandOptions] = useState<string[]>(brands);
 
-  // Simulate network fetch
+  // Fetch products from API
   useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setProducts(mockProducts);
-      setLoading(false);
-    }, 1200);
-    return () => clearTimeout(timer);
+    let mounted = true;
+    (async () => {
+      try {
+        setLoading(true);
+        const res = await fetchData<ApiProduct[] | { data: ApiProduct[] }>(
+          "api/v1/products",
+          "GET"
+        );
+        const payload: ApiProduct[] = Array.isArray(res.data)
+          ? res.data
+          : res.data?.data || [];
+        const mapped = payload.map(toProduct);
+        if (!mounted) return;
+        setProducts(mapped);
+        // derive unique brands from data
+        const uniqueBrands = Array.from(
+          new Set(mapped.map((p) => p.brand).filter(Boolean))
+        );
+        // keep constants as fallback then add any new
+        const merged = Array.from(new Set([...brands, ...uniqueBrands]));
+        setBrandOptions(merged);
+      } catch (e) {
+        if (process.env.NEXT_PUBLIC_APP_ENV !== "production") {
+          console.error("Error fetching products:", e);
+        }
+        if (!mounted) return;
+        setProducts([]);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    })();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   // Scroll to product list when page changes
@@ -129,7 +228,7 @@ export default function ProductsPage() {
           storage={storageOptions}
           processor={processorOptions}
           displaySize={displaySizeOptions}
-          brand={brands}
+          brand={brandOptions}
           selected={selected}
           applied={applied}
           onChange={(type, value) => {

@@ -1,10 +1,11 @@
 export interface Product {
   id: number;
   name: string;
+  slug: string;
   category: string;
   brand: string;
   price: number;
-  img: string;
+  images: string[];
   badge: string;
   discount?: number;
   priceAfterDiscount?: number;
