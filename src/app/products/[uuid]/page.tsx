@@ -436,7 +436,7 @@ export default function ProductDetail() {
         {/* Tab Content */}
         {activeTab === "description" && (
           <div className="text-gray-800 text-sm leading-relaxed">
-            <SpecsRenderer specs={product.laptop?.specs || ""} />
+            <HtmlRenderer html={product.description} />
           </div>
         )}
 
