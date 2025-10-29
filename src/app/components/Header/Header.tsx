@@ -2,24 +2,26 @@
 
 import {
   HeartOutlined,
-  MailOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { fetchData } from "@/utils/api";
-import LoginPopup from "../components/LoginPopup";
-import RegisterPopup from "../components/RegisterPopup";
+import LoginPopup from "../LoginPopup";
+import RegisterPopup from "../RegisterPopup";
 import { User } from "@/models/user";
+import TopBar from "./TopBar";
 
 export default function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+
+  const [showDevModal, setShowDevModal] = useState(false);
+  const openDevModal = () => setShowDevModal(true);
+  const closeDevModal = () => setShowDevModal(false);
 
   const handleLoginSubmit = async () => {
     // Handle login submission logic here
@@ -90,33 +92,7 @@ export default function Header() {
     <>
       <header className="w-full bg-white">
         {/* Top Bar */}
-        <div className="bg-primary-900 text-xs text-white flex justify-between items-center py-1">
-          <div className="w-full content-width flex flex-row mx-auto justify-between items-center">
-            <div className="flex flex-row gap-4">
-              <Image
-                src={"/icons/sk-white.png"}
-                alt="white-logo"
-                width={80}
-                height={80}
-                className="object-cover w-full h-[24]"
-              />
-              <Image
-                src={"/icons/ss-white.png"}
-                alt="white-service-logo"
-                width={80}
-                height={80}
-                className="object-cover w-full h-[24]"
-              />
-            </div>
-            <span>Pusat IT, Laptop, dan Service Terbaik di Indonesia</span>
-            <div className="flex items-center gap-2">
-              <MailOutlined />
-              <Link href="#" className="font-semibold">
-                Hubungi Kami
-              </Link>
-            </div>
-          </div>
-        </div>
+        <TopBar />
         {/* Main Header */}
         <div className="content-width mx-auto flex flex-col md:flex-row md:items-center pt-1 pb-2 gap-2">
           <div className="flex items-center gap-2 mr-8 mt-4 hover:cursor-pointer">
@@ -173,12 +149,12 @@ export default function Header() {
                 <>
                   <button
                     className="text-sm bg-white border-2 border-primary-900 text-primary-900 px-4 py-1 rounded hover:bg-primary-900 hover:text-white transition"
-                    onClick={() => setShowLogin(true)}>
+                    onClick={() => openDevModal()}>
                     Masuk
                   </button>
                   <button
                     className="text-sm bg-primary-900 text-white px-4 py-1 rounded border-2 border-primary-900 hover:bg-primary-800 transition"
-                    onClick={() => setShowRegister(true)}>
+                    onClick={() => openDevModal()}>
                     Daftar
                   </button>
                 </>
@@ -187,7 +163,7 @@ export default function Header() {
           </div>
         </div>
         {/* Navigation */}
-        <div className="mx-auto border-b pt-2">
+        <div className="mx-auto border-b border- pt-2">
           <div className="content-width mx-auto flex flex-row items-center justify-between ">
             <nav className="border-gray-200 flex flex-wrap items-center text-sm font-medium gap-4 md:gap-8 lg:gap-12 xl:gap-16">
               <Link
@@ -205,6 +181,7 @@ export default function Header() {
                 className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
                 Lokasi Kami
               </Link>
+
               <Link
                 href="/service-center"
                 className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
@@ -217,12 +194,12 @@ export default function Header() {
               </Link>
             </nav>
 
-            <div className="flex items-center gap-2 text-xs text-gray-600">
+            {/* <div className="flex items-center gap-2 text-xs text-gray-600">
               <FontAwesomeIcon icon={faLocationDot} />
               <span className="ml-4 text-sm">
                 Aktifkan lokasi untuk melihat toko terdekat
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </header>
@@ -257,6 +234,35 @@ export default function Header() {
             window.location.reload(); // Reload to reflect registration state
           }}
         />
+      )}
+
+      {showDevModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          role="dialog"
+          aria-modal="true">
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={closeDevModal}
+          />
+          <div className="relative z-10 w-[90%] max-w-sm rounded-lg bg-white p-5 shadow-xl">
+            <h3 className="text-lg font-semibold mb-2">
+              Feature Under Development
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Fitur ini masih dalam pengerjaan. Mohon tunggu update berikutnya
+              🙏
+            </p>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={closeDevModal}
+                className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700"
+                autoFocus>
+                Oke
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

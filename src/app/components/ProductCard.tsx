@@ -5,7 +5,7 @@ import { Product } from "../../models/product";
 
 export default function ProductCard({ product }: { product: Product }) {
   const handleClick = () => {
-    window.location.href = `/products/${product.id}`; // Navigate to product details page
+    window.location.href = `/products/${product.slug}`; // Navigate to product details page by slug
   };
 
   return (
@@ -15,7 +15,7 @@ export default function ProductCard({ product }: { product: Product }) {
       {/* Badge */}
       <Image
         key={product.id}
-        src={product.img}
+        src={product.images[0]}
         alt={product.name}
         width={160}
         height={120}
@@ -45,12 +45,12 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
       )}
-      <div className="flex items-center gap-2 mt-2">
+      {/* <div className="flex items-center gap-2 mt-2">
         <span className="text-yellow-500 text-[0.7rem]">★ 5.0</span>
         <span className="text-[0.7rem] text-gray-400">
           (3 rating) | 20 terjual
         </span>
-      </div>
+      </div> */}
       {/* Discount */}
     </div>
   );
