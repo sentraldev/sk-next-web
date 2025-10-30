@@ -13,7 +13,7 @@ const SEOSection = () => {
             ? "max-h-none"
             : "max-h-48 overflow-hidden md:max-h-none md:overflow-visible"
         }`}>
-        <p className="text-[#BEBEBE] text-xs">
+        <p className="text-[#BEBEBE] text-[10px]">
           Sentral Komputer – Pusat Laptop, Komputer, dan Service Resmi
           Terpercaya di Indonesia Sentral Komputer adalah toko laptop dan
           komputer terlengkap di Indonesia dengan 18 cabang resmi di Jakarta,
