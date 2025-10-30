@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type WhyChooseUs = {
   title: string;
   subtitle: string;
@@ -55,15 +57,16 @@ const WhyChooseUsView = () => {
       {/* Responsive layout: carousel on small, grid on md, row on lg+ */}
       <div
         className="
-          flex gap-3 overflow-x-auto snap-mandatory px-1 mx-1 pb-4
+          flex gap-3 overflow-x-auto snap-mandatory px-0 mx-0 pb-4
           sm:grid sm:grid-cols-2 sm:gap-3 sm:overflow-visible sm:snap-none 
           lg:grid lg:grid-cols-3 md:gap-4 md:overflow-visible md:snap-none md:px-0 md:mx-0
           xl:flex xl:flex-row xl:gap-4
+          shadow-md rounded-xl bg-white
         ">
         {data.map((item, index) => (
           <div
             key={index}
-            className="snap-start shrink-0 w-72 md:w-auto lg:flex-1">
+            className="snap-start shrink-0 w-72 md:w-auto lg:flex-1 ">
             <WhyChooseUsItem item={item} />
           </div>
         ))}
@@ -76,21 +79,25 @@ export default WhyChooseUsView;
 
 const WhyChooseUsItem = ({ item }: { item: WhyChooseUs }) => {
   return (
-    <div className="flex flex-col shadow-md rounded-xl bg-white p-2 w-full ">
-      <img src={item.imagePath} alt={item.title} className="" />
+    <div className="flex flex-col p-2 w-full ">
+      <img
+        src={item.imagePath}
+        alt={item.title}
+        className="w-full h-auto object-cover"
+      />
 
       <div className="flex flex-row items-start space-x-4 py-4">
-        <img
+        <Image
           src={item.iconPath}
           alt={item.title}
-          className="h-12 w-12 lg:h-16 lg:w-16"
+          width={40}
+          height={40}
+          // className="w-12 md:w-14 lg:w-16 w-auto object-contain"
         />
         <div className="flex flex-col">
           <h3 className="text-lg font-bold">{item.title}</h3>
           <h4 className="text-lg font-bold text-[#1444D5]">{item.subtitle}</h4>
-          <p className="text-xs text-gray-700 pt-2 line-clamp-2 min-h-[3rem]">
-            {item.description}
-          </p>
+          <p className="text-xs text-gray-700 pt-2">{item.description}</p>
         </div>
       </div>
     </div>

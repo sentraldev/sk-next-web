@@ -337,7 +337,7 @@ export default function AboutUs() {
           <img
             src="../../temp/about-us2.png"
             alt="Company History 1991"
-            className="rounded-lg shadow-md aspect-auto object-fit w-full h-auto"
+            className="rounded-lg aspect-auto object-fit w-full h-auto"
           />
         </div>
 
