@@ -16,6 +16,7 @@ export function middleware(request: NextRequest) {
     "/our-location",
     "/service-center",
     "/article",
+    "/promo",
   ];
 
   // Allow static assets by extension (served from /public)
