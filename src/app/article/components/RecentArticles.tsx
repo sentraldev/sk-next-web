@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { fetchData } from "@/utils/api";
-import { formatDate } from "@/utils/dateFormatter";
 
 export default function RecentArticles({
   excludeSlug,

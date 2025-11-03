@@ -3,7 +3,6 @@
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import React, { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import { fetchData } from "../../utils/api";
 import PromoListItemView, { PromoListItemSkeleton } from "./PromoListItemView";
 

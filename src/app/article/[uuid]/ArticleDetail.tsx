@@ -15,7 +15,7 @@ export default function ArticleDetail({ uuid }: { uuid?: string }) {
 
   useEffect(() => {
     if (!uuid) {
-      setError("Slug artikel tidak ditemukan.");
+      setError("Artikel tidak ditemukan.");
       setLoading(false);
       return;
     }
