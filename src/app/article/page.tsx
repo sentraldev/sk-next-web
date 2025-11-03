@@ -2,86 +2,87 @@
 
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchData } from "@/utils/api";
+import ArticleListItemView, {
+  ArticleListItemSkeleton,
+} from "./ArticleListItemView";
 
-interface ArticleItem {
-  id: number;
-  title: string;
-  period: string;
-  imageUrl: string;
-}
-
-const articles: ArticleItem[] = [
-  {
-    id: 1,
-    title: "RAMADAN BLESSINGS PROMO, Free GoPay up to 300k!",
-    period: "31 Februari 2025 - 42 Maret 2025",
-    imageUrl: "/temp/promo1.png",
-  },
-  {
-    id: 2,
-    title: "Free backpack dan mouse logitech untuk setiap pembelian laptop",
-    period: "31 Februari 2025 - 42 Maret 2025",
-    imageUrl: "/temp/promo2.png",
-  },
-  {
-    id: 3,
-    title: "PROMO LENOVO SPESIAL RAMADAN",
-    period: "29 Februari 2025 - 31 Maret 2025",
-    imageUrl: "/temp/promo2.png",
-  },
-  {
-    id: 4,
-    title: "MSI GAMING PROMO BULAN INI",
-    period: "26 Februari 2025 - 10 Maret 2025",
-    imageUrl: "/temp/promo2.png",
-  },
-  {
-    id: 5,
-    title: "DISKON AKHIR BULAN - UP TO 50%",
-    period: "1 Maret 2025 - 31 Maret 2025",
-    imageUrl: "/temp/promo2.png",
-  },
-];
+// Uses ApiBlog from src/models/api.d.ts
 
 export default function ArticlePage() {
+  const [articles, setArticles] = useState<ApiBlog[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+
+    (async () => {
+      if (process.env.NEXT_PUBLIC_APP_ENV !== "production") {
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+      fetchData<ApiBlog[]>("/api/v1/blogs", "GET")
+        .then(({ data }) => {
+          if (!cancelled) setArticles(data);
+        })
+        .catch((err) => {
+          console.error("Failed to fetch blogs", err);
+          if (!cancelled) setError("Gagal memuat artikel.");
+        })
+        .finally(() => {
+          if (!cancelled) setLoading(false);
+        });
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Header />
 
-      <section className="content-width mx-auto py-6">
-        {/* Title */}
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-xl font-bold text-zinc-900">Artikel</h2>
-        </div>
+      <main className="flex-1">
+        <div className="content-width mx-auto py-6">
+          {/* Title */}
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-xl font-bold text-zinc-900">Artikel</h2>
+          </div>
 
-        {/* Grid List */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {articles.map((item) => (
-            <Link
-              key={item.id}
-              href={`/article/${item.id}`}
-              className="block bg-white border border-gray-100 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-500"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-sm text-zinc-900 line-clamp-2 mb-1">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-gray-500">Periode: {item.period}</p>
-              </div>
-            </Link>
-          ))}
+          {error && (
+            <div className="mb-4 rounded-md bg-red-50 p-3 text-sm text-red-700">
+              {error}
+            </div>
+          )}
+
+          {/* Grid List - mimic promos list layout */}
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <ArticleListItemSkeleton key={i} />
+              ))}
+            </div>
+          ) : error ? (
+            <div className="text-center text-red-600 py-12">{error}</div>
+          ) : articles.length === 0 ? (
+            <div className="text-center text-gray-500 py-12">
+              Belum ada artikel saat ini.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-between gap-4">
+              {articles.map((blog) => (
+                <ArticleListItemView key={blog.id} blog={blog} />
+              ))}
+            </div>
+          )}
         </div>
-      </section>
+      </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

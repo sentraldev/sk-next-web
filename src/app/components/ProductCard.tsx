@@ -19,7 +19,7 @@ export default function ProductCard({ product }: { product: Product }) {
         alt={product.name}
         width={160}
         height={120}
-        className="object-contain mb-2 self-center rounded-lg"
+        className="object-contain mb-2 self-center rounded-lg min-h-[170px]"
       />
       <p className="text-xs italic font-extralight mb-1">{product.category}</p>
       <p className="text-sm font-semibold text-gray-800 line-clamp-2">

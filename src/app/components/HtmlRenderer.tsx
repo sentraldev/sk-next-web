@@ -20,7 +20,13 @@ export default function HtmlRenderer({
   sanitizeOptions,
 }: Props) {
   if (!html) return null;
-  const clean = DOMPurify.sanitize(html, sanitizeOptions);
+  let clean = DOMPurify.sanitize(html, sanitizeOptions);
+  // Ensure empty paragraphs still render visual spacing by inserting a non-breaking space
+  // Handles <p></p>, <p>\n</p>, <p><br></p>, and variants with whitespace
+  clean = clean.replace(
+    /<p>(?:\s|&nbsp;|<br\s*\/?\s*>)*<\/p>/gi,
+    "<p>&nbsp;</p>"
+  );
   return (
     <div
       className={className}
