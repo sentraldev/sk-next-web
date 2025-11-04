@@ -7,6 +7,7 @@ export interface Product {
   price: number;
   images: string[];
   badge: string;
+  // Numeric discount fields are optional and may be unused when server sends strings
   discount?: number;
   priceAfterDiscount?: number;
   description: string;

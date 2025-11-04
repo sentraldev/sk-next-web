@@ -14,8 +14,7 @@ type ApiProduct = {
   price: string;
   description: string;
   discount?: {
-    discount_value: number;
-    percentage: number;
+    percentage: string; // percentage string from server
     discounted_price?: string; // server-provided discounted price when available
   };
   images?: string[];
