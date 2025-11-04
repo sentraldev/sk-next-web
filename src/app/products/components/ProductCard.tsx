@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Product } from "../../models/product";
+import { Product } from "../../../models/product";
 
 export default function ProductCard({ product }: { product: Product }) {
   const handleClick = () => {

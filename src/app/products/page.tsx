@@ -4,7 +4,7 @@ import Head from "next/head";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 
-import ProductCard from "../components/ProductCard";
+import ProductCard from "./components/ProductCard";
 import { useState, useMemo, useEffect, useRef } from "react";
 import SidebarFilter from "../components/SidebarFilter";
 import {
@@ -17,75 +17,7 @@ import {
 import WhatsAppButton from "../components/WhatsAppButton";
 import { fetchData } from "../../utils/api";
 import type { Product } from "../../models/product";
-
-function toProduct(p: ApiProduct): Product {
-  const price = parseFloat(p.price ?? "0");
-  // Prefer server-provided discounted_price; else compute from discount_value
-  const serverDiscounted = p.discount?.discounted_price
-    ? parseFloat(p.discount.discounted_price as string)
-    : undefined;
-  const apiDiscountPct =
-    typeof p.discount?.percentage === "number" &&
-    isFinite(p.discount.percentage as number)
-      ? (p.discount.percentage as number)
-      : undefined;
-  const computedDiscounted =
-    apiDiscountPct && price > 0
-      ? price * (1 - apiDiscountPct / 100)
-      : undefined;
-
-  const discounted = serverDiscounted ?? computedDiscounted ?? 0;
-
-  // Determine discount percentage to show on badge
-  const discountPct =
-    apiDiscountPct ??
-    (serverDiscounted && price > 0
-      ? Math.round((1 - (serverDiscounted as number) / price) * 100)
-      : undefined);
-
-  const firstImg =
-    p.images && p.images.length > 0 ? p.images[0] : "/temp/laptop.jpg";
-
-  const rawProcessor = p.laptop?.processor || "";
-  const processor: Product["processor"] = /apple/i.test(rawProcessor)
-    ? "Apple"
-    : /amd/i.test(rawProcessor)
-    ? "AMD"
-    : "Intel"; // default bucket
-
-  // Try to infer display size from specs like "11.6-inch"
-  const specs = p.laptop?.specs || "";
-  const sizeMatch = specs.match(/(\d{1,2}(?:\.\d)?)\s*-?\s*(?:in|inch)/i);
-  const displaySize = sizeMatch ? parseFloat(sizeMatch[1]) : 0;
-
-  const ram =
-    typeof p.laptop?.ram_size === "string"
-      ? parseInt(p.laptop!.ram_size, 10)
-      : p.laptop?.ram_size || 0;
-  const storageNum =
-    typeof p.laptop?.storage_size === "string"
-      ? parseInt(p.laptop!.storage_size, 10)
-      : p.laptop?.storage_size || 0;
-
-  return {
-    id: p.id,
-    name: p.name,
-    category: "Laptop",
-    brand: p.brand.name,
-    price,
-    images: p.images && p.images.length > 0 ? p.images : [firstImg],
-    slug: p.slug,
-    badge: discountPct ? `${discountPct}%` : "",
-    discount: discountPct,
-    priceAfterDiscount:
-      typeof discounted === "number" && discounted > 0 ? discounted : undefined,
-    description: specs,
-    ram: Number.isFinite(ram) ? (ram as number) : 0,
-    storage: storageNum ? `${storageNum}GB` : "",
-    processor,
-    displaySize,
-  };
-}
+import { toProduct } from "@/utils/product";
 
 type FilterValues = {
   ram: number[];
