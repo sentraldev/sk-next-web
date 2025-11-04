@@ -11,6 +11,8 @@ import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { fetchData } from "@/utils/api";
 import Link from "next/link";
 import HtmlRenderer from "@/app/components/HtmlRenderer";
+import type { Product } from "@/models/product";
+import { toProduct } from "@/utils/product";
 
 type Review = {
   id: number;
@@ -55,10 +57,10 @@ export default function ProductDetail() {
   const params = useParams<{ uuid: string }>();
   const slug = String(params?.uuid || "");
 
-  const [product, setProduct] = useState<ApiProduct | null>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [related, setRelated] = useState<ApiProduct[]>([]);
+  const [related, setRelated] = useState<Product[]>([]);
 
   const [mainImg, setMainImg] = useState("/temp/laptop.jpg");
   const [qty, setQty] = useState(1);
@@ -86,11 +88,12 @@ export default function ProductDetail() {
         if (!data) {
           setProduct(null);
         } else {
-          setProduct(data as ApiProduct);
+          const mapped = toProduct(data as ApiProduct);
+          setProduct(mapped);
           const firstImg =
-            (data as any).images && (data as any).images.length > 0
-              ? (data as any).images[0]
-              : "/temp/laptop.jpg";
+            mapped.images && mapped.images.length > 0
+              ? mapped.images[0]
+              : "/images/no-image.jpg";
           setMainImg(firstImg);
         }
       } catch (e: any) {
@@ -115,7 +118,8 @@ export default function ProductDetail() {
         );
         if (!active) return;
         if (Array.isArray(data)) {
-          const filtered = data.filter((p) => p.slug !== slug).slice(0, 6);
+          const mapped = data.map(toProduct);
+          const filtered = mapped.filter((p) => p.slug !== slug).slice(0, 6);
           setRelated(filtered);
         }
       } catch {
@@ -129,19 +133,7 @@ export default function ProductDetail() {
 
   const unitPrice = useMemo(() => {
     if (!product) return 0;
-    const priceNum = parseFloat(product.price ?? "0");
-    const discountedStr = (product.discount as any)?.discounted_price as
-      | string
-      | undefined;
-    const discountedNum = discountedStr ? parseFloat(discountedStr) : undefined;
-    const discountPct =
-      typeof product.discount?.percentage === "number"
-        ? product.discount.percentage
-        : undefined;
-    return (
-      discountedNum ??
-      (discountPct ? priceNum * (1 - discountPct / 100) : priceNum)
-    );
+    return (product.priceAfterDiscount ?? product.price) || 0;
   }, [product]);
 
   const totalPrice = useMemo(() => unitPrice * qty, [unitPrice, qty]);
@@ -231,36 +223,39 @@ export default function ProductDetail() {
           </div>
           <div className="flex items-center gap-3 mb-2">
             <span className="text-2xl font-bold text-gray-900">
-              {unitPrice.toLocaleString("id-ID")}
+              Rp{" "}
+              {(
+                (product.priceAfterDiscount ?? product.price) as number
+              ).toLocaleString("id-ID")}
             </span>
-            {(((product.discount as any)?.discounted_price as
-              | string
-              | undefined) ||
-              typeof product.discount?.percentage === "number") && (
+            {product.discount && (
               <>
                 <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                  {(
-                    (typeof product.discount?.percentage === "number"
-                      ? product.discount.percentage
-                      : (product.discount as any)?.discounted_price
-                      ? Math.round(
-                          (1 - unitPrice / parseFloat(product.price)) * 100
-                        )
-                      : undefined) ?? 0
-                  ).toLocaleString("id-ID")}
-                  %
+                  {product.discount}%
                 </span>
-                <span className="text-gray-400 line-through text-sm">
-                  Rp {parseFloat(product.price).toLocaleString("id-ID")}
-                </span>
+                {product.priceAfterDiscount && (
+                  <span className="text-gray-400 line-through text-sm">
+                    Rp {product.price.toLocaleString("id-ID")}
+                  </span>
+                )}
               </>
             )}
           </div>
+          {product.priceAfterDiscount &&
+            product.priceAfterDiscount < product.price && (
+              <div className="text-sm text-green-700 font-semibold mb-2">
+                Hemat Rp{" "}
+                {Math.max(
+                  0,
+                  product.price - product.priceAfterDiscount
+                ).toLocaleString("id-ID")}
+              </div>
+            )}
           <div className="border-t border-gray-200 mb-4 pt-2">
             <h2 className="font-bold mb-2 text-base">Detail Produk</h2>
             <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
-              <li>Brand: {product.brand.name}</li>
-              <li>Processor: {product.laptop?.processor || "-"}</li>
+              <li>Brand: {product.brand}</li>
+              <li>Processor: {product.processor || "-"}</li>
               {/* <li>
                 Display:{" "}
                 {(() => {
@@ -273,16 +268,11 @@ export default function ProductDetail() {
               </li> */}
               <li>
                 RAM:{" "}
-                {typeof product.laptop?.ram_size === "number"
-                  ? `${product.laptop?.ram_size} GB`
-                  : product.laptop?.ram_size || "-"}
+                {typeof product.ram === "number" && product.ram > 0
+                  ? `${product.ram} GB`
+                  : "-"}
               </li>
-              <li>
-                Storage:{" "}
-                {typeof product.laptop?.storage_size === "number"
-                  ? `${product.laptop?.storage_size} GB`
-                  : product.laptop?.storage_size || "-"}
-              </li>
+              <li>Storage: {product.storage || "-"}</li>
             </ul>
           </div>
 
@@ -569,21 +559,11 @@ export default function ProductDetail() {
                 p.images && p.images.length > 0
                   ? p.images[0]
                   : "/temp/laptop.jpg";
-              const basePrice = parseFloat(p.price);
-              const relDiscountedStr = (p.discount as any)?.discounted_price as
-                | string
-                | undefined;
-              const relPrice = relDiscountedStr
-                ? parseFloat(relDiscountedStr)
-                : typeof p.discount?.percentage === "number"
-                ? basePrice * (1 - p.discount.percentage / 100)
-                : basePrice;
-              const relDiscountPct =
-                typeof p.discount?.percentage === "number"
-                  ? p.discount.percentage
-                  : relDiscountedStr
-                  ? Math.round((1 - relPrice / basePrice) * 100)
-                  : undefined;
+              const basePrice = p.price;
+              const displayPrice = (
+                p.priceAfterDiscount ?? p.price
+              ).toLocaleString("id-ID");
+              const relDiscountPct = p.discount;
               return (
                 <Link
                   key={p.id}
@@ -598,22 +578,24 @@ export default function ProductDetail() {
                     className="object-contain mb-2 self-center rounded-lg"
                   />
                   <p className="text-xs italic font-extralight mb-1">
-                    {p.brand.name}
+                    {p.brand}
                   </p>
                   <p className="text-sm font-semibold text-gray-800 line-clamp-2">
                     {p.name}
                   </p>
                   <p className="text-red-600 font-bold text-sm mt-4">
-                    Rp {relPrice.toLocaleString("id-ID")}
+                    Rp {displayPrice}
                   </p>
                   {relDiscountPct && (
                     <div className="flex flex-row items-center mt-1">
                       <span className="bg-red-500 text-white text-xs font-bold p-1 rounded">
                         {relDiscountPct}%
                       </span>
-                      <span className="text-gray-500 line-through text-xs ml-2">
-                        Rp {basePrice.toLocaleString("id-ID")}
-                      </span>
+                      {p.priceAfterDiscount && (
+                        <span className="text-gray-500 line-through text-xs ml-2">
+                          Rp {basePrice.toLocaleString("id-ID")}
+                        </span>
+                      )}
                     </div>
                   )}
                 </Link>
