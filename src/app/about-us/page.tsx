@@ -87,7 +87,7 @@ type CategoryId = "pengadaan" | "perusahaan" | "organisasi";
 const categories: { id: CategoryId; label: string }[] = [
   { id: "pengadaan", label: "Pengadaan" },
   { id: "perusahaan", label: "Perusahaan" },
-  { id: "organisasi", label: "Organisasi" },
+  { id: "organisasi", label: "Organisasi dan Sekolah" },
 ];
 
 // Data klien sesuai kategori, dengan tipe Record untuk key yang ketat
@@ -96,111 +96,195 @@ const clients: Record<
   { id: number; name: string; logo: string }[]
 > = {
   pengadaan: [
-    { id: 1, name: "SIPLAH", logo: "../../temp/partners/siplah.png" },
-    { id: 2, name: "KPP", logo: "../../temp/partners/lkpp.png" },
-    { id: 3, name: "Iplah", logo: "../../temp/partners/siplah-blanja.png" },
+    { id: 1, name: "SIPLAH", logo: "../../images/partners/siplah.png" },
+    { id: 2, name: "KPP", logo: "../../images/partners/lkpp.png" },
+    { id: 3, name: "Iplah", logo: "../../images/partners/siplah-blanja.png" },
   ],
   perusahaan: [
-    { id: 4, name: "MIMS", logo: "../../temp/partners/mims.png" },
-    { id: 5, name: "suara.com", logo: "../../temp/partners/suaracom.png" },
-    { id: 6, name: "billboard", logo: "../../temp/partners/billboardid.png" },
-    { id: 7, name: "adev", logo: "../../temp/partners/adev.png" },
+    { id: 4, name: "MIMS", logo: "../../images/partners/mims.png" },
+    { id: 5, name: "suara.com", logo: "../../images/partners/suara-com.png" },
+    { id: 6, name: "billboard", logo: "../../images/partners/billboard.png" },
+    { id: 7, name: "adev", logo: "../../images/partners/adev.png" },
     {
       id: 8,
       name: "Angkasa Pura",
-      logo: "../../temp/partners/angkasapura.png",
+      logo: "../../images/partners/angkasa-pura.png",
     },
-    { id: 9, name: "C21", logo: "../../temp/partners/c21.png" },
-    { id: 10, name: "HIS", logo: "../../temp/partners/his.png" },
-    { id: 11, name: "Izi Data", logo: "../../temp/partners/izidata.png" },
+    { id: 9, name: "C21", logo: "../../images/partners/c21.png" },
+    { id: 10, name: "HIS", logo: "../../images/partners/his.png" },
+    { id: 11, name: "Izi Data", logo: "../../images/partners/izidata.png" },
     {
       id: 12,
       name: "Len Telekomunikasi",
-      logo: "../../temp/partners/lentelekomunikasi.png",
+      logo: "../../images/partners/len-telekomunikasi-indonesia.png",
     },
-    { id: 13, name: "Matsuoka", logo: "../../temp/partners/matsuoka.png" },
-    { id: 14, name: "SKI", logo: "../../temp/partners/ski.png" },
-    { id: 15, name: "Telkom", logo: "../../temp/partners/telkom.png" },
+    { id: 13, name: "Matsuoka", logo: "../../images/partners/matsuoka.png" },
+    { id: 14, name: "SKI", logo: "../../images/partners/ski.png" },
+    { id: 15, name: "Telkom", logo: "../../images/partners/telkom-indonesia.png" },
     {
       id: 16,
       name: "Utama Gas Multiperkasa",
-      logo: "../../temp/partners/utamagasmultiperkasa.png",
+      logo: "../../images/partners/utama-gas-multiperkasa.png",
     },
-    { id: 17, name: "Biosm", logo: "../../temp/partners/biosm.png" },
-    { id: 18, name: "tc", logo: "../../temp/partners/tc.png" },
+    { id: 17, name: "Biosm", logo: "../../images/partners/biosm.png" },
+    { id: 18, name: "tc", logo: "../../images/partners/tc.png" },
     {
       id: 19,
       name: "rosenberger",
-      logo: "../../temp/partners/rosenberger.png",
+      logo: "../../images/partners/rosenberger.png",
     },
-    { id: 20, name: "indec", logo: "../../temp/partners/indec.png" },
-    { id: 21, name: "bsi", logo: "../../temp/partners/bsi.png" },
-    { id: 22, name: "bri", logo: "../../temp/partners/bri.png" },
+    { id: 20, name: "indec", logo: "../../images/partners/indec.png" },
+    { id: 21, name: "bsi", logo: "../../images/partners/bsi.png" },
+    { id: 22, name: "bri", logo: "../../images/partners/bri.png" },
     {
       id: 23,
       name: "PT. Jaya Mitra Kemilau",
-      logo: "../../temp/partners/jayamitrakemilau.png",
+      logo: "../../images/partners/jaya-mitra-kemilau.png",
     },
     {
       id: 24,
       name: "Lintas Teknologi",
-      logo: "../../temp/partners/lintasteknologi.png",
+      logo: "../../images/partners/lintas-teknologi.png",
     },
-    { id: 25, name: "Everwhite", logo: "../../temp/partners/everwhite.png" },
+    { id: 25, name: "Everwhite", logo: "../../images/partners/everwhite.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/bank-bengkulu.png" },
+    { id: 25, name: "Weststar Aviation Service", logo: "../../images/partners/weststar.png" },
+    { id: 25, name: "GS Battery", logo: "../../images/partners/gs-battery.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/tkm.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/abe-kogyo.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/rmp.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/amurwa-international.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/pertamina-ep.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/so-indonesia.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/pupuk-kujang.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/ak.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/genflix.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/chongro.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/pizza-hut.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/surya-mas-perkasa.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/sg.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/gong-cha.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/indonesia-technical-machinery.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/bge.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/ekp.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/bio.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/century.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/pku.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/at-indonesia.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/harvest-ariake-indonesia.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/asuransi-ramayana.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/kimia-farma.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/hkmu.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/oozx.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/tecso.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/dipa.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/fuji.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/bukwang-textile.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/ihara.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/runh-power.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/bpb.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/skp.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/baking-world-id.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/astra-infra.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/pum.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/pratama.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/truefriend.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/schema.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/seal-mart.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/gadar-medik-indonesia.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/danamas.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/lnet.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/delta-ultracon.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/buana-inovasi-persada.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/bank-sultra.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/cnm.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/askrindo-insurance.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/nuri.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/nissin.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/megacon.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/astra-international.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/indodrill.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/bank-bjb.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/gpd-indonesia-pro.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/roki-coltd.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/tiga-tunas-selaras.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/bni.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/aaf-international.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/uni-president.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/ysi.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/tpm.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/century-21.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/rk.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/dowa.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/cnaindo.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/sgs.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/marka-inspektindo-technical.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/jilian.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/hanatekindo.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/denki.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/patra-jasa.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/monokem-surya.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/pal-metalindo-perkasa.png" },
+    { id: 25, name: "Bank Bengkulu", logo: "../../images/partners/graha-adhi-jaya-abadi.png" },
   ],
   organisasi: [
     {
-      id: 26,
+      id: 80,
       name: "Dinas Kesehatan",
-      logo: "../../temp/partners/dinkeskarawang.png",
+      logo: "../../images/partners/dinkes.png",
     },
     {
-      id: 27,
+      id: 81,
       name: "Kementerian Agama",
-      logo: "../../temp/partners/kemenag.png",
+      logo: "../../images/partners/kementrian-agama.png",
     },
     {
-      id: 28,
-      name: "Kementerian Agama",
-      logo: "../../temp/partners/kemenper.png",
+      id: 82,
+      name: "Kementerian Perindustrian",
+      logo: "../../images/partners/kemenperin.png",
     },
     {
-      id: 29,
-      name: "Kementerian Agama",
-      logo: "../../temp/partners/kemenket.png",
+      id: 83,
+      name: "Kementerian Ketenagakerjaan",
+      logo: "../../images/partners/kementrian-ketenagakerjaan.png",
     },
     {
-      id: 30,
-      name: "Kementerian Agama",
-      logo: "../../temp/partners/lembagaalternatif.png",
+      id: 84,
+      name: "LAPSPI",
+      logo: "../../images/partners/lapspi.png",
+    },
+    {
+      id: 85,
+      name: "Institut Pertanian Bogor",
+      logo: "../../images/partners/institut-pertanian-bogor.png",
     },
   ],
 };
 
 const partners = [
-  { name: "ASUS", logo: "../../temp/brands/asus.png" },
-  { name: "Apple", logo: "../../temp/brands/apple.png" },
-  { name: "Lenovo", logo: "../../temp/brands/lenovo.png" },
-  { name: "HP", logo: "../../temp/brands/hp.png" },
-  { name: "Samsung", logo: "../../temp/brands/samsung.png" },
-  { name: "MSI", logo: "../../temp/brands/msi.png" },
-  { name: "Rexus", logo: "../../temp/brands/rexus.png" },
-  { name: "Acer", logo: "../../temp/brands/acer.png" },
-  { name: "Zyrex", logo: "../../temp/brands/zyrex.png" },
-  { name: "Prolink", logo: "../../temp/brands/prolink.png" },
-  { name: "Axioo", logo: "../../temp/brands/axioo.png" },
-  { name: "Fantech", logo: "../../temp/brands/fantech.png" },
-  { name: "Advan", logo: "../../temp/brands/advan.png" },
-  { name: "Aukey", logo: "../../temp/brands/aukey.png" },
-  { name: "Kaspersky", logo: "../../temp/brands/kaspersky.png" },
-  { name: "Epson", logo: "../../temp/brands/epson.png" },
-  { name: "Toshiba", logo: "../../temp/brands/toshiba.png" },
-  { name: "Logitech", logo: "../../temp/brands/logitech.png" },
-  { name: "Intel", logo: "../../temp/brands/intel.png" },
-  { name: "AMD", logo: "../../temp/brands/amd.png" },
-  { name: "Nvidia", logo: "../../temp/brands/nvidia.png" },
-  { name: "McAfee", logo: "../../temp/brands/mcafee.png" },
-  { name: "Microsoft", logo: "../../temp/brands/microsoft.png" },
+  { name: "ASUS", logo: "../../images/brands/asus.png" },
+  { name: "Apple", logo: "../../images/brands/apple.png" },
+  { name: "Lenovo", logo: "../../images/brands/lenovo.png" },
+  { name: "HP", logo: "../../images/brands/hp.png" },
+  { name: "Samsung", logo: "../../images/brands/samsung.png" },
+  { name: "MSI", logo: "../../images/brands/msi.png" },
+  { name: "Rexus", logo: "../../images/brands/rexus.png" },
+  { name: "Acer", logo: "../../images/brands/acer.png" },
+  { name: "Zyrex", logo: "../../images/brands/zyrex.png" },
+  { name: "Prolink", logo: "../../images/brands/prolink.png" },
+  { name: "Axioo", logo: "../../images/brands/axioo.png" },
+  { name: "Fantech", logo: "../../images/brands/fantech.png" },
+  { name: "Advan", logo: "../../images/brands/advan.png" },
+  { name: "Aukey", logo: "../../images/brands/aukey.png" },
+  { name: "Kaspersky", logo: "../../images/brands/kaspersky.png" },
+  { name: "Epson", logo: "../../images/brands/epson.png" },
+  { name: "Toshiba", logo: "../../images/brands/toshiba.png" },
+  { name: "Logitech", logo: "../../images/brands/logitech.png" },
+  { name: "Intel", logo: "../../images/brands/intel.png" },
+  { name: "AMD", logo: "../../images/brands/amd.png" },
+  { name: "Nvidia", logo: "../../images/brands/nvidia.png" },
+  { name: "McAfee", logo: "../../images/brands/mcafee.png" },
+  { name: "Microsoft", logo: "../../images/brands/microsoft.png" },
 ];
 
 const portfolioData = [
@@ -624,69 +708,97 @@ export default function AboutUs() {
         </section>
 
         {/* Partners Logos */}
-        <section className="w-full">
-          <div
-            className="relative mx-auto max-w-[90%] px-5 py-10
-                  overflow-x-hidden overflow-y-visible">
+        <section className="w-full bg-white">
+          <div className="relative mx-auto max-w-[90%] px-4 md:px-6 py-10 overflow-hidden">
+            {/* Gradient edges (desktop only) */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"
+              className="hidden md:block pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent"
             />
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"
+              className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"
             />
-            <p className="text-xl text-center font-medium">Portofolio Klien</p>
+
+            {/* Header */}
+            <p className="text-base md:text-xl text-center font-medium">
+              Portofolio Klien
+            </p>
             <h2 className="text-center font-extrabold text-2xl md:text-3xl mb-8 text-zinc-900">
               Pelanggan Setia Kami
             </h2>
 
-            {/* Carousel by Category */}
-            {/* pastikan sudah import Slider & CSS slick di file ini */}
+            {/* Slider */}
             <Slider
-              className="client-slider"
               dots={false}
-              infinite
-              speed={450}
+              infinite={true}
+              speed={500}
               slidesToShow={1}
               slidesToScroll={1}
-              autoplay
-              autoplaySpeed={2600}
-              arrows
-              responsive={[
-                { breakpoint: 1280, settings: { slidesToShow: 1 } },
-                { breakpoint: 768, settings: { slidesToShow: 1 } },
-              ]}
+              autoplay={true}
+              autoplaySpeed={2500}
+              arrows={true}
               centerMode={true}
-              centerPadding="200px">
+              centerPadding="200px"
+              initialSlide={1}
+              responsive={[
+              {
+                breakpoint: 1280,
+                settings: { centerPadding: "120px" },
+              },
+              {
+                breakpoint: 1024,
+                settings: { centerPadding: "60px" },
+              },
+              {
+                breakpoint: 768,
+                settings: {
+                  centerMode: false,
+                  centerPadding: "0px",
+                  arrows: false,
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                },
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  centerMode: false,
+                  centerPadding: "0px",
+                  arrows: false,
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                },
+              },
+            ]}
+              className="client-slider"
+            >
               {categories.map((cat) => (
-                <div key={cat.id} className="px-2">
-                  <div className="bg-white rounded-xl shadow-lg border border-zinc-100 p-5 flex flex-col h-[600px]">
-                    <h3 className="text-center font-bold text-zinc-900 mb-4">
+                <div key={cat.id} className="flex justify-center px-2">
+                  {/* Fixed width & height card */}
+                  <div className="max-w-screen-xl h-[700px] md:max-w-screen-md md:h-[820px] lg:max-w-screen-lg lg:h-[740px] sm:max-w-screen-sm sm:h-[1000px] bg-white rounded-2xl border border-zinc-100 shadow-md p-6 flex flex-col">
+                    <h3 className="text-center font-bold text-zinc-900 mb-4 text-lg md:text-xl">
                       {cat.label}
                     </h3>
 
-                    {/* Grid logo di dalam kartu (bukan carousel) */}
+                    {/* Logo grid with fixed height */}
                     <div
-                      className="grid justify-items-center items-center"
+                      className="grid justify-items-center flex-1"
                       style={{
-                        gridTemplateColumns:
-                          "repeat(auto-fit, minmax(80px, 1fr))",
-                        gap: 2,
-                      }}>
-                      {clients[cat.id].map((client: any) => (
+                        gridTemplateColumns: "repeat(auto-fit, minmax(40px, 1fr))",
+                        gap: 8,
+                      }}
+                    >
+                      {clients[cat.id].map((client) => (
                         <div
                           key={client.id}
-                          className="flex items-center justify-center h-[60px] px-2">
+                          className="flex justify-center h-[60px]"
+                        >
                           <img
                             src={client.logo}
                             alt={client.name}
                             loading="lazy"
-                            style={{
-                              maxHeight: 40,
-                              maxWidth: "100%",
-                              objectFit: "contain",
-                            }}
+                            className="object-contain max-h-10 md:max-h-6"
                           />
                         </div>
                       ))}
@@ -698,119 +810,112 @@ export default function AboutUs() {
           </div>
         </section>
 
-        <section
-          className={`relative mx-auto w-[90%] py-6`}
-          style={
-            {
-              // BASE untuk desktop lebar — jangan diubah
-              ["--overlap" as any]: "300px",
-              ["--panelW" as any]: "80%",
-              ["--logoH" as any]: "clamp(40px,3.3vw,29px)",
-            } as React.CSSProperties
-          }>
-          {/* ROW ATAS */}
-          <div className="grid grid-flow-col grid-rows-2  items-start gap-4 lg:grid-cols-12">
-            {/* KIRI: gambar jadi anchor visual */}
-            <div className="row-span-3 xl:col-span-5 lg:col-span-6 shrink-0 z-10">
-              <div className="flex items-start justify-end">
-                <img
-                  src="../../temp/mitrakami.png"
-                  alt="Mitra Kami"
-                  className="block h-auto max-w-full"
-                />
-              </div>
+       <section className="relative mx-auto w-[90%] py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-start gap-6">
+          {/* LEFT IMAGE — hidden on small screens */}
+          <div className="lg:col-span-5 justify-center items-center">
+            <img
+              src="/temp/mitrakami.png"
+              alt="Mitra Kami"
+              className="w-full max-w-[420px] lg:max-w-[600px] h-auto object-contain"
+            />
+          </div>
+
+          {/* RIGHT CONTENT */}
+          <div className="col-span-12 lg:col-span-7 flex flex-col justify-center">
+            <div className="text-center lg:text-center">
+              {/* heading menggunakan clamp supaya skala mulus */}
+              <h2
+                className="font-extrabold text-zinc-900"
+                style={{ fontSize: "clamp(1.6rem, 3.0vw, 3rem)" }} // 25.6px - 48px
+              >
+                Mitra Kami
+              </h2>
+
+              <h3
+                className="mt-1 font-extrabold text-[#1444D5]"
+                style={{ fontSize: "clamp(1rem, 1.6vw, 1.375rem)" }} // 16px - 22px
+              >
+                Kenapa Jadi Bagian Kami?
+              </h3>
             </div>
 
-            {/* KANAN: heading + bullets (rata atas) */}
-            <div className="mt-10 col-span-2 xl:col-span-7 lg:col-span-12">
-              <div className="flex flex-col items-center lg:items-center">
-                <h2
-                  className="text-center lg:text-center font-extrabold
-                       text-[40px] xl:text-[48px] lg:text-3xl leading-tight  text-zinc-900">
-                  Mitra Kami
-                </h2>
-                <h3
-                  className="mt-2 text-center lg:text-center font-extrabold
-                       text-[20px] xl:text-[22px] lg:text-lg  text-[#1444D5]">
-                  Kenapa Jadi Bagian Kami?
-                </h3>
+            {/* Bullets: scale teks juga dengan clamp */}
+            {/* Container dua kolom (sama dengan struktur kamu) */}
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-y-4 md:gap-x-10">
+              {/* Kolom 1 */}
+              <ul className="space-y-4">
+                {["Pengalaman Sejak 1991", "Barang 100% ORI", "Garansi Resmi"].map((t) => (
+                  <li
+                    key={t}
+                    className="
+                      flex items-center justify-center md:justify-start gap-3
+                      px-3 py-1
+                    "
+                  >
+                    <FontAwesomeIcon icon={faCheck} className="text-[#1444D5] flex-shrink-0" />
 
-                {/* Bullets 2 kolom */}
-                <div
-                  className="mt-6 grid w-full
-                        grid-cols-1 md:grid-cols-2 gap-y-5 xl:gap-x-12 lg:gap-x-5
-                       leading-relaxed xl:ps-14 lg:ps-5">
-                  <ul className="space-y-5">
-                    {[
-                      "Pengalaman Sejak 1991",
-                      "Barang 100% ORI",
-                      "Garansi Resmi",
-                    ].map((t) => (
-                      <li key={t} className="flex items-center gap-3">
-                        <FontAwesomeIcon
-                          icon={faCheck}
-                          className="text-[#1444D5]"
-                        />
-                        <span className="font-medium xl:text-[15px] lg:text-[11px] md:text-xs">
-                          {t}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                  <ul className="space-y-5">
-                    {[
-                      "Service Center Certified",
-                      "Tingkat Kepuasan Pelanggan Terbaik",
-                      "Sales & Teknisi Profesional",
-                    ].map((t) => (
-                      <li key={t} className="flex items-center gap-3">
-                        <FontAwesomeIcon
-                          icon={faCheck}
-                          className="text-[#1444D5]"
-                        />
-                        <span className="font-medium xl:text-[15px] lg:text-[11px] md:text-xs">
-                          {t}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+                    {/* Text */}
+                    <span
+                      className="
+                        text-sm md:text-base font-medium text-zinc-900
+                        text-center md:text-left
+                      "
+                    >
+                      {t}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Kolom 2 */}
+              <ul className="space-y-4">
+                {[
+                  "Service Center Certified",
+                  "Tingkat Kepuasan Pelanggan Terbaik",
+                  "Sales & Teknisi Profesional",
+                ].map((t) => (
+                  <li
+                    key={t}
+                    className="flex items-center justify-center md:justify-start gap-3 px-3 py-1"
+                  >
+                    <FontAwesomeIcon icon={faCheck} className="text-[#1444D5] flex-shrink-0" />
+
+                    <span className="text-sm md:text-base font-medium text-zinc-900 text-center md:text-left">
+                      {t}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* PANEL BRAND PARTNER: overlap, lebar 2/3-an, rata kanan */}
-            <div className="mt-12 col-span-2 row-span-2 xl:col-span-7 lg:col-span-12 w-full ">
-              <div
-                className="
-          bg-zinc-100
-          flex flex-col mt-4 p-4
-        ">
-                <h4 className="mb-[clamp(12px,2vw,20px)] text-center text-[clamp(18px,1.7vw,22px)] font-extrabold text-[#1444D5]">
-                  Brand Partner
-                </h4>
 
-                {/* Grid logo responsif; akan menambah tinggi jika isi butuh */}
-                <div
-                  className="
-            mx-auto
-            grid place-items-center
-            grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9
-            flex-1 gap-4
-          ">
-                  {partners.map((p) => (
-                    <img
-                      key={p.name}
-                      src={p.logo}
-                      alt={p.name}
-                      loading="lazy"
-                      className="xl:h-10 lg:h-5 w-auto object-contain"
-                    />
-                  ))}
-                </div>
+            {/* Brand Partner Panel */}
+            <div className="mt-10 w-full bg-zinc-100 rounded-lg p-5">
+              <h4
+                className="mb-4 text-center font-extrabold text-[#1444D5]"
+                style={{ fontSize: "clamp(1rem, 1.6vw, 1.375rem)" }}
+              >
+                Brand Partner
+              </h4>
+
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-4 place-items-center">
+                {partners.map((p) => (
+                  <img
+                    key={p.name}
+                    src={p.logo}
+                    alt={p.name}
+                    loading="lazy"
+                    className="h-[clamp(12px,2.0vw,30px)] w-auto object-contain"
+                  />
+                ))}
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+
+
 
         {/* Portfolio */}
         <section className="max-w-screen-4xl mx-auto">
@@ -909,63 +1014,11 @@ export default function AboutUs() {
         </section>
 
         {/* Testimonials */}
-        <section className="relative bg-[#FAFAFA] py-5 overflow-hidden">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-900">
-              Apa Kata Mereka Tentang Kami
-            </h2>
-          </div>
-          <div className="relative mx-auto">
-            {/* Fade kiri/kanan */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#FAFAFA] to-transparent z-10"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#FAFAFA] to-transparent z-10"
-            />
-            {/* fade kiri/kanan biar mirip desain */}
-            <Slider
-              className="client-slider"
-              dots={false}
-              infinite={true}
-              speed={500}
-              autoplay
-              autoplaySpeed={3500}
-              slidesToShow={4}
-              slidesToScroll={1}
-              arrows={false}
-              responsive={[
-                { breakpoint: 1280, settings: { slidesToShow: 3 } },
-                { breakpoint: 1024, settings: { slidesToShow: 2 } },
-                { breakpoint: 640, settings: { slidesToShow: 1 } },
-              ]}>
-              {testimonials.map((t, idx) => (
-                <div key={idx} className="h-full px-3 flex items-stretch">
-                  <article className="bg-white rounded-2xl border border-zinc-100 shadow-[0_3px_10px_rgba(0,0,0,0.07)] p-6 flexjustify-between w-full h-[210px]">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Avatar name={t.name} url={t.avatarUrl} />
-                      <div>
-                        <h3 className="font-bold text-zinc-900 text-base">
-                          {t.name}
-                        </h3>
-                        <p className="text-sm text-zinc-500">{t.subtitle}</p>
-                      </div>
-                    </div>
-                    <p className="mt-4 text-xs font-medium text-zinc-700 break-words">
-                      {t.text}
-                    </p>
-                  </article>
-                </div>
-              ))}
-            </Slider>
-          </div>
-        </section>
+        
 
         {/* Contact Form */}
         {/* ================== CONTACT FORM ================== */}
-        <section className="mx-auto max-w-screen-4xl py-12">
+        <section className="mx-auto max-w-screen-4xl py-6">
           <div className="bg-white   rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] p-10">
             <h2 className="text-center text-4xl font-extrabold text-zinc-900 mb-10">
               Bergabung dengan Kami
