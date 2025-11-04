@@ -35,7 +35,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="flex flex-row items-center mt-1">
           {product.discount && (
             <span className="bg-red-500 text-white text-xs font-bold p-1 rounded">
-              Rp {product.discount.toLocaleString("id-ID")}%
+              {product.discount.toLocaleString("id-ID")}%
             </span>
           )}
           {product.priceAfterDiscount && (
