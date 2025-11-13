@@ -2,11 +2,15 @@
 
 import Header from "@/app/components/Header/Header";
 import Footer from "@/app/components/Footer/Footer";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const missions = [
   {
@@ -38,7 +42,7 @@ const IMAGE_POSITIONS = {
 type Subsection = {
   heading: string;
   description: string;
-  stats: { value: string; label: string }[];
+  stats: { value: string; label: string; isLogo: boolean; logoSrc: string }[];
   image: string;
   imagePosition: string;
 };
@@ -557,6 +561,142 @@ const clients: Record<
   ],
 };
 
+
+  // Slider settings for desktop/tablet
+  const desktopSliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    arrows: true,
+    centerMode: true,
+    centerPadding: "300px",
+    initialSlide: 1,
+    responsive: [
+      {
+        breakpoint: 1536,
+        settings: { centerPadding: "200px" },
+      },
+      {
+        breakpoint: 1280,
+        settings: { centerPadding: "120px" },
+      },
+      {
+        breakpoint: 1024,
+        settings: { centerPadding: "60px" },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          centerMode: false,
+          centerPadding: "0px",
+          arrows: false,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          centerMode: false,
+          centerPadding: "0px",
+          arrows: false,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  // Slider settings for mobile (carousel style)
+  const mobileSliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4, // Tampilkan 2 logo per slide di mobile
+    slidesToScroll: 4,
+    autoplay: true,
+    autoplaySpeed: 3000, // Lebih lambat dari desktop
+    arrows: false, // Hilangkan panah di mobile
+    centerMode: false,
+    responsive: [
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 3, // Jika sangat kecil, tampilkan 1 logo
+          slidesToScroll: 3,
+        },
+      },
+    ],
+  };
+
+const advantages = [
+  'Pengalaman Sejak 1991', 'Barang 100% ORI', 'Garansi Resmi',
+  'Service Center Certified', 'Tingkat Kepuasan Pelanggan Terbaik', 'Sales & Teknisi Profesional',
+];
+
+const checkIconColor = '#1444D5';
+
+const brandPartners = [
+  { name: "ASUS", logo: "images/brands/asus.png" },
+  { name: "Apple", logo: "images/brands/apple.png" },
+  { name: "Lenovo", logo: "images/brands/lenovo.png" },
+  { name: "HP", logo: "images/brands/hp.png" },
+  { name: "Samsung", logo: "images/brands/samsung.png" },
+  { name: "MSI", logo: "images/brands/msi.png" },
+  { name: "Rexus", logo: "images/brands/rexus.png" },
+  { name: "Acer", logo: "images/brands/acer.png" },
+  { name: "Zyrex", logo: "images/brands/zyrex.png" },
+  { name: "Prolink", logo: "images/brands/prolink.png" },
+  { name: "Axioo", logo: "images/brands/axioo.png" },
+  { name: "Fantech", logo: "images/brands/fantech.png" },
+  { name: "Advan", logo: "images/brands/advan.png" },
+  { name: "Aukey", logo: "images/brands/aukey.png" },
+  { name: "Kaspersky", logo: "images/brands/kaspersky.png" },
+  { name: "Epson", logo: "images/brands/epson.png" },
+  { name: "Toshiba", logo: "images/brands/toshiba.png" },
+  { name: "Logitech", logo: "images/brands/logitech.png" },
+  { name: "Intel", logo: "images/brands/intel.png" },
+  { name: "AMD", logo: "images/brands/amd.png" },
+  { name: "Nvidia", logo: "images/brands/nvidia.png" },
+  { name: "McAfee", logo: "images/brands/mcafee.png" },
+  { name: "Microsoft", logo: "images/brands/microsoft.png" },
+];
+
+const portfolioData = [
+  {
+    title: "Pameran",
+    mainImage: "../../temp/portofolio/event/porto-1.jpg",
+    thumbnails: [
+      "../../temp/portofolio/event/porto-12.jpg",
+      "../../temp/portofolio/event/porto-13.jpg",
+      "../../temp/portofolio/event/porto-14.jpg",
+    ],
+  },
+  {
+    title: "Edukasi Kampus",
+    mainImage: "../../temp/portofolio/event/porto-2.jpg",
+    thumbnails: [
+      "../../temp/portofolio/event/porto-21.jpg",
+      "../../temp/portofolio/event/porto-22.jpg",
+      "../../temp/portofolio/event/porto-23.jpg",
+    ],
+  },
+  {
+    title: "Dealer Gathering & Training",
+    mainImage: "../../temp/portofolio/event/porto-3.jpg",
+    thumbnails: [
+      "../../temp/portofolio/event/porto-31.jpg",
+      "../../temp/portofolio/event/porto-32.jpg",
+      "../../temp/portofolio/event/porto-33.jpg",
+    ],
+  },
+];
+
+
 export default function AboutUs(){
     const [activeTab, setActiveTab] = useState(tabsData[0].id);
 
@@ -583,6 +723,8 @@ export default function AboutUs(){
         clearInterval(intervalMobile);
       }
     }, []);
+
+    const scrollRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
     return (
         <>
@@ -864,124 +1006,173 @@ export default function AboutUs(){
                   aria-hidden
                   className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent"
                 />
-    
+            
                 {/* Header */}
-                <p className="text-base md:text-xl text-center font-medium">
+                <p className="text-base md:text-xl sm:text-sm xs:text-xs xs:font-bold text-center font-medium">
                   Portofolio Klien
                 </p>
-                <h2 className="text-center font-extrabold text-[40px] xl:tex lg:text-4xl md:text-3xl mb-8 text-zinc-900">
+                <h2 className="text-center font-extrabold text-[40px] lg:text-4xl sm:text-3xl xs:text-sm mb-8 text-zinc-900">
                   Pelanggan Setia Kami
                 </h2>
+                {/* Desktop/Tablet Slider */}
                 <div className="hidden md:block">
-                {/* Slider */}
+                  <Slider {...desktopSliderSettings} className="client-slider">
+                    {categories.map((cat) => (
+                      <div key={cat.id} className="flex justify-center px-2">
+                        {/* Fixed width & height card */}
+                        <div className="max-w-screen-xl h-[700px] md:max-w-screen-md md:h-[920px] lg:max-w-screen-lg lg:h-[740px] sm:max-w-screen-sm sm:h-[1000px] bg-white rounded-2xl border border-zinc-100 shadow-md p-6 flex flex-col">
+                          <h3 className="text-center font-bold text-zinc-900 mb-4 text-lg md:text-xl">
+                            {cat.label}
+                          </h3>
 
-                  <Slider
-                  dots={false}
-                  infinite={true}
-                  speed={500}
-                  slidesToShow={1}
-                  slidesToScroll={1}
-                  autoplay={true}
-                  autoplaySpeed={2500}
-                  arrows={true}
-                  centerMode={true}
-                  centerPadding="200px"
-                  initialSlide={1}
-                  responsive={[
-                  {
-                    breakpoint: 1280,
-                    settings: { centerPadding: "120px" },
-                  },
-                  {
-                    breakpoint: 1024,
-                    settings: { centerPadding: "60px" },
-                  },
-                  {
-                    breakpoint: 768,
-                    settings: {
-                      centerMode: false,
-                      centerPadding: "0px",
-                      arrows: false,
-                      slidesToShow: 1,
-                      slidesToScroll: 1,
-                    },
-                  },
-                  {
-                    breakpoint: 480,
-                    settings: {
-                      centerMode: false,
-                      centerPadding: "0px",
-                      arrows: false,
-                      slidesToShow: 1,
-                      slidesToScroll: 1,
-                    },
-                  },
-                ]}
-                  className="client-slider"
-                >
-                  {categories.map((cat) => (
-                    <div key={cat.id} className="flex justify-center px-2">
-                      {/* Fixed width & height card */}
-                      <div className="max-w-screen-xl h-[700px] md:max-w-screen-md md:h-[820px] lg:max-w-screen-lg lg:h-[740px] sm:max-w-screen-sm sm:h-[1000px] bg-white rounded-2xl border border-zinc-100 shadow-md p-6 flex flex-col">
-                        <h3 className="text-center font-bold text-zinc-900 mb-4 text-lg md:text-xl">
-                          {cat.label}
-                        </h3>
-    
-                        {/* Logo grid with fixed height */}
-                        <div
-                          className="grid justify-items-center flex-1"
-                          style={{
-                            gridTemplateColumns: "repeat(auto-fit, minmax(48px, 1fr))",
-                            gap: 8,
-                          }}
-                        >
-                          {clients[cat.id].map((client) => (
-                            <div
-                              key={client.id}
-                              className="flex justify-center h-[60px]"
-                            >
-                              <img
-                                src={client.logo}
-                                alt={client.name}
-                                loading="lazy"
-                                className="object-contain max-h-10 md:max-h-6"
-                              />
-                            </div>
-                          ))}
+                          {/* Logo grid with fixed height */}
+                          <div
+                            className="grid justify-items-center flex-1"
+                            style={{
+                              gridTemplateColumns: "repeat(auto-fit, minmax(48px, 1fr))",
+                              gap: 8,
+                            }}
+                          >
+                            {clients[cat.id].map((client) => (
+                              <div
+                                key={client.id}
+                                className="flex justify-center h-[60px]"
+                              >
+                                <img
+                                  src={client.logo}
+                                  alt={client.name}
+                                  loading="lazy"
+                                  className="object-contain max-h-10 md:max-h-6"
+                                />
+                              </div>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </Slider>
+                    ))}
+                  </Slider>
                 </div>
 
-                {/* Mobile View - Auto-scrolling horizontal logos */}
+                {/* Mobile Carousel */}
                 <div className="md:hidden">
-                  {categories.map((cat) => (
+                {categories.map((cat) => (
                     <div key={cat.id} className="mb-8">
-                      <h3 className="text-center font-bold text-zinc-900 mb-4 text-lg">
-                        {cat.label}
-                      </h3>
-                      <div className="flex overflow-x-auto space-x-4 pb-4">
+                    <h3 className="text-xl font-bold mb-4 text-center">{cat.label}</h3>
+                    <Slider {...mobileSliderSettings} className="mobile-carousel">
                         {clients[cat.id].map((client) => (
-                          <div
-                            key={client.id}
-                            className="flex-shrink-0 w-24 h-24 flex items-center justify-center"
-                          >
+                        <div key={client.id} className="px-2">
+                            <div className="flex items-center justify-center p-4">
                             <img
-                              src={client.logo}
-                              alt={client.name}
-                              loading="lazy"
-                              className="object-contain max-h-16 max-w-full"
+                                src={client.logo}
+                                alt={client.name}
+                                className="h-12 object-contain"
                             />
-                          </div>
+                            </div>
+                        </div>
                         ))}
-                      </div>
+                    </Slider>
                     </div>
-                  ))}
+                ))}
                 </div>
               </div>
 
+            </section>
+            <section className="w-full content-width mx-auto py-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                {/* Bagian kiri: gambar dua orang, hidden di mobile, col-span 1 */}
+                <div className="hidden md:flex justify-center col-span-1">
+                  <img
+                    src="/images/mitrakami.png"
+                    alt="Dua Orang Mitra Kami"
+                    className="w-auto h-auto object-contain"
+                  />
+                </div>
+            
+                {/* Bagian kanan: col-span 2 */}
+                <div className="col-span-2 max-w-screen-xl flex flex-col space-y-12">
+                  <div className="">
+                    <h2 className="text-center text-4xl font-extrabold mb-2 xl:text-[40px] lg:text-4xl md:text-3xl sm:text-2xl">Mitra Kami</h2>
+                    <h3 className="text-center text-xl font-extrabold text-[#1444D5] mb-8">
+                      Kenapa Jadi Bagian Kami?
+                    </h3>
+            
+                    {/* Daftar keuntungan */}
+                    <ul className="hidden md:grid md:grid-cols-2 items-center md:gap-x-12 md:gap-y-4">
+                      {advantages.map((item, idx) => (
+                        <li key={idx} className="flex items-center justify-start space-x-2">
+                          <FontAwesomeIcon icon={faCheck} style={{ color: checkIconColor }} />
+                          <span className="font-medium text-[15px] text-left">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+            
+                    <ul className="md:hidden flex flex-col items-center space-y-3">
+                      {advantages.map((item, idx) => (
+                        <li key={idx} className="flex items-center justify-start space-x-2">
+                          <FontAwesomeIcon icon={faCheck} style={{ color: checkIconColor }} />
+                          <span className="font-medium text-[15px] text-left">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+            
+                  {/* Brand partner */}
+                  <div className="mt-10 w-full bg-zinc-100 rounded-lg p-5">
+                    <h4
+                      className="mb-4 text-center font-extrabold text-[#1444D5]"
+                      style={{ fontSize: "clamp(1.25rem, 1.6vw, 1.375rem)" }}
+                    >
+                      Brand Partner
+                    </h4>
+            
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-4 place-items-center">
+                      {brandPartners.map((p) => (
+                        <img
+                          key={p.name}
+                          src={p.logo}
+                          alt={p.name}
+                          loading="lazy"
+                          className="h-[clamp(12px,2.0vw,30px)] w-auto object-contain"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section className="content-width mx-auto">
+              <p className="text-xl text-center font-medium lg:text-lg md:text-base sm:text-sm">
+                Portofolio Klien
+              </p>
+              <h2 className="text-center font-extrabold text-[40px] lg:text-4xl md:text-3xl sm:text-2xl mb-8 text-zinc-900">
+                Portofolio Event
+              </h2>
+              <div className="flex flex-wrap justify-center gap-20 lg:gap-10">
+                {portfolioData.map(({ title, mainImage, thumbnails }, i) => (
+                  <div
+                    key={i}
+                    className="w-full sm:w-[420px] md:w-[500px] lg:w-[375px] xl:w-[540px] bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                    <img
+                      src={mainImage}
+                      alt={title}
+                      className="w-full aspect-square object-cover rounded-lg mb-3"
+                    />
+                    <div className="grid grid-cols-3 gap-3 w-full mb-3">
+                      {thumbnails.map((t, j) => (
+                        <img
+                          key={j}
+                          src={t}
+                          alt=""
+                          className="w-full aspect-square object-cover rounded-md shadow-sm"
+                        />
+                      ))}
+                    </div>
+                    <h3 className="font-extrabold text-xl lg:text-lg md:text-base sm:text-sm">
+                      {title}
+                    </h3>
+                  </div>
+                ))}
+              </div>
             </section>
             <Footer />
         </>
