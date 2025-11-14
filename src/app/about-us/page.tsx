@@ -30,8 +30,8 @@ const missions = [
 type Stat = {
   value: string;
   label: string;
-  isLogo?: boolean; // Flag to indicate if this stat is a logo
-  logoSrc?: string; // Path to logo image
+  isLogo?: boolean; // Flag to indicate if this stat is a logo (optional)
+  logoSrc?: string; // Path to logo image (optional)
 };
 
 const IMAGE_POSITIONS = {
@@ -42,16 +42,11 @@ const IMAGE_POSITIONS = {
 type Subsection = {
   heading: string;
   description: string;
-  stats: { value: string; label: string; isLogo: boolean; logoSrc: string }[];
+  stats: Stat[];
   image: string;
   imagePosition: string;
 };
 
-interface TabData {
-  id: string;
-  title: string;
-  content: Subsection[];
-}
 
 const tabsData = [
     {
@@ -84,7 +79,7 @@ const tabsData = [
             { value: '99%', label: 'Kepuasan Pelanggan' },
           ],
           image: 'images/tentang-bisnis/retail-offline.png',
-          imagePosition: IMAGE_POSITIONS.RIGHT,
+          imagePosition: IMAGE_POSITIONS.LEFT,
         },
         {
           heading: 'Service Center',
@@ -99,7 +94,7 @@ const tabsData = [
             { value: 'Axioo', label: 'Certified', isLogo: true, logoSrc: '/images/brands/axioo.png' },
           ],
           image: '/images/tentang-bisnis/service-center.png',
-          imagePosition: 'left',
+          imagePosition: IMAGE_POSITIONS.RIGHT,
         },
         {
           heading: 'Retail Online',
@@ -113,7 +108,7 @@ const tabsData = [
             { value: 'Blibli', label: '', isLogo: true, logoSrc: '/images/brands/blibli.png' },
           ],
           image: '/images/tentang-bisnis/retail-online.png',
-          imagePosition: 'right',
+          imagePosition: IMAGE_POSITIONS.LEFT,
         },
       ],
     },
@@ -135,73 +130,137 @@ const tabsData = [
     },
   ];
 
-  const renderStats = (stats: Stat[]) => (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center bg-white p-1 rounded-md shadow-md">
-      {stats.map((stat, index) => (
-        <div key={index} className="p-4">
-          <p className="text-4xl font-extrabold">{stat.value}</p>
-          <p className="mt-1 text-sm">{stat.label}</p>
-        </div>
-      ))}
-    </div>
-  );
+const renderStats = (stats: Stat[]) => (
+  <div className="grid grid-cols-3 gap-4 text-left bg-white p-3 rounded-md shadow-md w-full">
+    {stats.map((stat, index) => (
+      <div key={index} className="py-3 px-3 text-center">
+        <p className="text-3xl sm:text-2xl xs:text-xl md:text-3xl font-extrabold">{stat.value}</p>
+        <p className="mt-1 text-xs sm:text-sm md:text-xs">{stat.label}</p>
+      </div>
+    ))}
+  </div>
+);
+
+
 
   const renderSubsection = (subsection: Subsection, index: number) => {
-    return (
+  return (
+    <div
+      key={index}
+      className={`flex flex-col md:flex-row items-center gap-8 ${
+        subsection.imagePosition === 'left' ? 'md:flex-row-reverse' : ''
+      }`}
+    >
+      {/* Gambar & Teks (Sejajar di Mobile) */}
       <div
-        key={index}
-        className={`flex flex-col md:flex-row items-center gap-8 ${
-          subsection.imagePosition === 'left' ? 'md:flex-row-reverse' : ''
+        className={`flex flex-col xs:flex-row sm:items-center gap-6 w-full ${
+          subsection.imagePosition === 'left' ? 'xs:flex-row-reverse' : ''
         }`}
       >
-        <div className="md:w-1/2">
-          <h3 className="text-[32px] lg:text-[32px] md:text-xl font-bold mb-4">{subsection.heading}</h3>
-          <p className="text-gray-700 mb-6">{subsection.description}</p>
-
-          {/* Stats */}
-          <div className="bg-white p-4 rounded-md shadow-md justify-center">
-            {subsection.heading === 'Service Center' ? (<p className="font-extrabold py-2">Certified Service Center for: </p>) : null}
-            <div className={`grid grid-cols-2 ${subsection.heading != 'Retail Offline' ? (subsection.heading === 'Retail Online' ? "md:grid-cols-6 gap-0" : "md:grid-cols-7") : "md:grid-cols-3 sm:grid-cols-3 gap-6"} mb-6 items-center`}>
-              {subsection.stats.map((stat, idx) => (
-                <div
-                  key={idx}
-                  className="text-center"
-                >
-                  {stat.isLogo ? (
-                    <img
-                      src={stat.logoSrc}
-                      alt={stat.value}
-                      className={`w-auto ${subsection.heading === 'Retail Online' ? 'h-8' : 'h-4'} mx-auto`}
-                    />
-                  ) : (
-                    <>
-                      <div className="text-4xl xs:text-sm font-bold">
-                        {stat.value}
-                      </div>
-                      <div className="text-sm font-medium mt-1">
-                        {stat.label}
-                      </div>
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-          
-        </div>
-
-        <div className="md:w-1/2">
+        {/* Gambar */}
+        <div className="flex-shrink-0 w-[200px] lg:w-1/2 md:w-[325px] sm:w-[200px]">
           <img
             src={subsection.image}
             alt={subsection.heading}
-            width={600}
-            height={400}
-            className="w-full h-auto rounded-lg shadow-lg object-cover"
+            className="w-full h-[235px] xl:h-[425px] lg:h-[375px] md:h-[285px] sm:h-[200px]  object-cover"
           />
         </div>
+
+        {/* Teks */}
+        <div className="flex-1">
+          <h3 className="text-4xl lg:text-4xl md:text-2xl sm:text-lg xs:text-sm font-extrabold mb-4">
+            {subsection.heading}
+          </h3>
+          <p className="mb-6 md:text-sm sm:text-[13px] xs:text-xs">{subsection.description}</p>
+          {/* Statistik — Width Full (Di Bawah Gambar & Teks) */}
+          <div className="w-full hidden md:block mt-4">
+            <div className="bg-white p-4 rounded-md shadow-md justify-center">
+              {subsection.heading === 'Service Center' ? (
+                <p className="font-extrabold py-2">Certified Service Center for: </p>
+              ) : null}
+              <div
+                className={`grid grid-cols-3 ${
+                  subsection.heading != 'Retail Offline'
+                    ? subsection.heading === 'Retail Online'
+                      ? 'md:grid-cols-6 gap-0'
+                      : 'md:grid-cols-7'
+                    : 'md:grid-cols-3 sm:grid-cols-3 gap-6'
+                } py-4 items-center`}
+              >
+                {subsection.stats.map((stat, idx) => (
+                  <div key={idx} className="text-center place-items-center">
+                    {stat.isLogo ? (
+                      <img
+                        src={stat.logoSrc ?? ''}
+                        alt={stat.value}
+                        className={`w-auto ${
+                          subsection.heading === 'Retail Online' ? 'xl:h-9 lg:h-6' : 'h-4'
+                        } mx-auto`}
+                      />
+                    ) : (
+                      <>
+                        <div className="flex text-3xl sm:text-2xl xs:text-xl md:text-3xl font-extrabold">
+                          {stat.value}
+                        </div>
+                        <div className="mt-1 text-xs sm:text-sm md:text-xs">
+                          {stat.label}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    );
-  };
+
+      {/* Statistik — Width Full (Di Bawah Gambar & Teks) */}
+      <div className="w-full md:hidden">
+        <div className="bg-white p-4 rounded-md shadow-md justify-center content-center">
+          {subsection.heading === 'Service Center' ? (
+            <p className="font-extrabold py-2">Certified Service Center for: </p>
+          ) : null}
+          <div
+            className={`grid grid-cols-3 ${
+              subsection.heading != 'Retail Offline'
+                ? subsection.heading === 'Retail Online'
+                  ? 'xs:grid-cols-[15%_1fr_10%_10%_10%_20%] gap-0'
+                  : 'xs:grid-cols-7'
+                : 'md:grid-cols-3 sm:grid-cols-3 gap-6'
+            } py-3 justify-center place-items-center`}
+          >
+            {subsection.stats.map((stat, idx) => (
+              <div key={idx} className="text-center">
+                {stat.isLogo ? (
+                  <img
+                    src={stat.logoSrc ?? ''}
+                    alt={stat.value}
+                    className={`w-auto ${
+                      subsection.heading === 'Retail Online' ? 'h-8 xs:h-5' : 'h-4 xs:h-[10px] gap-3'
+                    } mx-auto`}
+                  />
+                ) : (
+                  <>
+                    <div className="text-center">
+                      <div className="text-3xl sm:text-2xl xs:text-xl md:text-3xl font-extrabold">
+                      {stat.value}
+                    </div>
+                    <div className="mt-1 text-xs sm:text-sm md:text-xs">
+                      {stat.label}
+                    </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 
   const badges = [
   { title: "Best Sales Performance Jabodetabek", imgUrl: "/images/awards/best-amd.png" },
@@ -668,6 +727,7 @@ const brandPartners = [
 
 const portfolioData = [
   {
+    id: "pameran",
     title: "Pameran",
     mainImage: "../../temp/portofolio/event/porto-1.jpg",
     thumbnails: [
@@ -677,6 +737,7 @@ const portfolioData = [
     ],
   },
   {
+    id: "edukasi",
     title: "Edukasi Kampus",
     mainImage: "../../temp/portofolio/event/porto-2.jpg",
     thumbnails: [
@@ -686,6 +747,7 @@ const portfolioData = [
     ],
   },
   {
+    id: "dealer",
     title: "Dealer Gathering & Training",
     mainImage: "../../temp/portofolio/event/porto-3.jpg",
     thumbnails: [
@@ -696,6 +758,80 @@ const portfolioData = [
   },
 ];
 
+type Testimonial = {
+  name: string;
+  subtitle: string;
+  rating: number; // 0-5
+  text: string;
+  avatarUrl?: string;
+};
+
+const testimonials: Testimonial[] = [
+  {
+    name: "Mochammad Asep Nazmudin",
+    subtitle: "Sentral Komputer Bogor",
+    rating: 5,
+    text: "Bought Lenovo Legion in 2022, after 2.5 years it had an issue. Brought it for official warranty, staff were friendly, process fast, everything explained clearly. Laptop repaired hassle free, top service.",
+    avatarUrl: "../../temp/asep.png",
+  },
+  {
+    name: "Poetri Monalia",
+    subtitle: "Sentral Komputer Citos",
+    rating: 5,
+    text: "We came to find a basic laptop for the kids, staff offered 5–6 options with specs. Technician also helped install Microsoft Office included in the bundle. Helpful and informative service.",
+    avatarUrl: "../../temp/poetri.png",
+  },
+  {
+    name: "Galih Satriya Praptama",
+    subtitle: "Sentral Service",
+    rating: 5,
+    text: "Servis jujur, menyampaikan kondisi apa adanya, ngasih opsi dulu untuk solusi perbaikan. Sukses selalu, terima kasih!",
+    // tanpa avatar -> otomatis pakai inisial
+  },
+  {
+    name: "Adhitya Priady",
+    subtitle: "Adhitya Priady",
+    rating: 5,
+    text: "Pelayanannya TOP. Dari dibongkar, dijelaskan masalah + solusi, lalu dirakit rapi lagi. Excellent service.",
+    avatarUrl: "../../temp/adhitya.png",
+  },
+];
+
+function Avatar({ name, url }: { name: string; url?: string }) {
+  const initial = name?.trim()?.charAt(0)?.toUpperCase() || "U";
+  return (
+    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-zinc-200 ring-2 ring-white">
+      {url ? (
+        // pakai <img> biar konsisten dengan file lain
+        <img src={url} alt={name} className="h-full w-full object-cover" />
+      ) : (
+        <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-zinc-700">
+          {initial}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Stars({ count }: { count: number }) {
+  return (
+    <div
+      className="flex items-center gap-1"
+      aria-label={`${count} dari 5 bintang`}>
+      {[...Array(5)].map((_, i) => (
+        <svg
+          key={i}
+          viewBox="0 0 20 20"
+          className={`h-5 w-5 lg:h-4 lg:w-4 ${
+            i < count ? "fill-amber-400" : "fill-zinc-300"
+          }`}
+          aria-hidden="true">
+          <path d="M10 1.5l2.59 5.25 5.8.84-4.2 4.09.99 5.77L10 14.97l-5.18 2.48.99-5.77-4.2-4.09 5.8-.84L10 1.5z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
 
 export default function AboutUs(){
     const [activeTab, setActiveTab] = useState(tabsData[0].id);
@@ -706,6 +842,13 @@ export default function AboutUs(){
     }
     const [currentTrophySet, setCurrentTrophySet] = useState(0);
     const [currentTrophySetMobile, setCurrentTrophySetMobile] = useState(0);
+
+    const [activeTabPortfolio, setActiveTabPortfolio] = useState(portfolioData[0].id);
+
+    const currentTabPortfolio = portfolioData.find(tab => tab.id === activeTabPortfolio);
+    if (!currentTab) {
+      return <div className="text-center py-12">Tab tidak ditemukan.</div>;
+    }
 
     // Efek untuk rotasi otomatis trofi setiap 5 detik
     useEffect(() => {
@@ -723,8 +866,6 @@ export default function AboutUs(){
         clearInterval(intervalMobile);
       }
     }, []);
-
-    const scrollRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
     return (
         <>
@@ -888,9 +1029,9 @@ export default function AboutUs(){
                   </div>
               </div>
             </section>
-            <section className="mx-auto px-6 py-12 bg-gray-100">
+            <section className="py-12 bg-gray-100">
               <div className="content-width mx-auto space-y-4">
-                <h2 className="text-3xl font-bold mb-6 text-center">Tentang Bisnis Kami</h2>
+                <h2 className="text-[40px] font-bold mb-6 text-center">Tentang Bisnis Kami</h2>
 
                 {/* Tab Navigation */}
                 <nav className="mb-8 flex space-x-6 text-sm font-medium justify-center text-gray-500 border-b border-gray-200">
@@ -898,7 +1039,7 @@ export default function AboutUs(){
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`pb-3 transition-colors ${
+                      className={`pb-3 transition-colors md:text-base xs:text-xs ${
                         activeTab === tab.id
                           ? 'text-gray-900 border-b-2 border-indigo-600'
                           : 'hover:text-gray-900'
@@ -913,24 +1054,42 @@ export default function AboutUs(){
                 {Array.isArray(currentTab.content) ? (
                   currentTab.content.map((subsection, index) => renderSubsection(subsection, index))
                 ) : (
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-12">
-                    <div className="flex-shrink-0 mb-8 lg:mb-0 lg:w-1/2">
-                      <img
-                        src={currentTab.content.image}
-                        alt={currentTab.content.heading}
-                        width={600}
-                        height={400}
-                        className="rounded-md object-cover"
-                      />
+                  <div className="flex flex-col lg:flex-row lg:items-center gap-6">
+                    {/* Gambar & Teks (Sejajar di Mobile) */}
+                    <div className="flex flex-col xs:flex-row sm:items-center gap-6 w-full">
+                      {/* Gambar */}
+                      <div className="flex-shrink-0 w-[150px] lg:w-1/2 md:w-[325px] sm:w-[200px]">
+                        <img
+                          src={currentTab.content.image}
+                          alt={currentTab.content.heading}
+                          className="w-full h-[150px] xl:h-[425px] lg:h-[375px] md:h-[285px] sm:h-[200px] object-cover"
+                        />
+                      </div>
+
+                      {/* Teks */}
+                      <div className="flex-1">
+                        <h3 className="text-4xl lg:text-4xl md:text-2xl sm:text-lg xs:text-sm font-extrabold mb-4">
+                          {currentTab.content.heading}
+                        </h3>
+                        <p className="mb-6 md:text-sm sm:text-[13px] xs:text-xs">
+                          {currentTab.content.description}
+                        </p>
+                        <div className="w-full hidden md:flex mt-4">
+                          {renderStats(currentTab.content.stats)}
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="lg:w-1/2">
-                      <h3 className="text-2xl font-semibold mb-4">{currentTab.content.heading}</h3>
-                      <p className="mb-8">{currentTab.content.description}</p>
-                      {renderStats(currentTab.content.stats)}
-                    </div>
+                    {/* Statistik — Width Full (Di Bawah Gambar & Teks) */}
+                    {currentTab.content.stats && (
+                      <div className="w-full md:hidden mt-4">
+                        {renderStats(currentTab.content.stats)}
+                      </div>
+                    )}
                   </div>
                 )}
+
+
               </div>
             </section>
             <div className="content-width mx-auto px-4 py-8">
@@ -947,7 +1106,7 @@ export default function AboutUs(){
                     <img 
                       src={badge.imgUrl} 
                       alt={`${badge.title}`} 
-                      className="w-1/2 h-auto lg:w-1/2 md:w-14 sm:w-20 xs:w-8 mb-2 object-contain"
+                      className="w-1/2 h-auto lg:w-1/2 md:w-10 sm:w-20 xs:w-8 mb-2 object-contain"
                     />
                   </div>
                 ))}
@@ -1078,49 +1237,52 @@ export default function AboutUs(){
 
             </section>
             <section className="w-full content-width mx-auto py-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+              <h2 className="lg:hidden text-center text-4xl font-extrabold mb-2 xl:text-[40px] lg:text-4xl md:text-3xl sm:text-2xl xs:text-xl">Mitra Kami</h2>
+              <h3 className="lg:hidden text-center text-xl xs:text-base font-extrabold text-[#1444D5] mb-8">
+                Kenapa Jadi Bagian Kami?
+              </h3>
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-8 items-center">
                 {/* Bagian kiri: gambar dua orang, hidden di mobile, col-span 1 */}
-                <div className="hidden md:flex justify-center col-span-1">
+                <div className="justify-center col-span-1 place-items-center">
                   <img
                     src="/images/mitrakami.png"
                     alt="Dua Orang Mitra Kami"
-                    className="w-auto h-auto object-contain"
+                    className="w-auto h-auto xl:h-[700px] aspect-square object-contain"
                   />
                 </div>
             
                 {/* Bagian kanan: col-span 2 */}
-                <div className="col-span-2 max-w-screen-xl flex flex-col space-y-12">
+                <div className="col-span-2 xs:col-span-1 max-w-screen-xl flex flex-col justify-center space-y-32 lg:space-y-12">
                   <div className="">
-                    <h2 className="text-center text-4xl font-extrabold mb-2 xl:text-[40px] lg:text-4xl md:text-3xl sm:text-2xl">Mitra Kami</h2>
-                    <h3 className="text-center text-xl font-extrabold text-[#1444D5] mb-8">
+                    <h2 className="hidden lg:block text-center text-4xl font-extrabold mb-2 xl:text-[40px] lg:text-4xl md:text-3xl sm:text-2xl xs:text-xl">Mitra Kami</h2>
+                    <h3 className="hidden lg:block text-center text-xl lg:text-xl xs:text-base font-extrabold text-[#1444D5] mb-8">
                       Kenapa Jadi Bagian Kami?
                     </h3>
             
                     {/* Daftar keuntungan */}
-                    <ul className="hidden md:grid md:grid-cols-2 items-center md:gap-x-12 md:gap-y-4">
+                    <ul className="hidden md:grid md:grid-cols-1 lg:grid-cols-2 items-center md:gap-x-12 md:gap-y-4 justify-self-center xs:items-start">
                       {advantages.map((item, idx) => (
-                        <li key={idx} className="flex items-center justify-start space-x-2">
+                        <li key={idx} className="flex space-x-2">
                           <FontAwesomeIcon icon={faCheck} style={{ color: checkIconColor }} />
-                          <span className="font-medium text-[15px] text-left">{item}</span>
+                          <span className="font-medium text-[15px] lg:text-[15px] xs:text-[11px] text-left">{item}</span>
                         </li>
                       ))}
                     </ul>
             
-                    <ul className="md:hidden flex flex-col items-center space-y-3">
+                    <ul className="md:hidden flex flex-col items-center space-y-3 justify-self-center xs:items-start">
                       {advantages.map((item, idx) => (
-                        <li key={idx} className="flex items-center justify-start space-x-2">
+                        <li key={idx} className="flex space-x-2">
                           <FontAwesomeIcon icon={faCheck} style={{ color: checkIconColor }} />
-                          <span className="font-medium text-[15px] text-left">{item}</span>
+                          <span className="font-medium text-[15px] lg:text-[15px] xs:text-[11px] text-left">{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
             
                   {/* Brand partner */}
-                  <div className="mt-10 w-full bg-zinc-100 rounded-lg p-5">
+                  <div className="w-full hidden lg:block bg-[#F5F3F1] p-5">
                     <h4
-                      className="mb-4 text-center font-extrabold text-[#1444D5]"
-                      style={{ fontSize: "clamp(1.25rem, 1.6vw, 1.375rem)" }}
+                      className="mb-4 text-center text-xl lg:text-xl xs:text-base font-extrabold text-[#1444D5]"
                     >
                       Brand Partner
                     </h4>
@@ -1132,26 +1294,46 @@ export default function AboutUs(){
                           src={p.logo}
                           alt={p.name}
                           loading="lazy"
-                          className="h-[clamp(12px,2.0vw,30px)] w-auto object-contain"
+                          className="h-[clamp(12px,2.0vw,20px)] w-auto object-contain"
                         />
                       ))}
                     </div>
                   </div>
                 </div>
               </div>
+              {/* Mobile Brand Partner */}
+              <div className="w-full lg:hidden md:mt-4 bg-[#F5F3F1] p-5">
+                <h4
+                  className="mb-4 text-center text-xl lg:text-xl xs:text-base font-extrabold text-[#1444D5]"
+                >
+                  Brand Partner
+                </h4>
+        
+                <div className="grid grid-cols-3 xs:grid-cols-8 md:grid-cols-6 lg:grid-cols-9 gap-4 place-items-center">
+                  {brandPartners.map((p) => (
+                    <img
+                      key={p.name}
+                      src={p.logo}
+                      alt={p.name}
+                      loading="lazy"
+                      className="h-[clamp(12px,2.0vw,12px)] w-auto object-contain"
+                    />
+                  ))}
+                </div>
+              </div>
             </section>
-            <section className="content-width mx-auto">
-              <p className="text-xl text-center font-medium lg:text-lg md:text-base sm:text-sm">
+            <section className="content-width mx-auto py-8">
+              <p className="text-xl text-center font-medium lg:text-lg md:text-base sm:text-sm xs:text-xs">
                 Portofolio Klien
               </p>
-              <h2 className="text-center font-extrabold text-[40px] lg:text-4xl md:text-3xl sm:text-2xl mb-8 text-zinc-900">
+              <h2 className="text-center font-extrabold text-[40px] lg:text-4xl md:text-3xl sm:text-2xl xs:text-xl mb-8 text-zinc-900">
                 Portofolio Event
               </h2>
-              <div className="flex flex-wrap justify-center gap-20 lg:gap-10">
+              <div className="grid grid-cols-3 justify-between lg:gap-20 xl:gap-32 md:gap-10">
                 {portfolioData.map(({ title, mainImage, thumbnails }, i) => (
                   <div
                     key={i}
-                    className="w-full sm:w-[420px] md:w-[500px] lg:w-[375px] xl:w-[540px] bg-white rounded-xl shadow p-6 flex flex-col items-center">
+                    className="w-full hidden lg:w-[325px] xl:w-[400px] bg-white rounded-xl shadow p-6 lg:flex flex-col items-center">
                     <img
                       src={mainImage}
                       alt={title}
@@ -1167,14 +1349,185 @@ export default function AboutUs(){
                         />
                       ))}
                     </div>
-                    <h3 className="font-extrabold text-xl lg:text-lg md:text-base sm:text-sm">
+                    <h3 className="font-extrabold text-xl lg:text-lg md:text-base sm:text-2xl xs:text-xs">
                       {title}
                     </h3>
                   </div>
+
                 ))}
               </div>
+              <div className="lg:hidden">
+                {/* Tab Navigation */}
+                <nav className="mb-8 flex space-x-6 text-sm font-medium justify-center text-gray-500 border-b border-gray-200">
+                  {portfolioData.map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTabPortfolio(tab.id)}
+                      className={`pb-3 transition-colors md:text-base xs:text-xs ${
+                        activeTab === tab.id
+                          ? 'text-gray-900 border-b-2 border-indigo-600'
+                          : 'hover:text-gray-900'
+                      }`}
+                    >
+                      {tab.title}
+                    </button>
+                  ))}
+                </nav>
+                  <div
+                    className="w-full lg:w-[325px] xl:w-[400px] bg-white rounded-xl shadow p-6 lg:flex flex-col items-center">
+                    <img
+                      src={currentTabPortfolio?.mainImage}
+                      alt={currentTabPortfolio?.title}
+                      className="w-full aspect-square object-cover rounded-lg mb-3"
+                    />
+                    <div className="grid grid-cols-3 gap-3 w-full mb-3">
+                      {currentTabPortfolio?.thumbnails.map((t, j) => (
+                        <img
+                          key={j}
+                          src={t}
+                          alt=""
+                          className="w-full aspect-square object-cover rounded-md shadow-sm"
+                        />
+                      ))}
+                    </div>
+                  </div>
+              </div>
             </section>
-            <Footer />
+            {/* Testimonials */}
+            <section className="relative bg-[#FAFAFA] py-8 overflow-hidden">
+              <div className="text-center mb-12">
+                <h2 className="text-[40px] lg:text-4xl md:text-3xl xs:text-xl font-extrabold text-zinc-900">
+                  Apa Kata Mereka Tentang Kami
+                </h2>
+              </div>
+              <div className="relative content-width mx-auto">
+                {/* Fade kiri/kanan */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none hidden lg:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#FAFAFA] to-transparent z-10"
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none hidden lg:block absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#FAFAFA] to-transparent z-10"
+                />
+                {/* fade kiri/kanan biar mirip desain */}
+                <Slider
+                  className="client-slider"
+                  dots={false}
+                  infinite={true}
+                  speed={500}
+                  autoplay
+                  autoplaySpeed={3500}
+                  slidesToShow={4}
+                  slidesToScroll={1}
+                  arrows={false}
+                  responsive={[
+                    { breakpoint: 1280, settings: { slidesToShow: 3 } },
+                    { breakpoint: 1024, settings: { slidesToShow: 2 } },
+                    { breakpoint: 640, settings: { slidesToShow: 1 } },
+                    { breakpoint: 320, settings: { slidesToShow: 1 } },
+                  ]}>
+                  {testimonials.map((t, idx) => (
+                    <div key={idx} className="h-full px-3 flex items-stretch">
+                      <article className="bg-white rounded-2xl border  shadow-[0_3px_10px_rgba(0,0,0,0.07)] p-6 flexjustify-between content-width mx-auto h-[210px] lg:h-[230px] xs:h-[250px]">
+                        <div className="flex items-center gap-3 mb-4">
+                          <Avatar name={t.name} url={t.avatarUrl} />
+                          <div>
+                            <h3 className="font-bold text-zinc-900 text-base lg:text-sm md:text-xs">
+                              {t.name}
+                            </h3>
+                            <p className="text-sm text-zinc-500 lg:text-xs">
+                              {t.subtitle}
+                            </p>
+                          </div>
+                        </div>
+
+                        <Stars count={t.rating} />
+
+                        <p className="mt-3 text-xs lg:text-[11px] sm:text-xs xs:text-base font-medium break-words">
+                          {t.text}
+                        </p>
+                      </article>
+                    </div>
+                  ))}
+                </Slider>
+              </div>
+            </section>
+            {/* ================== CONTACT FORM ================== */}
+        <section className="mx-auto content-width py-6">
+          <div className="bg-white rounded-md shadow-[0_8px_30px_rgba(0,0,0,0.08)] p-10">
+            <h2 className="text-center text-4xl lg:text-[40px] xs:text-xl font-extrabold text-zinc-900 mb-10">
+              Bergabung dengan Kami
+            </h2>
+
+            <form
+              onSubmit={(e) => e.preventDefault()}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+              {/* === KIRI === */}
+              <div className="flex flex-col gap-4 h-full">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Nama"
+                  className="h-12 w-full rounded-lg border border-gray-300 px-4 text-gray-700 placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  className="h-12 w-full rounded-lg border border-gray-300 px-4 text-gray-700 placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition"
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Nomor Telepon"
+                  className="h-12 w-full rounded-lg border border-gray-300 px-4 text-gray-700 placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition"
+                />
+                <div className="relative">
+                  <select
+                    defaultValue=""
+                    className="h-12 w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 pr-10 text-gray-700 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition">
+                    <option value="" disabled>
+                      — Pilih —
+                    </option>
+                    <option>Kerjasama</option>
+                    <option>Pengadaan</option>
+                    <option>Konsultasi</option>
+                    <option>Lainnya</option>
+                  </select>
+
+                  {/* Icon arrow */}
+                  <svg
+                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-blue-600"
+                    viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.17l3.71-2.94a.75.75 0 1 1 .92 1.18l-4.2 3.33a.75.75 0 0 1-.94 0l-4.2-3.33a.75.75 0 0 1-.06-1.1z" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* === KANAN === */}
+              <div className="flex flex-col justify-between h-full">
+                {/* Textarea sejajar total kiri */}
+                <textarea
+                  name="message"
+                  placeholder="Deskripsi Keperluan (maksimal 500 kata)"
+                  className="flex-grow rounded-lg border border-gray-300 px-4 py-3 text-gray-700 placeholder-gray-400 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-300 transition resize-none h-full min-h-[240px]"
+                />
+
+                {/* Tombol tetap di bawah */}
+                <div className="flex justify-end mt-4">
+                  <button
+                    type="submit"
+                    className="rounded-lg bg-blue-700 px-8 py-2 w-[150px] text-white font-semibold shadow-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition">
+                    Kirim
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+          <Footer />
         </>
     );
 }
