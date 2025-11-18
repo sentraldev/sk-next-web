@@ -29,7 +29,7 @@ const LocationAddress = () => {
         <p className="text-sm flex items-center gap-2">
           <FontAwesomeIcon icon={faEnvelope} className="w-3.5 h-3.5" />
           <span>
-            Email:
+            Email:{" "}
             <a
               href="mailto:partnership@sentral-komputer.com"
               className="underline">
