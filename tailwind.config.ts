@@ -16,6 +16,9 @@ export default {
       fontStretch: {
         "semi-expanded": "semi-expanded",
       },
+      screens: {
+        xs: '320px',
+      }
     },
     colors: {
       background: "var(--background)",
