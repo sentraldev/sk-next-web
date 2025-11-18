@@ -226,16 +226,17 @@ const TopBar = () => {
               </div>
             )}
           </div>
-          <div className="flex flex-row items-center gap-2">
-            <FontAwesomeIcon
-              icon={faEnvelope}
-              size={iconSize}
-              className="w-4 h-4 hover:text-blue-300 transition-colors"
-            />
-            <Link href="#" className="hidden lg:block lg:font-extrabold">
-              Hubungi Kami
-            </Link>
-          </div>
+
+          <Link href="/about-us#contact-form" className="py-2">
+            <div className="flex flex-row items-center gap-2">
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                size={iconSize}
+                className="w-4 h-4 hover:text-blue-300 transition-colors"
+              />
+              <p className="hidden lg:block lg:font-extrabold">Hubungi Kami</p>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
