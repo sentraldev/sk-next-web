@@ -138,54 +138,6 @@ const centerDefault = {
   lng: 118.0148634,
 };
 
-const storeLocations: Store[] = [
-  {
-    id: 1,
-    name: "Sentral Komputer Jakarta",
-    lat: -6.197745,
-    lng: 106.935908,
-    address:
-      "Taman Pulo Indah Jl. Manggis No.34 blok M, RT.19/RW.7, Penggilingan, Cakung, East Jakarta City, Jakarta 13940",
-    phone: "081977774057",
-    image: "/temp/toko.png",
-    googleMapsUrl: "https://maps.app.goo.gl/uSBykUGvZsyshuka6",
-    instagramUrl: "https://www.instagram.com/sentralkomputer_id/",
-    tiktokUrl: "https://www.tiktok.com/@sentralkomputer_id",
-    email: "kevin@sentralkomputer.com",
-    openingHours: "9.00am - 7.00pm",
-  },
-  {
-    id: 2,
-    name: "Sentral Komputer Mal Artha Gading",
-    lat: -6.145018407976473,
-    lng: 106.89332880551387,
-    address:
-      "Mall Artha Gading Lt. GF Blok A2 No. 26, Jl. Artha Gading Selatan No.1, Kelapa Gading, Jakarta Utara, Jakarta 14240",
-    phone: "(+62) 819-7777-3600",
-    image: "/temp/toko.png",
-    googleMapsUrl: "https://maps.app.goo.gl/NFaqQ11HHTKFyQ5o9",
-    instagramUrl: "https://www.instagram.com/sentralkomputer_id/",
-    tiktokUrl: "https://www.tiktok.com/@sentralkomputer_id",
-    email: "anwar@sentralkomputer.com",
-    openingHours: "10.00am - 9.00pm",
-  },
-  {
-    id: 3,
-    name: "Sentral Service by Sentral Komputer (BCP)",
-    lat: -6.246459430457757,
-    lng: 106.99207207111063,
-    address:
-      "Bekasi Cyber Park Lt. 1 No.6-7 Blok A1, Kec. Bekasi Sel, Bekasi 17144",
-    phone: "(+62) 819-7777-1800",
-    image: "/temp/toko.png",
-    googleMapsUrl: "https://maps.app.goo.gl/MUvc17twsXBmGD3T6",
-    instagramUrl: "https://www.instagram.com/sentralkomputer_id/",
-    tiktokUrl: "https://www.tiktok.com/@sentralkomputer_id",
-    email: "akhiru@sentralkomputer.com",
-    openingHours: "10.00am - 9.00pm",
-  },
-];
-
 // Note: `uniqueCities` will be derived from runtime `stores` inside the component
 
 const LocationStoreUI: React.FC = () => {
@@ -280,7 +232,7 @@ const LocationStoreUI: React.FC = () => {
             setSelectedStore(normalized[0]);
           }
         }
-      } catch (err) {
+      } catch {
         // on error, fall back to bundled `storeLocations` already initialized
       } finally {
         if (!canceled) setStoresLoading(false);
