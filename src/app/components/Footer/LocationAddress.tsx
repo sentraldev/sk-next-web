@@ -7,8 +7,8 @@ import SocialMediaRow from "./SocialMediaRow";
 
 const LocationAddress = () => {
   return (
-    <div className="flex flex-col min-w-[400px] mb-6 md:mb-0 gap-4 align-items-start md:items-start md:pr-8">
-      <div className="flex flex-col  mb-2 align-items-start md:items-start gap-4">
+    <div className="flex flex-col mb-6 md:mb-0 gap-4 align-items-start md:items-start md:pr-8">
+      <div className="flex flex-col mb-2 align-items-start md:items-start gap-4">
         <Image
           src="/logo.png"
           alt="Sentral Komputer Logo"

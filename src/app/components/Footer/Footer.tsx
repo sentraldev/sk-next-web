@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     // TODO: Add absolute bottom
     <footer className="bg-gray-100 pt-8 mt-8 border-blue-900 bottom-0 w-full">
-      <div className="flex flex-col md:flex-row content-width w-full mx-auto px-4">
+      <div className="flex flex-col md:flex-row content-width w-full mx-auto">
         {/* Logo and Address */}
         <LocationAddress />
 
@@ -120,7 +120,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t bg-primary-800 mt-8 p-2 text-center text-xs text-white">
+      <div className="border-t bg-primary-800 mt-8 py-2 text-center text-xs text-white">
         © Copyright 2025 PT Sentral Tekno Sejahtera | All Rights Reserved
       </div>
     </footer>

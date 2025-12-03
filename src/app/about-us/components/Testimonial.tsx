@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Carousel } from "antd";
 
 type Testimonial = {
   name: string;
@@ -14,32 +12,56 @@ type Testimonial = {
 
 const testimonials: Testimonial[] = [
   {
-    name: "Mochammad Asep Nazmudin",
-    subtitle: "Sentral Komputer Bogor",
+    name: "Ain Luthfiannisa",
+    subtitle: "Sentral Komputer Karawang",
     rating: 5,
-    text: "Bought Lenovo Legion in 2022, after 2.5 years it had an issue. Brought it for official warranty, staff were friendly, process fast, everything explained clearly. Laptop repaired hassle free, top service.",
-    avatarUrl: "../../temp/asep.png",
-  },
-  {
-    name: "Poetri Monalia",
-    subtitle: "Sentral Komputer Citos",
-    rating: 5,
-    text: "We came to find a basic laptop for the kids, staff offered 5–6 options with specs. Technician also helped install Microsoft Office included in the bundle. Helpful and informative service.",
-    avatarUrl: "../../temp/poetri.png",
+    text: "Tempatnya nyaman, pelayannya sangat baik dan ramah, pelayannya memberikan rekomendasi sesuai dengan yang kita butuhkan, pokokny sangat rekomendasi beli laptop di tempat ini.",
+    avatarUrl: "/images/testimonial/ain.png",
   },
   {
     name: "Galih Satriya Praptama",
     subtitle: "Sentral Service",
     rating: 5,
-    text: "Servis jujur, menyampaikan kondisi apa adanya, ngasih opsi dulu untuk solusi perbaikan. Sukses selalu, terima kasih!",
-    // tanpa avatar -> otomatis pakai inisial
+    text: "Dateng kesini dari Tikto. Servis jujur, menyampaikan kondisi laptop apa adanya, engga ada ngada - ngada, ngasih opsi dahulu untuk solusi perbaikan. Sukses selalu. Thanks Kak.",
+  },
+  {
+    name: "Jihan Nurul Afifah",
+    subtitle: "Sentral Komputer Purwakarta",
+    rating: 5,
+    text: "Engga perlu diragukan lagi. Laptopnya keren dan berkualitas semua. Bonusnya super banyak, kalau bingung kemana, kesini aja, engga akan bingung karena langsung disarankan sama kakak salesnya.",
   },
   {
     name: "Adhitya Priady",
     subtitle: "Adhitya Priady",
     rating: 5,
-    text: "Pelayanannya TOP. Dari dibongkar, dijelaskan masalah + solusi, lalu dirakit rapi lagi. Excellent service.",
-    avatarUrl: "../../temp/adhitya.png",
+    text: "Pelayanannya TOP. Dari dibongkar sampai dijelasin permasalahannya + solusi, terus dirakit lagi. Thanks Sentral Service for excellent service 👍🏻👍🏻👍🏻",
+    avatarUrl: "/images/testimonial/adhitya.png",
+  },
+  {
+    name: "Mochammad Asep Nazmudin",
+    subtitle: "Sentral Komputer Bogor",
+    rating: 5,
+    text: "Bought Lenovo Legion in 2022, after 2.5 years it had an issue. Brought it for official warranty, staff were friendly, process fast, everything explained clearly. Laptop repaired hassle free, top service.",
+    avatarUrl: "/images/testimonial/asep.png",
+  },
+  {
+    name: "Joana Nainggolan",
+    subtitle: "Sentral Service Serang",
+    rating: 5,
+    text: "Sangat puas disini proses pengecekan cepat dan teknisinya sangat komunikatif. Waktu pengerjaansesuai yang dijanjikan, bahkan selesai lebih cepat. Sangat direkomendasikan untuk yang butuh service laptop yang terpercaya.",
+  },
+  {
+    name: "Poetri Monalia",
+    subtitle: "Sentral Komputer Citos",
+    rating: 5,
+    text: "We came to find a basic laptop for the kids, staff offered 5-6 options with specs. A technician also helped install Microsoft Office included in the bundle. Very helpful and informative service.",
+    avatarUrl: "/images/testimonial/poetri.png",
+  },
+  {
+    name: "Ali Kamil",
+    subtitle: "Sentral Service",
+    rating: 5,
+    text: "First experience overall melebihi ekspektasi. Pilihan produk pun banyak, recommend place untuk beli laptop juga accessories buat device kalian, bintang lima untuk pelayanannya.",
   },
 ];
 
@@ -80,65 +102,86 @@ function Stars({ count }: { count: number }) {
 }
 
 export default function Testimonial() {
-    return (
-        <section className="relative bg-[#FAFAFA] py-8 overflow-hidden">
-              <div className="text-center mb-12">
-                <h2 className="text-[40px] lg:text-4xl md:text-3xl xs:text-xl font-extrabold text-zinc-900">
-                  Apa Kata Mereka Tentang Kami
-                </h2>
-              </div>
-              <div className="relative content-width mx-auto">
-                {/* Fade kiri/kanan */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none hidden lg:block absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#FAFAFA] to-transparent z-10"
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none hidden lg:block absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#FAFAFA] to-transparent z-10"
-                />
-                {/* fade kiri/kanan biar mirip desain */}
-                <Slider
-                  className="client-slider"
-                  dots={false}
-                  infinite={true}
-                  speed={500}
-                  autoplay
-                  autoplaySpeed={3500}
-                  slidesToShow={4}
-                  slidesToScroll={1}
-                  arrows={false}
-                  responsive={[
-                    { breakpoint: 1280, settings: { slidesToShow: 3 } },
-                    { breakpoint: 1024, settings: { slidesToShow: 2 } },
-                    { breakpoint: 640, settings: { slidesToShow: 1 } },
-                    { breakpoint: 320, settings: { slidesToShow: 1 } },
-                  ]}>
-                  {testimonials.map((t, idx) => (
-                    <div key={idx} className="h-full px-3 flex items-stretch">
-                      <article className="bg-white rounded-2xl border  shadow-[0_3px_10px_rgba(0,0,0,0.07)] p-6 flexjustify-between content-width mx-auto h-[210px] lg:h-[230px] xs:h-[250px]">
-                        <div className="flex items-center gap-3 mb-4">
-                          <Avatar name={t.name} url={t.avatarUrl} />
-                          <div>
-                            <h3 className="font-bold text-zinc-900 text-base lg:text-sm md:text-xs">
-                              {t.name}
-                            </h3>
-                            <p className="text-sm text-zinc-500 lg:text-xs">
-                              {t.subtitle}
-                            </p>
-                          </div>
-                        </div>
+  const [isMobile, setIsMobile] = useState(false);
 
-                        <Stars count={t.rating} />
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
-                        <p className="mt-3 text-xs lg:text-[11px] xs:text-xs font-medium break-words">
-                          {t.text}
-                        </p>
-                      </article>
+  return (
+    <section className="w-full md:content-width mx-auto relative bg-[#FAFAFA] py-4 md:py-8 overflow-hidden">
+      <div className="text-center mb-6 md:mb-12">
+        <h2 className="text-[40px] lg:text-4xl md:text-3xl xs:text-xl font-extrabold text-zinc-900">
+          Apa Kata Mereka Tentang Kami
+        </h2>
+      </div>
+      <div className="relative content-width mx-auto w-full">
+        {isMobile ? (
+          <Carousel
+            autoplay={true}
+            dots={true}
+            infinite={true}
+            autoplaySpeed={5000}
+            dotPosition="bottom"
+            arrows={false}
+            className="">
+            {testimonials.map((t, idx) => (
+              <div key={idx} className="flex justify-center my-2">
+                <article className="bg-white rounded-2xl border p-6 flex flex-col w-full h-[220px] flex-shrink-0">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Avatar name={t.name} url={t.avatarUrl} />
+                    <div>
+                      <h3 className="font-bold text-zinc-900 text-base lg:text-sm md:text-xs">
+                        {t.name}
+                      </h3>
+                      <p className="text-sm text-zinc-500 lg:text-xs">
+                        {t.subtitle}
+                      </p>
                     </div>
-                  ))}
-                </Slider>
+                  </div>
+
+                  <Stars count={t.rating} />
+
+                  <p className="mt-3 text-xs lg:text-[11px] xs:text-xs font-medium break-words">
+                    {t.text}
+                  </p>
+                </article>
               </div>
-            </section>
-    );
+            ))}
+          </Carousel>
+        ) : (
+          <div className="flex overflow-x-auto flex-nowrap gap-4 pb-4 px-2">
+            {testimonials.map((t, idx) => (
+              <article
+                key={idx}
+                className="bg-white rounded-2xl border shadow-[0_3px_10px_rgba(0,0,0,0.07)] p-6 flex flex-col w-80 h-[220px] flex-shrink-0">
+                <div className="flex items-center gap-3 mb-4">
+                  <Avatar name={t.name} url={t.avatarUrl} />
+                  <div>
+                    <h3 className="font-bold text-zinc-900 text-base lg:text-sm md:text-xs">
+                      {t.name}
+                    </h3>
+                    <p className="text-sm text-zinc-500 lg:text-xs">
+                      {t.subtitle}
+                    </p>
+                  </div>
+                </div>
+
+                <Stars count={t.rating} />
+
+                <p className="mt-3 text-xs lg:text-[11px] xs:text-xs font-medium break-words">
+                  {t.text}
+                </p>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  );
 }

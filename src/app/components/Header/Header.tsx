@@ -2,12 +2,13 @@
 
 import {
   HeartOutlined,
+  MenuOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { fetchData } from "@/utils/api";
 import LoginPopup from "../LoginPopup";
 import RegisterPopup from "../RegisterPopup";
@@ -18,6 +19,9 @@ export default function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
   const [showDevModal, setShowDevModal] = useState(false);
   const openDevModal = () => setShowDevModal(true);
@@ -38,6 +42,28 @@ export default function Header() {
   useEffect(() => {
     getUserData();
   }, []);
+
+  // Close mobile hamburger menu on click outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        setMobileMenuOpen(false);
+      }
+    }
+
+    if (mobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [mobileMenuOpen]);
 
   // Get User Data from local accessToken
   const getUserData = async () => {
@@ -95,8 +121,8 @@ export default function Header() {
         <TopBar />
         {/* Main Header */}
         <div className="content-width mx-auto flex flex-col md:flex-row md:items-center pt-1 pb-2 gap-1 md:gap-2">
-          <div className="flex flex-row w-full mt-2">
-            <div className="items-center gap-1 md:gap-2 mr-8 mt-4 hover:cursor-pointer">
+          <div className="flex flex-row w-full mt-2 items-center">
+            <div className="items-center gap-1 md:gap-2 mr-4 md:mr-8 mt-1 md:mt-4 hover:cursor-pointer">
               <Image
                 src="/logo.png"
                 alt="Sentral Komputer Logo"
@@ -118,7 +144,8 @@ export default function Header() {
                 </span>
               </div>
             </div>
-            <div className="flex items-center md:gap-2">
+            {/* Desktop wishlist & cart */}
+            <div className="hidden md:flex items-center md:gap-2">
               <div className="border-r border-gray-300 pr-2 mr-4 md:pr-6 md:mr-6 md:gap-2 flex">
                 <button
                   className="ml-4 md:ml-8 p-2 rounded-full hover:bg-gray-100 text-xl"
@@ -132,7 +159,8 @@ export default function Header() {
                 </button>
               </div>
             </div>
-            <div className="flex items-center gap-1 md:gap-2">
+            {/* Desktop auth buttons */}
+            <div className="hidden md:flex items-center gap-1 md:gap-2">
               {user ? (
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-700 hover:bg-gray-100 px-4 py-1 rounded h-full">
@@ -162,12 +190,75 @@ export default function Header() {
                 </>
               )}
             </div>
+
+            {/* Mobile hamburger for wishlist, cart, login & register */}
+            <div
+              className="flex md:hidden items-center ml-2 relative"
+              ref={mobileMenuRef}>
+              <button
+                aria-label="Open menu"
+                className="p-2 rounded-full hover:bg-gray-100 text-xl"
+                onClick={() => setMobileMenuOpen((prev) => !prev)}>
+                <MenuOutlined />
+              </button>
+              {mobileMenuOpen && (
+                <div className="absolute right-0 top-12 z-40 w-48 rounded-md bg-white shadow-lg border border-gray-200 py-2 flex flex-col text-sm">
+                  <button
+                    className="flex items-center px-4 py-2 hover:bg-gray-50 text-left"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      window.location.href = "/wishlist";
+                    }}>
+                    <HeartOutlined className="mr-2" /> Wishlist
+                  </button>
+                  <button
+                    className="flex items-center px-4 py-2 hover:bg-gray-50 text-left"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      window.location.href = "/shopping-cart";
+                    }}>
+                    <ShoppingCartOutlined className="mr-2" /> Keranjang
+                  </button>
+                  <div className="border-t my-1" />
+                  {user ? (
+                    <button
+                      className="flex items-center px-4 py-2 hover:bg-gray-50 text-left"
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        localStorage.removeItem("accessToken");
+                        window.location.reload();
+                      }}>
+                      Logout
+                    </button>
+                  ) : (
+                    <>
+                      <button
+                        className="flex items-center px-4 py-2 hover:bg-gray-50 text-left"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          openDevModal();
+                        }}>
+                        Masuk
+                      </button>
+                      <button
+                        className="flex items-center px-4 py-2 hover:bg-gray-50 text-left"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          openDevModal();
+                        }}>
+                        Daftar
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
         {/* Navigation */}
-        <div className="mx-auto border-b  pt-2">
+        <div className="mx-auto border-b pt-2">
           <div className="content-width mx-auto flex flex-row items-center justify-between ">
-            <nav className="border-gray-200 flex flex-wrap items-center text-sm font-medium gap-4 md:gap-8 lg:gap-12 xl:gap-16">
+            <nav className="border-gray-200 flex items-center text-sm font-medium gap-4 md:gap-8 lg:gap-12 xl:gap-16 overflow-x-auto whitespace-nowrap scrollbar-hide">
               <Link
                 href="/products"
                 className="hover:text-blue-700 hover:cursor-pointer pb-2 border-white border-b-2 hover:border-blue-700">
