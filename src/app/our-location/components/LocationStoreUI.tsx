@@ -125,7 +125,7 @@ function OurLocationSearch({ cities, onSearch }: OurLocationSearchProps) {
 
 const containerStyle = {
   width: "100%",
-  height: "600px",
+  height: "100%",
 };
 
 const centerDefault = {
@@ -213,6 +213,11 @@ const LocationStoreUI: React.FC = () => {
   const cities = uniqueCities;
 
   const onStoreClick = useCallback((store: Store) => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      window.open(store.googleMapsUrl, "_blank");
+      return;
+    }
+
     setMapCenter({ lat: store.lat, lng: store.lng });
     setZoom(16);
     setSelectedStore(store);
@@ -283,23 +288,23 @@ const LocationStoreUI: React.FC = () => {
   if (!isLoaded) return <div>Loading Maps...</div>;
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 md:max-h-[800px] bg-gray-50">
-      <div className="md:w-1/2 overflow-y-auto space-y-6 rounded-lg ">
+    <div className="flex flex-col md:flex-row gap-6 md:h-[800px] bg-gray-50">
+      <div className="md:w-1/2 overflow-y-auto space-y-6 rounded-lg">
         <OurLocationSearch cities={cities} onSearch={onSearch} />
         {filteredStores.map((store: Store) => (
           <div
             key={store.id}
-            className="flex cursor-pointer hover:bg-gray-50  border-b-2 border-gray-300"
+            className="flex flex-col md:flex-row cursor-pointer hover:bg-gray-50 border-b-2 border-gray-300 md:items-stretch pb-4"
             // style={{ boxShadow: "0 2px 6px rgba(0,0,0,0.1)" }}
             onClick={() => onStoreClick(store)}>
-            <div className="flex flex-shrink-0 justify-center items-center">
+            <div className="flex w-full md:w-1/3 flex-shrink-0 md:items-stretch md:p-0 py-4">
               <img
                 src={store.image}
                 alt={store.name}
-                className="w-50 h-50 object-cover rounded-lg"
+                className="w-full h-auto md:h-full object-cover rounded-lg"
               />
             </div>
-            <div className="flex flex-col justify-between flex-grow p-4">
+            <div className="flex flex-col justify-between flex-grow pt-0 md:px-4">
               <div>
                 <h3 className="text-md font-bold text-gray-900">
                   {store.name}
@@ -418,7 +423,7 @@ const LocationStoreUI: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className="flex-1 rounded overflow-hidden ">
+      <div className="hidden md:block flex-1 rounded overflow-hidden">
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={mapCenter}

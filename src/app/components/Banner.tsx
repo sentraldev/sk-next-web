@@ -41,7 +41,7 @@ export default function Banner() {
         autoplaySpeed={5000}
         dotPosition="bottom"
         arrows={true}
-        className="w-full h-[560px]">
+        className="md:w-full">
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="loader"></span>
@@ -49,24 +49,21 @@ export default function Banner() {
         )}
 
         {!loading &&
-          slides.map((slide) => {
-            console.log(slide.image);
-
-            return (
-              <div key={slide.id} className="w-full h-[560px] relative">
+          slides.map((slide) => (
+            <div key={slide.id} className="relative w-full">
+              <div
+                className="relative w-full"
+                style={{ aspectRatio: "1200 / 560" }}>
                 <Image
                   src={slide.image}
                   alt={slide.title || "Banner"}
-                  height={560}
-                  width={1200}
-                  style={{ width: "100%", height: "560px" }}
-                  className="object-cover w-full h-[560px] rounded-xl"
+                  fill
+                  className="object-cover rounded-xl"
                   priority={!loading}
-                  // unoptimized
                 />
               </div>
-            );
-          })}
+            </div>
+          ))}
       </Carousel>
     </div>
   );
